@@ -9,25 +9,23 @@ window.onload = function(){
 	var guess = function(number) {
 		console.log("Gissning: " + number);
 		console.log("Hemligt tal: " + secret);
-		
-		var guess = +number;
 
         // Ej godkända gissningar
-        if ( isNaN(guess) ) {
+        if ( isNaN(+number) ) {
             return [false, "FEL! Du måste gissa på ett <strong>heltal</strong> inom intervallet 1 - 100."];
         }
-        else if ( guess % 1 !== 0 ) {
+        else if ( +number % 1 !== 0 ) {
             return [false, "FEL! Du måste gissa på ett <strong>heltal</strong> inom intervallet 1 - 100."];
         }
-        else if ( guess < 1 || guess > 100 ) {
+        else if ( +number < 1 || +number > 100 ) {
             return [false, "FEL! Du måste gissa på ett heltal inom intervallet <strong>1 - 100</strong>."];
         }
         // Godkända gissningar.
-        else if ( guess < secret ) {
+        else if ( +number < secret ) {
             count += 1;
             return [false, "Du gissade för lågt!"];
         }
-        else if ( guess > secret ) {
+        else if ( +number > secret ) {
             count += 1;
             return [false, "Du gissade för högt!"];
         }
