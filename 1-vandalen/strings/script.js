@@ -2,18 +2,37 @@
 
 window.onload = function(){
 
-	// I denna funktion ska du skriva koden för att hantera "spelet"
 	var convertString = function(str){
-		// Plats för förändring.		
-		// Returnera den konverterade strängen.
-		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
-	
-
-
-
-
-
-
+        
+        console.log(str);
+        
+        // Vid "" som inmatning, kasta ett undantag med ett meddelande till användaren.
+        if (!str) {
+            throw new Error('FEL! Du måste ange en text!');
+        }
+        
+        // Funktion för att analysera och förändra tecknen i texten.
+        var analyzeChar = function(char) {
+            if (char === 'a' || char === 'A') {
+                return '#';
+            }
+            else if (char === char.toUpperCase()) {
+                return char.toLowerCase();
+            }
+            else if (char === char.toLowerCase()) {
+                return char.toUpperCase();
+            }
+            else {
+                return char;
+            }
+        };
+        
+        var newString = "";
+        for (var i = 0; i < str.length; i += 1) {
+            newString += analyzeChar(str.charAt(i));
+        }
+        
+        return newString;
 	};
 	// ------------------------------------------------------------------------------
 
