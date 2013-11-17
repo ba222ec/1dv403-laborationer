@@ -4,14 +4,42 @@ window.onload = function(){
 
 	
 	var birthday = function(date){
+        var birthday;
+        var presentDay;
+        var timeDifferent;
+		var regex = /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
 		
-
-
-			// Din kod här.
-
-
-
-
+		if (!regex.test(date)) {
+            throw new Error("FEL! Ange ett existerande datum i formatet \"ÅÅÅÅ-MM-DD\"");
+		}
+		
+		birthday = Date.parse(date);
+		
+        if(isNaN(birthday)) {
+            throw new Error("FEL! Det här datumet finns inte!");
+		}
+		else {
+            birthday = new Date(date);
+            presentDay = new Date();
+            
+            if (presentDay.getTime() - birthday.getTime() < 0) {
+                throw new Error("FEL! Du kan inte vara född i framtiden!");
+            }
+        }
+		
+		birthday.setFullYear(presentDay.getFullYear());
+		if (birthday.getTime() - presentDay.getTime() < 0) {
+            // Om födelsedagen är idag.
+            if (birthday.getDate() === presentDay.getDate() ){
+                return 0;
+            }
+            else {
+                birthday.setFullYear(presentDay.getFullYear() + 1);
+            }
+		}
+		
+		// Räknar ut antalet dagar till nästa födelsedag.
+		return Math.floor(birthday.getTime() - presentDay.getTime() / (1000 * 60 * 60 * 24) + 1);
 	};
 	// ------------------------------------------------------------------------------
 
