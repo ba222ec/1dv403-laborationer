@@ -2,21 +2,19 @@
 
 window.onload = function(){
 
-	
 	var birthday = function(date){
         var birthday;
         var presentDay;
-        var timeDifferent;
-		var regex = /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+        var regex = /^\d{4}-\d{2}-\d{2}$/;
 		
 		if (!regex.test(date)) {
-            throw new Error("FEL! Ange ett existerande datum i formatet \"ÅÅÅÅ-MM-DD\"");
+            throw new Error("FEL! Ange datumet i formatet \"ÅÅÅÅ-MM-DD\"");
 		}
 		
 		birthday = Date.parse(date);
 		
         if(isNaN(birthday)) {
-            throw new Error("FEL! Det här datumet finns inte!");
+            throw new Error("FEL! Det här datumet existerar inte!");
 		}
 		else {
             birthday = new Date(date);
@@ -39,7 +37,7 @@ window.onload = function(){
 		}
 		
 		// Räknar ut antalet dagar till nästa födelsedag.
-		return Math.floor(birthday.getTime() - presentDay.getTime() / (1000 * 60 * 60 * 24) + 1);
+		return Math.floor((birthday.getTime() - presentDay.getTime()) / 1000 / 60 / 60 / 24) + 1;
 	};
 	// ------------------------------------------------------------------------------
 
