@@ -12,7 +12,7 @@ window.onload = function(){
         }
         
         // Funktion för att analysera och förändra tecknen i texten.
-        var analyzeChar = function(char) {
+        function analyzeChar(char) {
             if (char === 'a' || char === 'A') {
                 return '#';
             }
