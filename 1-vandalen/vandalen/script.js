@@ -42,10 +42,11 @@ var makePerson = function(persArr){
     maxAge = persArr[persArr.length - 1].age;
     averageAge = Math.round(persArr.map(function(person) { return person.age }).reduce( function (a, b) { return a + b }) / persArr.length);    
 
+
     // Tar ut alla namn, sorterar med och lägger den i en stäng.
-    allNames = persArr.map(function(person) { return person.name }).sort(function(a, b) { return a.localeCompare(b); });
+    allNames = persArr.map(function(person) { return person.name }).sort(function(name1, name2) { return name1.localeCompare(name2); });
     stringWithNames = allNames.reduce(function (name1, name2) { return name1 + ", " + name2 });
-    
+
     return { averageAge: averageAge, maxAge: maxAge, minAge: minAge, names: stringWithNames };
 };
 
