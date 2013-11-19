@@ -1,6 +1,8 @@
 "use strict";
 
 var makePerson = function(persArr){
+
+    var minAge, maxAge, averageAge, allNames, stringWithNames;
     
     // Validering av argumentet. Argementet måste vara en array som innehåller objekt och
     // objekten måste ha egenskapen name och minst en av egenskaperna born och age. 
@@ -36,13 +38,13 @@ var makePerson = function(persArr){
 
     // Tar fram den högsta och den minsta åldern samt medelåldern.
     persArr.sort(function(pers1, pers2) { return pers1.age - pers2.age; });
-    var minAge = persArr[0].age;
-    var maxAge = persArr[persArr.length - 1].age;
-    var averageAge = Math.round(persArr.map(function(person) { return person.age }).reduce( function (a, b) { return a + b }) / persArr.length);    
+    minAge = persArr[0].age;
+    maxAge = persArr[persArr.length - 1].age;
+    averageAge = Math.round(persArr.map(function(person) { return person.age }).reduce( function (a, b) { return a + b }) / persArr.length);    
 
     // Tar ut alla namn, sorterar med och lägger den i en stäng.
-    var allNames = persArr.map(function(person) { return person.name }).sort(function(a, b) { return a.localeCompare(b); });
-    var stringWithNames = allNames.reduce(function (name1, name2) { return name1 + ", " + name2 });
+    allNames = persArr.map(function(person) { return person.name }).sort(function(a, b) { return a.localeCompare(b); });
+    stringWithNames = allNames.reduce(function (name1, name2) { return name1 + ", " + name2 });
     
     return { averageAge: averageAge, maxAge: maxAge, minAge: minAge, names: stringWithNames };
 };

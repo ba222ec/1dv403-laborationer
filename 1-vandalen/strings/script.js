@@ -4,7 +4,7 @@ window.onload = function(){
 
 	var convertString = function(str){
         
-        console.log(str);
+        var newString;
         
         // Vid "" som inmatning, kasta ett undantag med ett meddelande till användaren.
         if (!str) {
@@ -27,7 +27,7 @@ window.onload = function(){
             }
         };
         
-        var newString = "";
+        newString = "";
         for (var i = 0; i < str.length; i += 1) {
             newString += analyzeChar(str.charAt(i));
         }
