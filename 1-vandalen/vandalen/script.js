@@ -17,7 +17,8 @@ var makePerson = function(persArr){
                 if ('name' in person && typeof person.name === 'string') {
                     return true;
                 } else {
-                    return false;}
+                    return false;
+                }
             })
         ) {
         throw new Error("FEL! Objekten i arrayen måste ha egenskapen name!");
