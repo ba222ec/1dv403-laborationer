@@ -7,7 +7,7 @@ window.onload = function(){
         var newString;
         
         // Vid "" som inmatning, kasta ett undantag med ett meddelande till användaren.
-        if (!str) {
+        if (!str || str.trim().length === 0) {
             throw new Error('FEL! Du måste ange en text!');
         }
         

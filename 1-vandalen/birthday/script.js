@@ -16,7 +16,7 @@ window.onload = function(){
             throw new Error("FEL! Det här datumet existerar inte!");
 		}
 		else {
-            birthday = new Date(date);
+            birthday = new Date(date  + "T23:59:29");
             presentDay = new Date();
             
             if (presentDay.getTime() - birthday.getTime() < 0) {
@@ -27,16 +27,18 @@ window.onload = function(){
 		birthday.setFullYear(presentDay.getFullYear());
 		if (birthday.getTime() - presentDay.getTime() < 0) {
             // Om födelsedagen är idag.
-            if (birthday.getDate() === presentDay.getDate() ){
+/*            if (birthday.getDate() === presentDay.getDate() ) {
                 return 0;
             }
             else {
                 birthday.setFullYear(presentDay.getFullYear() + 1);
             }
-		}
+*/ 
+            birthday.setFullYear(presentDay.getFullYear() + 1);
+        }
 		
 		// Räknar ut antalet dagar till nästa födelsedag.
-		return Math.floor((birthday.getTime() - presentDay.getTime()) / 1000 / 60 / 60 / 24) + 1;
+		return Math.floor((birthday.getTime() - presentDay.getTime()) / 1000 / 60 / 60 / 24);
 	};
 	// ------------------------------------------------------------------------------
 
