@@ -10,12 +10,10 @@ function Message(message, time) {
                 return message;
             },
             set: function(newMessage) {
-                if(newMessage.trim().length === 0) {
-                    return false;
+                if(newMessage.trim().length === 0 || typeof newMessage != "string") {
                 }
                 else {
-                    text = newText;
-                    return true;
+                    message = newMessage;
                 }
             }
         },
