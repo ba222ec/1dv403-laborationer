@@ -1,41 +1,45 @@
-function Message(text) {
-    
-    if (text.trim() === 0) {
+function Message(message, time) {
+
+    if ( typeof message != "string" || message.trim() === 0) {
         throw new Error("ERROR! The message must contain a text!");
     }
-    var timeOfCreation = new Date();
-    
+
     Object.defineProperties(this, {
         "text": {
             get: function() {
-                return text;
+                return message;
             },
-            set: function(newText) {
-                if(newText.trim().length === 0) {
-                    text = text;
+            set: function(newMessage) {
+                if(newMessage.trim().length === 0) {
+                    return false;
                 }
                 else {
                     text = newText;
+                    return true;
                 }
             }
         },
         "date": {
             get: function() {
-                return timeOfCreation.toLocaleString();
+                return time.toLocaleString();
             },
-            set: function(newDateString) {
-                var newDate = Date.parse(newDateString);
-                if (isNaN(newDate) || (Date.getTime() - newDate) <= 0) {
-                    timeOfCreation = timeOfCreation;
+            set: function(newTime) {
+                newTime = Date.parse(newTime);
+                if (isNaN(newTime) || (Date.getTime() - newTime) <= 0) {
+                    // Empty!
                 }
                 else {
-                    timeOfCreation = newDate;
+                    time = newTime;
                 }
             }
         }
     });
 
-    this.text = text;
-    // create a message object
+    time = Date.parse(time);
+    if (isNaN(time) || (Date.getTime() - time) <= 0) {
+        time = new Date();
+    }
 
+    this.message = message;
+    this.date = time;
 }
