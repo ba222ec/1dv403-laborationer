@@ -10,3 +10,5 @@ språk.
 Min anonyma funkion är skriven enligt formen (function(){  }()); istället för
 (function(){  })();. Detta skrivsätt är vad Crockford rekomenderar med motivationen
 att detta på ett bättre sätt speglar vad koden utför.
+I Message() har jag lagt get och set som egenskapsattribut istället för funktioner.
+Jag tror att koden i program.js blir lättare att läsa och skriva då.
