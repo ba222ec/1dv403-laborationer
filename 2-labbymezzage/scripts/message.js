@@ -43,3 +43,11 @@ function Message(message, time) {
     this.message = message;
     this.date = time;
 }
+
+Message.prototype.toString = function () {
+    return this.text + " (" + this.date + ")";
+}
+
+Message.prototype.toHTMLText = function () {
+    
+}
