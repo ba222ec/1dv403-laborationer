@@ -23,10 +23,10 @@ function Message(message, time) {
             },
             set: function (newTime) {
                 if (!newTime instanceof Date) {
-                    newTime = Date.parse(newTime);
+                    newTime = new Date(newTime);
                 } 
-                if (isNaN(newTime) || (Date.now() - newTime) <= 0) {
-                    time = Date.now();
+                if (isNaN(newTime.getTime()) || (Date.now() - newTime) <= 0) {
+                    newTime = new Date();
                 } else {
                     time = newTime;
                 }
