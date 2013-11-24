@@ -5,41 +5,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Labby Mezzage</title>
         <link rel="stylesheet" href="stylesheets/foundation.css" />
-        <link rel="stylesheet" href="stylesheets/style.css" />
+        <link rel="stylesheet" href="stylesheets/myOwnStyle.css" />
         
         <!-- JS-script from Foundation -->
         <script src="js/modernizr.js"></script>
     </head>
     <body>
         <div id="content">
-            <header class="row">
+            <header class="row panel">
                 <h1>Labby Mezz Beta</h1>
             </header>
 
             <main>
-                <section class="row">
+                <section id="messageBoard" class="row">
                     
                 </section>
-                <section>
+                <section id="formSection" class="row">
+                    <div id="NbrOfMessages" class="small-12 large">
+                        <p>Antal meddelanden: 0</p>
+                    </div>
                     <form>
-                        <div class="row">
-                            <textarea class="small-12 columns" name="message">
+                        <div class="small-10 columns">
+                            <textarea name="message">
 
                             </textarea>
                         </div>
                         <div class="row">
-                            <div class="large-6 large-centered columns">
+                            <div class="small-2 columns">
                                 <input class="button large radius" type="submit" value="Skicka" />
                             </div>
                         </div>
                     </form>
                 </section>
             </main>
-
-            <footer class="row">
-                <p>Site by Svante Arvedson.</p>
-            </footer>
-
         </div>
         <!-- The page content... -->
         
