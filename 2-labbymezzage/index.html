@@ -2,13 +2,55 @@
 <html lang="sv">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Labby Mezzage</title>
+        <link rel="stylesheet" href="stylesheets/foundation.css" />
         <link rel="stylesheet" href="stylesheets/style.css" />
+        
+        <!-- JS-script from Foundation -->
+        <script src="js/modernizr.js"></script>
     </head>
     <body>
-        
+        <div id="content">
+            <header class="row">
+                <h1>Labby Mezz Beta</h1>
+            </header>
+
+            <main>
+                <section class="row">
+                    
+                </section>
+                <section>
+                    <form>
+                        <div class="row">
+                            <textarea class="small-12 columns" name="message">
+
+                            </textarea>
+                        </div>
+                        <div class="row">
+                            <div class="large-6 large-centered columns">
+                                <input class="button large radius" type="submit" value="Skicka" />
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </main>
+
+            <footer class="row">
+                <p>Site by Svante Arvedson.</p>
+            </footer>
+
+        </div>
         <!-- The page content... -->
         
+        <!-- JS-scripts from Foundation -->
+        <script src="js/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
+
+        <!-- My own JS-sqripts -->
         <script src="scripts/message.js"></script>
         <script src="scripts/program.js"></script>
     </body>
