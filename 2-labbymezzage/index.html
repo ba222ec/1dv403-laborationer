@@ -11,35 +11,37 @@
         <script src="js/modernizr.js"></script>
     </head>
     <body>
-        <div id="content">
-            <header class="row panel">
-                <h1>Labby Mezz Beta</h1>
+        <div id="page-head">
+            <header class="row">
+                <img src="img/labby-mezz.png" alt="Labby Mezz" />
             </header>
-
-            <main>
-                <section id="messageBoard" class="row">
-                    
-                </section>
-                <section id="formSection" class="row">
-                    <div id="NbrOfMessages" class="small-12 large">
-                        <p>Antal meddelanden: 0</p>
-                    </div>
-                    <form>
-                        <div class="small-10 columns">
-                            <textarea name="message">
-
-                            </textarea>
-                        </div>
-                        <div class="row">
-                            <div class="small-2 columns">
-                                <input class="button large radius" type="submit" value="Skicka" />
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </main>
         </div>
-        <!-- The page content... -->
+
+        <div id="page-content">
+            <section id="messageBoard" class="row">
+                
+            </section>
+        </div>
+
+        <div id="page-foot">
+            <section id="formSection" class="row">
+                <div id="NbrOfMessages" class="small-12 columns">
+                    <p>Antal meddelanden: 0</p>
+                </div>
+                <form>
+                    <div class="small-10 columns">
+                        <textarea name="message" autofocus>
+    
+                        </textarea>
+                    </div>
+                    <div class="row">
+                        <div class="small-2 columns">
+                            <input id="submit-button" class="button large radius" type="submit" value="Skicka" />
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
         
         <!-- JS-scripts from Foundation -->
         <script src="js/jquery.js"></script>
