@@ -1,28 +1,50 @@
-body {
-    background-color: #265626;
+html, body {
+    height: 100%;
+    margin: 0 !important;
+    background-color: #9ece00;
+    color: #707070;
 }
+
+/* The header */
+div#page-head {
+    position: absolute;
+    top: 0;
+    height: 120px;
+    width: 100%; }
+    div#page-head header {
+        padding-top: 20px; }
 
 /* The message area */
-section#messageBoard {
-    min-height: 300px;
-    background-color: #fff;
-    margin-bottom: 0.9375em;
-}
+div#page-content {
+    position: absolute;
+    width: 100%;
+    top: 140px;
+    bottom: 180px; }
+    section#messageBoard {
+        overflow-y: auto;
+        background-color: #fff;    
+        margin-bottom: 0.9375em;
+        height: 100%;
+        padding: 20px;
+        border-radius: 25px; }
 
 /* The Form area */
-section#formSection {
-    background-color: #fff;
-}
-
-section#formSection div#NbrOfMessages p {
+div#page-foot {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    text-align: right;
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
-    padding-top: 0.9375em;
-}
+    height: 177px; }
+    section#formSection {
+        background-color: #fff;
+        height: 157px;
+        border-radius: 25px; }
+        div#NbrOfMessages p {
+            width: 100%;
+            text-align: right;
+            padding: 0.9375em 0.9375em 0; }
 
 form textarea {
-    width: 100%;
-    height: 100%;
+    height: 61px;
+    color: inherit;
+    font-family: monospace;
 }
