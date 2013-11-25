@@ -2,8 +2,7 @@ html, body {
     height: 100%;
     margin: 0 !important;
     background-color: #9ece00;
-    color: #707070;
-}
+    color: #707070; }
 
 /* The header */
 div#page-head {
@@ -25,8 +24,25 @@ div#page-content {
         background-color: #fff;    
         margin-bottom: 0.9375em;
         height: 100%;
-        padding: 20px;
-        border-radius: 25px; }
+        padding: 10px 15px;
+        border-radius: 15px; }
+        section#message-board article {
+            border-radius: 15px;
+            background-color: #f8f301;
+            height: auto;
+            padding: 5px;
+            margin: 5px 0; }
+            section#message-board article p {
+                margin: 0; }
+                section#message-board article div img {
+                    display: block;
+                    float: right; }
+            section#message-board article footer {
+                text-align: right; }
+            section#message-board article footer p {
+                font-size: 0.8em;
+                line-height: 1;
+                font-style: italic; }
 
 /* The Form area */
 div#page-foot {
@@ -37,7 +53,7 @@ div#page-foot {
     section#formSection {
         background-color: #fff;
         height: 157px;
-        border-radius: 25px; }
+        border-radius: 15px; }
         div#nbrOfMessages p {
             width: 100%;
             text-align: right;
@@ -46,5 +62,4 @@ div#page-foot {
 form textarea {
     height: 61px;
     color: inherit;
-    font-family: monospace;
-}
+    font-family: monospace; }
