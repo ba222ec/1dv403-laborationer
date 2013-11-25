@@ -20,7 +20,7 @@ div#page-content {
     width: 100%;
     top: 140px;
     bottom: 180px; }
-    section#messageBoard {
+    section#message-board {
         overflow-y: auto;
         background-color: #fff;    
         margin-bottom: 0.9375em;
