@@ -43,22 +43,7 @@ Message.prototype.toString = function () {
 };
 
 Message.prototype.getHTMLText = function () {
-    var HTMLText = "", i;
-
-    function analyzeChar(char) {
-        if (char === "\n") {
-            return "<br />";
-        } else {
-            return char;
-        }
-    }
-    
-    // Replacing "\n" with "<br />"
-    for (i = 0; i < this.message.length; i += 1) {
-        HTMLText += analyzeChar(this.message.charAt(i));
-    }
-
-    return HTMLText;
+    return this.message.replace(/\n/g, "<br />");
 };
 
 Message.prototype.getDateText = function () {
