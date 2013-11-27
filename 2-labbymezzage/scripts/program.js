@@ -50,12 +50,8 @@
             article.appendChild(footer);
             footer.appendChild(p2);
 
-            // Adds the texts
-//            p1.appendChild(document.createTextNode(messageID.getHTMLText()));
-            //            p2.appendChild(document.createTextNode(messageID.getDateText()));
-
-            p1.innerHTML = 
-
+            p1.innerHTML = messageID.getHTMLText();
+            p2.innerHTML = messageID.getDateText();
         },
 
         RenderMessages: function (allMessages) {
@@ -63,7 +59,7 @@
 
             htmlMessageBoard.innerHTML = "";
 
-            for (i = 0; i < allMessages.length; i += 1) {
+            for (i = allMessages.length - 1; i >= 0; i -= 1) {
                 this.RenderMessage(allMessages[i]);
             }
 
