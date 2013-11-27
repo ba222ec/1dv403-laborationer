@@ -51,8 +51,10 @@
             footer.appendChild(p2);
 
             // Adds the texts
-            p1.appendChild(document.createTextNode(messageID.getHTMLText()));
-            p2.appendChild(document.createTextNode(messageID.getDateText()));
+//            p1.appendChild(document.createTextNode(messageID.getHTMLText()));
+            //            p2.appendChild(document.createTextNode(messageID.getDateText()));
+
+            p1.innerHTML = 
 
         },
 
