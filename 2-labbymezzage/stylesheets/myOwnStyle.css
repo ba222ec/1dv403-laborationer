@@ -18,7 +18,7 @@ div#page-content {
     position: absolute;
     width: 100%;
     top: 140px;
-    bottom: 180px; }
+    bottom: /*180*/210px; }
     section#message-board {
         overflow-y: auto;
         background-color: #fff;    
@@ -51,10 +51,10 @@ div#page-foot {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 177px; }
+    height: /*177*/207px; }
     section#formSection {
         background-color: #fff;
-        height: 157px;
+        height: /*157*/187px;
         border-radius: 15px; }
         div#nbrOfMessages p {
             width: 100%;
@@ -64,3 +64,6 @@ div#page-foot {
             height: 61px;
             color: inherit;
             font-family: monospace; }
+        form input {
+            float: right;
+        }
