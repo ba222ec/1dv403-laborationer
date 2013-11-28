@@ -26,20 +26,20 @@ div#page-content {
         height: 100%;
         padding: 10px 15px;
         border-radius: 15px; }
-        section#message-board article {
+        section#message-board div {
             border-radius: 15px;
             background-color: #f8f301;
             height: auto;
-            padding: 5px;
+            padding-bottom: 5px;
             margin: 5px 0; }
-            section#message-board article p {
+            section#message-board div p {
                 margin: 0; }
-                section#message-board article div img {
+                section#message-board div div img {
                     display: block;
                     float: right; }
-            section#message-board article footer {
+            section#message-board div footer {
                 text-align: right; }
-            section#message-board article footer p {
+            section#message-board div footer p {
                 font-size: 0.8em;
                 line-height: 1;
                 font-style: italic; }
@@ -58,8 +58,7 @@ div#page-foot {
             width: 100%;
             text-align: right;
             padding: 0.9375em 0.9375em 0; }
-
-form textarea {
-    height: 61px;
-    color: inherit;
-    font-family: monospace; }
+        form textarea {
+            height: 61px;
+            color: inherit;
+            font-family: monospace; }

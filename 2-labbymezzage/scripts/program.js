@@ -1,5 +1,5 @@
 (function () {
-    // Create and get nodes from DOM used in the functions 
+    // Nodes from DOM used in the functions. 
     var htmlMessageBoard = document.querySelector("#message-board"),
         submit = document.querySelector("#submit-button"),
         input = document.querySelector("#message-area"),
@@ -7,17 +7,19 @@
 
     // This is the object with the message-board properties.
     var messageBoard = {
-        
+
+        // Saves all the messages
         messages: [],
 
-        init: function (message) {
-            this.messages.push(new Message(message, new Date()));
+        // Create a new message.
+        createMessage: function (text) {
+            this.messages.push(new Message(text, new Date()));
             return this.messages;
         },
 
-        RenderMessage: function (messageID) {
-            // Creates the message...
-            var article = document.createElement("article"),
+        // Create the htmlcode for one message
+        renderMessage: function (messageIndex) {
+            var div0 = document.createElement("div"),
                 div1 = document.createElement("div"),
                 p1 = document.createElement("p"),
                 div2 = document.createElement("div"),
@@ -28,7 +30,8 @@
                 footer = document.createElement("footer"),
                 p2 = document.createElement("p");
 
-            article.setAttribute("class", "row");
+            div0.setAttribute("class", "row");
+            div0.setAttribute("id", messageIndex.toString());
             div1.setAttribute("class", "small-11 columns");
             div2.setAttribute("class", "small-1 columns");
             linkButton1.setAttribute("class", "deleteMessage");
@@ -39,46 +42,71 @@
             img1.setAttribute("src", "img/erase.png");
             footer.setAttribute("class", "small-12 columns");
 
-            htmlMessageBoard.appendChild(article);
-            article.appendChild(div1);
+            htmlMessageBoard.appendChild(div0);
+            div0.appendChild(div1);
             div1.appendChild(p1);
-            article.appendChild(div2);
+            div0.appendChild(div2);
             div2.appendChild(linkButton1);
             div2.appendChild(linkButton2);
             linkButton1.appendChild(img1);
             linkButton1.appendChild(img2);
-            article.appendChild(footer);
+            div0.appendChild(footer);
             footer.appendChild(p2);
 
-            p1.innerHTML = messageID.getHTMLText();
-            p2.innerHTML = messageID.getDateText();
+            // Adds the text content
+            p1.innerHTML = this.messages[messageIndex].getHTMLText();
+            p2.innerHTML = this.messages[messageIndex].getDateText();
         },
 
-        RenderMessages: function (allMessages) {
-            var i;
-
+        // Views all the messages.
+        renderMessages: function () {
             htmlMessageBoard.innerHTML = "";
-
-            for (i = allMessages.length - 1; i >= 0; i -= 1) {
-                this.RenderMessage(allMessages[i]);
-            }
-
-            nbrOfMessages.innerHTML = "Antal meddelanden: " + allMessages.length;
+            this.messages.forEach(function (value, index) {
+                messageBoard.renderMessage(index);
+            });
+            nbrOfMessages.innerHTML = "Antal meddelanden: " + this.messages.length;
             input.value = "";
+        },
+
+        // Erase the message with the given index and rewrites all the remaining massages.
+        eraseMessage: function (index) {
+            this.messages.splice(index, 1);
+            this.renderMessages();
+        },
+
+        // Show the time when the given message was created.
+        alertTimeMessage: function (index) {
+            alert("Meddelandet skapades " + this.messages[index].date.toLocaleString());
         }
     };
 
+    // Click on "Skicka"
     submit.addEventListener("click", function (e) {
+        e = e || window.event; // IE-fix
         e.preventDefault();
-
-        var allMessages;
-
         if ((input.value).trim().length === 0) {
             return;
         }
+        messageBoard.createMessage(input.value.trim());
+        messageBoard.renderMessages();
+    }, false);
 
-        allMessages = messageBoard.init(input.value.trim());
-        messageBoard.RenderMessages(allMessages);
+    // Click on the Icons on the messages.
+    htmlMessageBoard.addEventListener("click", function (e) {
+        e = e || window.event; // IE-fix
+        e.preventDefault();
+        var hit = e.target,
+            index = e.target.parentNode.parentNode.parentNode.getAttribute("id");
+        if (hit.hasAttribute("src")) {
+            // Click on delete.
+            if (hit.getAttribute("src") === "img/erase.png") {
+                messageBoard.eraseMessage(index);
+            }
+                // Click on time.
+            else {
+                messageBoard.alertTimeMessage(index);
+            }
+        }
+    }, false);
 
-    });
 }());

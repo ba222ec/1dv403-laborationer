@@ -1,15 +1,14 @@
 function Message(text, time) {
-
-    if ( typeof text != "string" || text.trim() === 0) {
-        throw new Error("ERROR! The message must contain a text!");
+    if (typeof text != "string" || text.trim() === 0) {
+        return;
     }
 
     Object.defineProperties(this, {
         "message": {
-            get: function() {
+            get: function () {
                 return text;
             },
-            set: function(newText) {
+            set: function (newText) {
                 if (typeof newText !== "string" || newText.trim().length === 0) {
                     // Empty!
                 } else {
@@ -18,12 +17,10 @@ function Message(text, time) {
             }
         },
         "date": {
-            get: function() {
+            get: function () {
                 return time;
             },
             set: function (newTime) {
-                // If newTime isn't a Date-object, a invalid Date-object or a
-                // date in the future, nothing will happend.
                 if (typeof newTime !== "object" || !newTime instanceof Date ||
                         isNaN(newTime) || (Date.now() - newTime.getTime()) <= 0) {
                     // Empty!
@@ -47,5 +44,5 @@ Message.prototype.getHTMLText = function () {
 };
 
 Message.prototype.getDateText = function () {
-    return this.date.toLocaleString();
+    return this.date.toLocaleTimeString();
 };

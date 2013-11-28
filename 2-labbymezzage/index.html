@@ -1,57 +1,55 @@
 <!doctype html>
 <html lang="sv">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Labby Mezz</title>
-        <link rel="stylesheet" href="stylesheets/foundation.css" />
-        <link rel="stylesheet" href="stylesheets/myOwnStyle.css" />
-        
-        <!-- JS-script from Foundation -->
-        <script src="js/modernizr.js"></script>
-    </head>
-    <body>
-        <div id="page-head">
-            <header class="row">
-                <img src="img/labby-mezz.png" alt="Labby Mezz" />
-            </header>
-        </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Labby Mezz</title>
+    <link rel="stylesheet" href="stylesheets/foundation.css" />
+    <link rel="stylesheet" href="stylesheets/myOwnStyle.css" />
 
-        <div id="page-content">
-            <section id="message-board" class="row">
-                <!-- Here will the messages be viewed. -->
-            </section>
-        </div>
+    <!-- JS-script from Foundation -->
+    <script src="js/modernizr.js"></script>
+</head>
+<body>
+    <div id="page-head">
+        <header class="row">
+            <img src="img/labby-mezz.png" alt="Labby Mezz" />
+        </header>
+    </div>
 
-        <div id="page-foot">
-            <section id="formSection" class="row">
-                <div id="nbrOfMessages" class="small-12 columns">
-                    <p id="nbr">Antal meddelanden: 0</p>
+    <div id="page-content">
+        <section id="message-board" class="row">
+
+        </section>
+    </div>
+
+    <div id="page-foot">
+        <section id="formSection" class="row">
+            <div id="nbrOfMessages" class="small-12 columns">
+                <p id="nbr">Antal meddelanden: 0</p>
+            </div>
+            <form>
+                <div class="small-10 columns">
+                    <textarea id="message-area" name="message" spellcheck="false" autofocus></textarea>
                 </div>
-                <form>
-                    <div class="small-10 columns">
-                        <textarea id="message-area" name="message" autofocus>
-    
-                        </textarea>
+                <div class="row">
+                    <div class="small-2 columns">
+                        <input id="submit-button" class="button large radius" type="submit" value="Skicka" />
                     </div>
-                    <div class="row">
-                        <div class="small-2 columns">
-                            <input id="submit-button" class="button large radius" type="submit" value="Skicka"/>
-                        </div>
-                    </div>
-                </form>
-            </section>
-        </div>
-        
-        <!-- JS-scripts from Foundation -->
-        <script src="js/jquery.js"></script>
-        <script src="js/foundation.min.js"></script>
-        <script>
-            $(document).foundation();
-        </script>
+                </div>
+            </form>
+        </section>
+    </div>
 
-        <!-- My own JS-sqripts -->
-        <script src="scripts/message.js"></script>
-        <script src="scripts/program.js"></script>
-    </body>
+    <!-- JS-scripts from Foundation -->
+    <script src="js/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+
+    <!-- My own JS-sqripts -->
+    <script src="scripts/message.js"></script>
+    <script src="scripts/program.js"></script>
+</body>
 </html>
