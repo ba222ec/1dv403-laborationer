@@ -1,3 +1,5 @@
+"use strict";
+
 (function () {
     // Nodes from DOM used in the functions. 
     var htmlMessageBoard = document.querySelector("#message-board"),
@@ -117,20 +119,15 @@
     // Click on the Icons on the messages.
     htmlMessageBoard.addEventListener("click", function (e) {
         e = e || window.event; // IE-fix
-
         e.preventDefault();
-
         var hit = e.target,
             index,
             answer;
-
-        console.log(hit);
-
         if (hit.hasAttribute("src")) {
             index = hit.parentNode.parentNode.parentNode.getAttribute("id");
             // Click on delete.
             if (hit.getAttribute("src") === "img/erase.png") {
-                answer = window.confirm("Vill du verkligen radera meddelandet?")
+                answer = window.confirm("Vill du verkligen radera meddelandet?");
                 if (answer === false) {
                     return;
                 } else {
@@ -142,12 +139,11 @@
                 messageBoard.alertTimeMessage(index);
             }
         }
-
         if (hit.hasAttribute("href")) {
             index = hit.parentNode.parentNode.getAttribute("id");
             // Click on delete.
             if (hit.getAttribute("class") === "eraseMessage") {
-                answer = window.confirm("Vill du verkligen radera meddelandet?")
+                answer = window.confirm("Vill du verkligen radera meddelandet?");
                 if (answer === false) {
                     return;
                 } else {
@@ -159,7 +155,5 @@
                 messageBoard.alertTimeMessage(index);
             }
         }
-
     }, false);
-
 }());

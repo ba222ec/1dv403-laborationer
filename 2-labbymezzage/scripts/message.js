@@ -1,3 +1,5 @@
+"use strict";
+
 function Message(text, time) {
     if (typeof text != "string" || text.trim() === 0) {
         return;
