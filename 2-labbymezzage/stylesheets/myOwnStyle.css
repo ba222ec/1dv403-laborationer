@@ -34,9 +34,11 @@ div#page-content {
             margin: 5px 0; }
             section#message-board div p {
                 margin: 0; }
-                section#message-board div div img {
+                section#message-board div div a {
                     display: block;
                     float: right; }
+                section#message-board div div a:focus {
+                    border: dotted 1px #9ece00; }
             section#message-board div footer {
                 text-align: right; }
             section#message-board div footer p {

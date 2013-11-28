@@ -34,12 +34,12 @@
             div0.setAttribute("id", messageIndex.toString());
             div1.setAttribute("class", "small-11 columns");
             div2.setAttribute("class", "small-1 columns");
-            linkButton1.setAttribute("class", "deleteMessage");
+            linkButton1.setAttribute("class", "eraseMessage");
             linkButton1.setAttribute("href", "#");
-            linkButton2.setAttribute("class", "changeTime");
+            linkButton2.setAttribute("class", "showTime");
             linkButton2.setAttribute("href", "#");
-            img2.setAttribute("src", "img/clock.png");
-            img1.setAttribute("src", "img/erase.png");
+            img1.setAttribute("src", "img/clock.png");
+            img2.setAttribute("src", "img/erase.png");
             footer.setAttribute("class", "small-12 columns");
 
             htmlMessageBoard.appendChild(div0);
@@ -117,19 +117,49 @@
     // Click on the Icons on the messages.
     htmlMessageBoard.addEventListener("click", function (e) {
         e = e || window.event; // IE-fix
+
         e.preventDefault();
+
         var hit = e.target,
-            index = e.target.parentNode.parentNode.parentNode.getAttribute("id");
+            index,
+            answer;
+
+        console.log(hit);
+
         if (hit.hasAttribute("src")) {
+            index = hit.parentNode.parentNode.parentNode.getAttribute("id");
             // Click on delete.
             if (hit.getAttribute("src") === "img/erase.png") {
-                messageBoard.eraseMessage(index);
+                answer = window.confirm("Vill du verkligen radera meddelandet?")
+                if (answer === false) {
+                    return;
+                } else {
+                    messageBoard.eraseMessage(index);
+                }
             }
-                // Click on time.
+            // Click on time.
             else {
                 messageBoard.alertTimeMessage(index);
             }
         }
+
+        if (hit.hasAttribute("href")) {
+            index = hit.parentNode.parentNode.getAttribute("id");
+            // Click on delete.
+            if (hit.getAttribute("class") === "eraseMessage") {
+                answer = window.confirm("Vill du verkligen radera meddelandet?")
+                if (answer === false) {
+                    return;
+                } else {
+                    messageBoard.eraseMessage(index);
+                }
+            }
+            // Click on time.
+            else {
+                messageBoard.alertTimeMessage(index);
+            }
+        }
+
     }, false);
 
 }());
