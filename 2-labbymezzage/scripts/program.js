@@ -2,8 +2,8 @@
     // Nodes from DOM used in the functions. 
     var htmlMessageBoard = document.querySelector("#message-board"),
         submit = document.querySelector("#submit-button"),
-        input = document.querySelector("#message-area"),
-        nbrOfMessages = document.querySelector("#nbr");
+        nbrOfMessages = document.querySelector("#nbr"),
+        textarea = document.querySelector("form textarea");
 
     // This is the object with the message-board properties.
     var messageBoard = {
@@ -60,12 +60,13 @@
 
         // Views all the messages.
         renderMessages: function () {
+            var index;
             htmlMessageBoard.innerHTML = "";
-            this.messages.forEach(function (value, index) {
+            for (index = this.messages.length - 1; index >= 0; index -= 1) {
                 messageBoard.renderMessage(index);
-            });
+            }
             nbrOfMessages.innerHTML = "Antal meddelanden: " + this.messages.length;
-            input.value = "";
+            messageBoard.emptyTextarea();
         },
 
         // Erase the message with the given index and rewrites all the remaining massages.
@@ -77,6 +78,11 @@
         // Show the time when the given message was created.
         alertTimeMessage: function (index) {
             alert("Meddelandet skapades " + this.messages[index].date.toLocaleString());
+        },
+
+        // Emptying the textarea
+        emptyTextarea: function () {
+            textarea.value = "";
         }
     };
 
@@ -84,11 +90,28 @@
     submit.addEventListener("click", function (e) {
         e = e || window.event; // IE-fix
         e.preventDefault();
-        if ((input.value).trim().length === 0) {
+        if ((textarea.value).trim().length === 0) {
             return;
         }
-        messageBoard.createMessage(input.value.trim());
+        messageBoard.createMessage(textarea.value.trim());
         messageBoard.renderMessages();
+    }, false);
+
+    // Send message by pressing enter
+    textarea.addEventListener("keypress", function (e) {
+        e = e || window.event; // IE-fix
+        var code = e.keyCode;
+        if (code !== 13/*Enter*/ || e.shiftKey === true) {
+            return;
+        } else {
+            e.preventDefault();
+            if (textarea.value.trim().length === 0) {
+                messageBoard.emptyTextarea();
+                return;
+            }
+            messageBoard.createMessage(textarea.value.trim());
+            messageBoard.renderMessages();
+        }
     }, false);
 
     // Click on the Icons on the messages.
