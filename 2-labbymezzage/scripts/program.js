@@ -16,7 +16,6 @@
         // Create a new message.
         createMessage: function (text) {
             this.messages.push(new Message(text, new Date()));
-            return this.messages;
         },
 
         // Create the htmlcode for one message
@@ -40,8 +39,8 @@
             linkButton1.setAttribute("href", "#");
             linkButton2.setAttribute("class", "showTime");
             linkButton2.setAttribute("href", "#");
-            img1.setAttribute("src", "img/clock.png");
-            img2.setAttribute("src", "img/erase.png");
+            img1.setAttribute("src", "img/erase.png");
+            img2.setAttribute("src", "img/clock.png");
             footer.setAttribute("class", "small-12 columns");
 
             htmlMessageBoard.appendChild(div0);
@@ -51,7 +50,7 @@
             div2.appendChild(linkButton1);
             div2.appendChild(linkButton2);
             linkButton1.appendChild(img1);
-            linkButton1.appendChild(img2);
+            linkButton2.appendChild(img2);
             div0.appendChild(footer);
             footer.appendChild(p2);
 

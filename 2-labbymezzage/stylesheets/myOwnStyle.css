@@ -2,68 +2,95 @@ html, body {
     height: 100%;
     margin: 0 !important;
     background-color: #9ece00;
-    color: #707070; }
+    color: #707070;
+}
 
 /* The header */
 div#page-head {
     position: absolute;
     top: 0;
     height: 120px;
-    width: 100%; }
+    width: 100%;
+}
+
     div#page-head header {
-        padding-top: 20px; }
+        padding-top: 20px;
+    }
 
 /* The message area */
 div#page-content {
     position: absolute;
     width: 100%;
     top: 140px;
-    bottom: /*180*/210px; }
-    section#message-board {
+    bottom: 210px;
+}
+
+    div#page-content section#message-board {
         overflow-y: auto;
-        background-color: #fff;    
+        background-color: #fff;
         margin-bottom: 0.9375em;
         height: 100%;
         padding: 10px 15px;
-        border-radius: 15px; }
-        section#message-board div {
+        border-radius: 15px;
+    }
+
+        div#page-content section#message-board div {
             border-radius: 15px;
             background-color: #f8f301;
             height: auto;
             padding-bottom: 5px;
-            margin: 5px 0; }
-            section#message-board div p {
-                margin: 0; }
-                section#message-board div div a {
-                    display: block;
-                    float: right; }
-                section#message-board div div a:focus {
-                    border: dotted 1px #9ece00; }
-            section#message-board div footer {
-                text-align: right; }
-            section#message-board div footer p {
-                font-size: 0.8em;
-                line-height: 1;
-                font-style: italic; }
+            margin: 5px 0;
+        }
+
+            div#page-content section#message-board div p {
+                margin: 0;
+            }
+
+            div#page-content section#message-board div div a {
+                display: block;
+                float: right;
+            }
+
+                div#page-content section#message-board div div a:focus {
+                    border: dotted 1px #9ece00;
+                }
+
+            div#page-content section#message-board div footer {
+                text-align: right;
+            }
+
+                div#page-content section#message-board div footer p {
+                    font-size: 0.8em;
+                    line-height: 1;
+                    font-style: italic;
+                }
 
 /* The Form area */
 div#page-foot {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: /*177*/207px; }
-    section#formSection {
+    height: 207px;
+}
+
+    div#page-foot section#formSection {
         background-color: #fff;
-        height: /*157*/187px;
-        border-radius: 15px; }
-        div#nbrOfMessages p {
+        height: 187px;
+        border-radius: 15px;
+    }
+
+        div#page-foot section#formSection div#nbrOfMessages p {
             width: 100%;
             text-align: right;
-            padding: 0.9375em 0.9375em 0; }
-        form textarea {
+            padding: 0.9375em 0 0;
+        }
+
+        div#page-foot section#formSection form textarea {
             height: 61px;
             color: inherit;
-            font-family: monospace; }
-        form input {
+            font-family: monospace;
+        }
+
+        div#page-foot section#formSection form input {
             float: right;
         }

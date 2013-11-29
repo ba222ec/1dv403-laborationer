@@ -1,0 +1,115 @@
+html, body {
+    height: 100%;
+    margin: 0 !important;
+    background-color: #9ece00;
+    color: #707070;
+}
+
+/* The top part */
+div#page-head {
+    position: absolute;
+    top: 0;
+    height: 144px;
+    width: 100%;
+    margin: auto;
+}
+
+    div#page-head header {
+        padding-top: 20px;
+    }
+
+        div#page-head header img {
+            width: 100%;
+            height: auto;
+        }
+
+/* The center part */
+div#page-content {
+    position: absolute;
+    width: 100%;
+    top: 164px;
+    bottom: 210px;
+}
+
+    div#page-content > div {
+        height: 100%;
+    }
+
+        div#page-content > div > div {
+            height: 100%;
+        }
+
+            div#page-content > div > div > section.message-board {
+                overflow-y: auto;
+                background-color: #fff;
+                margin-bottom: 0.9375em;
+                height: 100%;
+                padding: 10px 15px;
+                border-radius: 15px;
+            }
+
+/* The message-board */
+section.message-board > div {
+    border-radius: 15px;
+    background-color: #f8f301;
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 5px 0;
+}
+
+section.message-board div div p {
+    margin: 0;
+}
+
+section.message-board div div a {
+    display: block;
+    float: right;
+}
+
+    section.message-board div div a:focus {
+        border: dotted 1px #9ece00;
+    }
+
+section.message-board div footer {
+    text-align: right;
+}
+
+    section.message-board div footer p {
+        font-size: 0.8em;
+        line-height: 1;
+        font-style: italic;
+        padding: 0;
+        margin: 0;
+    }
+
+/* The bottom part */
+div#page-foot {
+    position: absolute;
+    width: 100%;
+    height: 207px;
+    bottom: 0;
+}
+
+    div#page-foot section.formSection {
+        background-color: #fff;
+        height: /*157*/ 187px;
+        border-radius: 15px;
+        margin: 0;
+    }
+
+        div#page-foot section.formSection div p.nbr {
+            width: 100%;
+            text-align: right;
+            padding: 0.9375em 0 0;
+        }
+
+        div#page-foot section.formSection form textarea {
+            height: 61px;
+            color: inherit;
+            font-family: monospace;
+        }
+
+        div#page-foot section.formSection form input {
+            float: right;
+        }
