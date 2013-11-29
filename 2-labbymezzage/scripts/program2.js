@@ -69,7 +69,7 @@ function MessageBoard(appID) {
                 index,
                 answer;
             if (hit.hasAttribute("src")) {
-                index = parseInt(hit.parentNode.parentNode.parentNode.getAttribute("id"));
+                index = parseInt(hit.parentNode.parentNode.parentNode.getAttribute("id"), 10);
                 // Click on delete.
                 if (hit.getAttribute("src") === "img/erase.png") {
                     answer = window.confirm("Vill du verkligen radera meddelandet?");
@@ -134,8 +134,8 @@ function MessageBoard(appID) {
         linkButton1.setAttribute("href", "#");
         linkButton2.setAttribute("class", "showTime");
         linkButton2.setAttribute("href", "#");
-        img1.setAttribute("src", "img/clock.png");
-        img2.setAttribute("src", "img/erase.png");
+        img1.setAttribute("src", "img/erase.png");
+        img2.setAttribute("src", "img/clock.png");
         footer.setAttribute("class", "small-12 columns");
 
         messageBoard.appendChild(div0);
@@ -145,7 +145,7 @@ function MessageBoard(appID) {
         div2.appendChild(linkButton1);
         div2.appendChild(linkButton2);
         linkButton1.appendChild(img1);
-        linkButton1.appendChild(img2);
+        linkButton2.appendChild(img2);
         div0.appendChild(footer);
         footer.appendChild(p2);
 
