@@ -85,7 +85,7 @@ function MessageBoard(appID) {
                 }
             }
             if (hit.hasAttribute("href")) {
-                index = parseInt(hit.parentNode.parentNode.getAttribute("id"));
+                index = parseInt(hit.parentNode.parentNode.getAttribute("id"), 10);
                 // Click on delete.
                 if (hit.getAttribute("class") === "eraseMessage") {
                     answer = window.confirm("Vill du verkligen radera meddelandet?");
