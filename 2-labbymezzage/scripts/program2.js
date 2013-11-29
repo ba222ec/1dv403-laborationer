@@ -186,9 +186,9 @@ function MessageBoard(appID) {
         var textarea = document.querySelector("#" + appID + "Form textarea");
         textarea.value = "";
     };
-};
+}
 
 window.onload = function () {
     new MessageBoard("messageBoard1").init();
     new MessageBoard("messageBoard2").init();
-}
+};
