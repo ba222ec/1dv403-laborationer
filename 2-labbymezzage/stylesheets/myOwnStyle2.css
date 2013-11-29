@@ -56,6 +56,7 @@ section.message-board > div {
     padding-top: 5px;
     padding-bottom: 5px;
     margin: 5px 0;
+    word-wrap: break-word;
 }
 
 section.message-board div div p {
