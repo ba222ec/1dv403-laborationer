@@ -42,8 +42,7 @@
             img1.setAttribute("src", "img/erase.png");
             img2.setAttribute("src", "img/clock.png");
             footer.setAttribute("class", "small-12 columns");
-
-            htmlMessageBoard.appendChild(div0);
+            
             div0.appendChild(div1);
             div1.appendChild(p1);
             div0.appendChild(div2);
@@ -53,6 +52,7 @@
             linkButton2.appendChild(img2);
             div0.appendChild(footer);
             footer.appendChild(p2);
+            htmlMessageBoard.appendChild(div0);
 
             // Adds the text content
             p1.innerHTML = this.messages[messageIndex].getHTMLText();

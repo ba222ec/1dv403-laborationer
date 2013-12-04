@@ -25,13 +25,13 @@ function MessageBoard(appID) {
         input.setAttribute("type", "submit");
         input.setAttribute("value", "Skicka");
 
-        formContainer.appendChild(div0);
-        formContainer.appendChild(form);
+        div2.appendChild(input);
+        div1.appendChild(textarea);
         div0.appendChild(p);
         form.appendChild(div1);
         form.appendChild(div2);
-        div1.appendChild(textarea);
-        div2.appendChild(input);
+        formContainer.appendChild(div0);
+        formContainer.appendChild(form);
 
         // Click on "Skicka"
         input.addEventListener("click", function (e) {
@@ -137,8 +137,7 @@ function MessageBoard(appID) {
         img1.setAttribute("src", "img/erase.png");
         img2.setAttribute("src", "img/clock.png");
         footer.setAttribute("class", "small-12 columns");
-
-        messageBoard.appendChild(div0);
+       
         div0.appendChild(div1);
         div1.appendChild(p1);
         div0.appendChild(div2);
@@ -148,6 +147,7 @@ function MessageBoard(appID) {
         linkButton2.appendChild(img2);
         div0.appendChild(footer);
         footer.appendChild(p2);
+        messageBoard.appendChild(div0);
 
         // Adds the text content
         p1.innerHTML = this.messages[messageIndex].getHTMLText();
