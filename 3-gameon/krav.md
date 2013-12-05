@@ -1,5 +1,5 @@
 # Krav för memoryspel
-* Med argumenten col och row argument ska spelplanens utseende och storlek kunna påverkas
+* Med argumenten rows och cols argument ska spelplanens utseende och storlek kunna påverkas
 * Klick på en bild vänder en bricka
 * Vid klick på bild som redan är vänd så händer det ingenting
 * Endast två aktiva brickor ska kunna vara vända samtidigt
