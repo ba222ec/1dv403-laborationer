@@ -19,8 +19,6 @@ function MemoryBoard(memoryID, rows, cols) {
         // Generates a random array
         this.memoryCards = RandomGenerator.getPictureArray(rows, cols);
 
-        console.log(this.memoryCards.toString());
-
         // Creates the table that contains the memory game.
         for (i = 1; i <= rows; i += 1) {
             tr = document.createElement("tr");
@@ -48,17 +46,25 @@ function MemoryBoard(memoryID, rows, cols) {
                         if (picsUp < 2) {
                             that.turnUp(currentChoice);
                             picsUp += 1;
+                            if (!lastChoice) {
+                                lastChoice = currentChoice;
+                            }
                         }
-                        if (!lastChoice) {
-                            lastChoice = currentChoice;
-                        }
+
                         if (picsUp >= 2) {
-                            setTimeout(function () {
-                                that.turnDown(currentChoice);
-                                that.turnDown(lastChoice);
+                            if (that.compareSrc(currentChoice, lastChoice)) {
+                                that.setEventToNull(currentChoice);
+                                that.setEventToNull(lastChoice);
                                 picsUp = 0;
                                 lastChoice = null;
-                            }, 1000);
+                            } else {
+                                setTimeout(function () {
+                                    that.turnDown(currentChoice);
+                                    that.turnDown(lastChoice);
+                                    picsUp = 0;
+                                    lastChoice = null;
+                                }, 1000);
+                            }   
                         }
                     }
                 };
@@ -70,8 +76,6 @@ function MemoryBoard(memoryID, rows, cols) {
         } // for-loop
 
         div.appendChild(table);
-
-
     };
 
     this.turnUp = function (nodeId) {
@@ -83,6 +87,21 @@ function MemoryBoard(memoryID, rows, cols) {
     this.turnDown = function (nodeId) {
         var node = document.getElementById(nodeId);
         node.firstChild.setAttribute("src", "pics/0.png");
+    }
+
+    this.compareSrc = function (nodeId1, nodeId2) {
+        var src1 = document.getElementById(nodeId1).firstChild.getAttribute("src"),
+            src2 = document.getElementById(nodeId2).firstChild.getAttribute("src");
+        return (src1 === src2);
+    }
+
+    this.setEventToNull = function (nodeId) {
+        var node = document.getElementById(nodeId);
+        node.onclick = null;
+    }
+
+    this.writeInfo = function (pairsLeft, nbrOfGuesses) {
+
     }
 }
 
