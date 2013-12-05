@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 function MemoryBoard(memoryID, rows, cols) {
 
@@ -17,52 +17,53 @@ function MemoryBoard(memoryID, rows, cols) {
         presDiv.setAttribute("id", memoryID + "Info");
         p = document.createElement("p");
         presDiv.appendChild(p);
-        
-        var clickEvent = function (e) {
-                    e = e || window.event; // IE-fix
-                    var currentChoice = e.currentTarget.getAttribute("id");
-                    e.preventDefault();
 
-                    if (lastChoice === currentChoice) {
-                        return;
-                    } else {
-                        if (picsUp < 2) {
-                            that.turnUp(currentChoice);
-                            picsUp += 1;
-                            if (!lastChoice) {
-                                lastChoice = currentChoice;
-                            }
-                        }
-                        if (picsUp >= 2) {
-                            if (that.compareSrc(currentChoice, lastChoice)) {
-                                that.setEventToNull(currentChoice);
-                                that.setEventToNull(lastChoice);
-                                picsUp = 0;
-                                lastChoice = null;
-                                nbrOfGuesses += 1;
-                                foundPairs += 1;
-                                that.writeInfo("Antal par kvar att hitta: " +
-                                        (that.memoryCards.length / 2 - foundPairs) +
-                                        "<br />Antal gjorda gissningar: " + nbrOfGuesses);
-                            } else {
-                                setTimeout(function () {
-                                    that.turnDown(currentChoice);
-                                    that.turnDown(lastChoice);
-                                    picsUp = 0;
-                                    lastChoice = null;
-                                    nbrOfGuesses += 1;
-                                    that.writeInfo("Antal par kvar att hitta: " +
-                                        (that.memoryCards.length / 2 - foundPairs) +
-                                        "<br />Antal gjorda gissningar: " + nbrOfGuesses);
-                                }, 1000);
-                            }
-                        }
-                        // A test to se if the player has won the game.
-                        if (foundPairs >= that.memoryCards.length / 2) {
-                            that.writeInfo("GRATTIS! Du behövde " + nbrOfGuesses + " gissningar för att vinna!");
-                        }
+        // This is the event handler for the a-tags
+        var clickEvent = function (e) {
+            e = e || window.event; // IE-fix
+            var currentChoice = e.currentTarget.getAttribute("id");
+            e.preventDefault();
+
+            if (lastChoice === currentChoice) {
+                return;
+            } else {
+                if (picsUp < 2) {
+                    that.turnUp(currentChoice);
+                    picsUp += 1;
+                    if (!lastChoice) {
+                        lastChoice = currentChoice;
                     }
-            
+                }
+                if (picsUp >= 2) {
+                    if (that.compareSrc(currentChoice, lastChoice)) {
+                        that.setEventToNull(currentChoice);
+                        that.setEventToNull(lastChoice);
+                        picsUp = 0;
+                        lastChoice = null;
+                        nbrOfGuesses += 1;
+                        foundPairs += 1;
+                        that.writeInfo("Antal par kvar att hitta: " +
+                                (that.memoryCards.length / 2 - foundPairs) +
+                                "<br />Antal gjorda gissningar: " + nbrOfGuesses);
+                    } else {
+                        setTimeout(function () {
+                            that.turnDown(currentChoice);
+                            that.turnDown(lastChoice);
+                            picsUp = 0;
+                            lastChoice = null;
+                            nbrOfGuesses += 1;
+                            that.writeInfo("Antal par kvar att hitta: " +
+                                (that.memoryCards.length / 2 - foundPairs) +
+                                "<br />Antal gjorda gissningar: " + nbrOfGuesses);
+                        }, 1000);
+                    }
+                }
+                // A test to se if the player has won the game.
+                if (foundPairs >= that.memoryCards.length / 2) {
+                    that.writeInfo("GRATTIS! Du behövde " + nbrOfGuesses + " gissningar för att vinna!");
+                }
+            }
+
         };
         // Creates the board and the div for presentation.
         for (i = 1; i <= rows; i += 1) {
@@ -80,15 +81,12 @@ function MemoryBoard(memoryID, rows, cols) {
                 tr.appendChild(td);
 
                 k += 1;
-
                 anchor.onclick = clickEvent;
             }
             table.appendChild(tr);
-        } // for-loop
-
+        }
         div.appendChild(table);
         div.appendChild(presDiv);
-
         this.writeInfo("Antal par kvar att hitta: " + (this.memoryCards.length / 2 - foundPairs) +
             "<br />Antal gjorda gissningar: " + nbrOfGuesses);
     };
