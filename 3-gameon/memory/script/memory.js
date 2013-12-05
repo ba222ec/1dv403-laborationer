@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 function MemoryBoard(memoryID, rows, cols) {
 
@@ -17,25 +17,9 @@ function MemoryBoard(memoryID, rows, cols) {
         presDiv.setAttribute("id", memoryID + "Info");
         p = document.createElement("p");
         presDiv.appendChild(p);
-        // Creates the board and the div for presentation.
-        for (i = 1; i <= rows; i += 1) {
-            tr = document.createElement("tr");
-            for (j = 1; j <= cols; j += 1) {
-                img = document.createElement("img");
-                img.setAttribute("src", "pics/0.png");
-                anchor = document.createElement("a");
-                anchor.setAttribute("class", this.memoryCards[k])
-                anchor.setAttribute("id", k + memoryID);
-                anchor.setAttribute("href", "#");
-                td = document.createElement("td");
-                anchor.appendChild(img);
-                td.appendChild(anchor);
-                tr.appendChild(td);
-
-                k += 1;
-
-                anchor.onclick = function (e) {
-                    var e = e || window.event; // IE-fix
+        
+        var clickEvent = function (e) {
+                    e = e || window.event; // IE-fix
                     var currentChoice = e.currentTarget.getAttribute("id");
                     e.preventDefault();
 
@@ -78,7 +62,26 @@ function MemoryBoard(memoryID, rows, cols) {
                             that.writeInfo("GRATTIS! Du behövde " + nbrOfGuesses + " gissningar för att vinna!");
                         }
                     }
-                };
+            
+        };
+        // Creates the board and the div for presentation.
+        for (i = 1; i <= rows; i += 1) {
+            tr = document.createElement("tr");
+            for (j = 1; j <= cols; j += 1) {
+                img = document.createElement("img");
+                img.setAttribute("src", "pics/0.png");
+                anchor = document.createElement("a");
+                anchor.setAttribute("class", this.memoryCards[k]);
+                anchor.setAttribute("id", k + memoryID);
+                anchor.setAttribute("href", "#");
+                td = document.createElement("td");
+                anchor.appendChild(img);
+                td.appendChild(anchor);
+                tr.appendChild(td);
+
+                k += 1;
+
+                anchor.onclick = clickEvent;
             }
             table.appendChild(tr);
         } // for-loop
@@ -93,24 +96,24 @@ function MemoryBoard(memoryID, rows, cols) {
         var node = document.getElementById(nodeId),
             index = node.getAttribute("class");
         node.firstChild.setAttribute("src", "pics/" + index + ".png");
-    }
+    };
     this.turnDown = function (nodeId) {
         var node = document.getElementById(nodeId);
         node.firstChild.setAttribute("src", "pics/0.png");
-    }
+    };
     this.compareSrc = function (nodeId1, nodeId2) {
         var src1 = document.getElementById(nodeId1).firstChild.getAttribute("src"),
             src2 = document.getElementById(nodeId2).firstChild.getAttribute("src");
         return (src1 === src2);
-    }
+    };
     this.setEventToNull = function (nodeId) {
         var node = document.getElementById(nodeId);
         node.onclick = null;
-    }
+    };
     this.writeInfo = function (text) {
         var node = document.getElementById(memoryID + "Info");
         node.firstChild.innerHTML = text;
-    }
+    };
 }
 
 window.onload = function () {
