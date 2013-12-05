@@ -6,23 +6,37 @@ function MemoryBoard(memoryID, rows, cols) {
     this.memoryCards = [];
 
     this.init = function () {
-        var i, p,
+        var i, 
+            j,
             k = 0,
             that = this,
             picsUp = 0,
-            lastChoice = null;
+            lastChoice = null,
+            nbrOfGuesses = 0,
+            foundPairs = 0;
 
-        var img, anchor, td, tr,
+        var img, 
+            anchor, 
+            td, 
+            tr, 
+            presDiv, 
+            p,
             table = document.createElement("table"),
             div = document.getElementById(memoryID);
 
         // Generates a random array
         this.memoryCards = RandomGenerator.getPictureArray(rows, cols);
 
-        // Creates the table that contains the memory game.
+        // Creates the div for info
+        presDiv = document.createElement("div");
+        presDiv.setAttribute("id", memoryID + "Info");
+        p = document.createElement("p");
+        presDiv.appendChild(p);
+
+        // Creates the board and the div for presentation.
         for (i = 1; i <= rows; i += 1) {
             tr = document.createElement("tr");
-            for (p = 1; p <= cols; p += 1) {
+            for (j = 1; j <= cols; j += 1) {
 
                 img = document.createElement("img");
                 img.setAttribute("src", "pics/0.png");
@@ -57,12 +71,17 @@ function MemoryBoard(memoryID, rows, cols) {
                                 that.setEventToNull(lastChoice);
                                 picsUp = 0;
                                 lastChoice = null;
+                                nbrOfGuesses += 1;
+                                foundPairs += 1;
+                                that.writeInfo(foundPairs, nbrOfGuesses);
                             } else {
                                 setTimeout(function () {
                                     that.turnDown(currentChoice);
                                     that.turnDown(lastChoice);
                                     picsUp = 0;
                                     lastChoice = null;
+                                    nbrOfGuesses += 1;
+                                    that.writeInfo(foundPairs, nbrOfGuesses);
                                 }, 1000);
                             }   
                         }
@@ -76,6 +95,9 @@ function MemoryBoard(memoryID, rows, cols) {
         } // for-loop
 
         div.appendChild(table);
+        div.appendChild(presDiv);
+
+        this.writeInfo(foundPairs, nbrOfGuesses);
     };
 
     this.turnUp = function (nodeId) {
@@ -100,11 +122,13 @@ function MemoryBoard(memoryID, rows, cols) {
         node.onclick = null;
     }
 
-    this.writeInfo = function (pairsLeft, nbrOfGuesses) {
-
+    this.writeInfo = function (foundPairs, nbrOfGuesses) {
+        var node = document.getElementById(memoryID + "Info"),
+            text = "Antal par kvar att hitta: " + (this.memoryCards.length / 2 - foundPairs) + "<br />Antal gjorda gissningar: " + nbrOfGuesses;
+        node.firstChild.innerHTML = text;
     }
 }
 
 window.onload = function () {
-    new MemoryBoard("memoryBoard1", 2, 5).init();
+    new MemoryBoard("memoryBoard1", 3, 4).init();
 };
