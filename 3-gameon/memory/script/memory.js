@@ -6,38 +6,21 @@ function MemoryBoard(memoryID, rows, cols) {
     this.memoryCards = [];
 
     this.init = function () {
-        var i, 
-            j,
-            k = 0,
-            that = this,
-            picsUp = 0,
-            lastChoice = null,
-            nbrOfGuesses = 0,
-            foundPairs = 0;
-
-        var img, 
-            anchor, 
-            td, 
-            tr, 
-            presDiv, 
-            p,
+        var i, j, k = 0, that = this, picsUp = 0, lastChoice = null,
+            nbrOfGuesses = 0, foundPairs = 0, img, anchor, td, tr, presDiv, p,
             table = document.createElement("table"),
             div = document.getElementById(memoryID);
-
         // Generates a random array
         this.memoryCards = RandomGenerator.getPictureArray(rows, cols);
-
         // Creates the div for info
         presDiv = document.createElement("div");
         presDiv.setAttribute("id", memoryID + "Info");
         p = document.createElement("p");
         presDiv.appendChild(p);
-
         // Creates the board and the div for presentation.
         for (i = 1; i <= rows; i += 1) {
             tr = document.createElement("tr");
             for (j = 1; j <= cols; j += 1) {
-
                 img = document.createElement("img");
                 img.setAttribute("src", "pics/0.png");
                 anchor = document.createElement("a");
@@ -48,6 +31,8 @@ function MemoryBoard(memoryID, rows, cols) {
                 anchor.appendChild(img);
                 td.appendChild(anchor);
                 tr.appendChild(td);
+
+                k += 1;
 
                 anchor.onclick = function (e) {
                     var e = e || window.event; // IE-fix
@@ -64,7 +49,6 @@ function MemoryBoard(memoryID, rows, cols) {
                                 lastChoice = currentChoice;
                             }
                         }
-
                         if (picsUp >= 2) {
                             if (that.compareSrc(currentChoice, lastChoice)) {
                                 that.setEventToNull(currentChoice);
@@ -73,7 +57,9 @@ function MemoryBoard(memoryID, rows, cols) {
                                 lastChoice = null;
                                 nbrOfGuesses += 1;
                                 foundPairs += 1;
-                                that.writeInfo(foundPairs, nbrOfGuesses);
+                                that.writeInfo("Antal par kvar att hitta: " +
+                                        (that.memoryCards.length / 2 - foundPairs) +
+                                        "<br />Antal gjorda gissningar: " + nbrOfGuesses);
                             } else {
                                 setTimeout(function () {
                                     that.turnDown(currentChoice);
@@ -81,15 +67,18 @@ function MemoryBoard(memoryID, rows, cols) {
                                     picsUp = 0;
                                     lastChoice = null;
                                     nbrOfGuesses += 1;
-                                    that.writeInfo(foundPairs, nbrOfGuesses);
+                                    that.writeInfo("Antal par kvar att hitta: " +
+                                        (that.memoryCards.length / 2 - foundPairs) +
+                                        "<br />Antal gjorda gissningar: " + nbrOfGuesses);
                                 }, 1000);
-                            }   
+                            }
+                        }
+                        // A test to se if the player has won the game.
+                        if (foundPairs >= that.memoryCards.length / 2) {
+                            that.writeInfo("GRATTIS! Du behövde " + nbrOfGuesses + " gissningar för att vinna!");
                         }
                     }
                 };
-
-                // The picture counter
-                k += 1;
             }
             table.appendChild(tr);
         } // for-loop
@@ -97,38 +86,34 @@ function MemoryBoard(memoryID, rows, cols) {
         div.appendChild(table);
         div.appendChild(presDiv);
 
-        this.writeInfo(foundPairs, nbrOfGuesses);
+        this.writeInfo("Antal par kvar att hitta: " + (this.memoryCards.length / 2 - foundPairs) +
+            "<br />Antal gjorda gissningar: " + nbrOfGuesses);
     };
-
     this.turnUp = function (nodeId) {
         var node = document.getElementById(nodeId),
             index = node.getAttribute("class");
         node.firstChild.setAttribute("src", "pics/" + index + ".png");
     }
-
     this.turnDown = function (nodeId) {
         var node = document.getElementById(nodeId);
         node.firstChild.setAttribute("src", "pics/0.png");
     }
-
     this.compareSrc = function (nodeId1, nodeId2) {
         var src1 = document.getElementById(nodeId1).firstChild.getAttribute("src"),
             src2 = document.getElementById(nodeId2).firstChild.getAttribute("src");
         return (src1 === src2);
     }
-
     this.setEventToNull = function (nodeId) {
         var node = document.getElementById(nodeId);
         node.onclick = null;
     }
-
-    this.writeInfo = function (foundPairs, nbrOfGuesses) {
-        var node = document.getElementById(memoryID + "Info"),
-            text = "Antal par kvar att hitta: " + (this.memoryCards.length / 2 - foundPairs) + "<br />Antal gjorda gissningar: " + nbrOfGuesses;
+    this.writeInfo = function (text) {
+        var node = document.getElementById(memoryID + "Info");
         node.firstChild.innerHTML = text;
     }
 }
 
 window.onload = function () {
     new MemoryBoard("memoryBoard1", 3, 4).init();
+    new MemoryBoard("memoryBoard2", 4, 3).init();
 };
