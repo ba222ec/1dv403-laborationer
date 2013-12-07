@@ -29,24 +29,26 @@
             // Generates a random array
             this.memoryCards = RandomGenerator.getPictureArray(rows, cols);
 
-            // Creates the div for info, and the startAgainBtn
+            // Creates the div for info
             presDiv = document.createElement("div");
             presDiv.setAttribute("id", memoryID + "Info");
+            presDiv.setAttribute("class", "gameBoardInfo");
             p = document.createElement("p");
             presDiv.appendChild(p);
 
+            // Creates the start again button
             startAgainBtn = document.createElement("button");
             startAgainBtn.setAttribute("type", "button");
             startAgainBtn.innerHTML = "Nytt spel";
-            startAgainBtn.disabled = true;
-            // The button starts a new game.
+            startAgainBtn.setAttribute("disabled", "disabled");
+            startAgainBtn.setAttribute("class", "notInUse");
             startAgainBtn.onclick = function () {
                 div.removeChild(table);
                 div.removeChild(presDiv);
+                div.removeChild(startAgainBtn);
                 that.init();
             };
-            presDiv.appendChild(startAgainBtn);
-
+            
             // This is the event handler for the a-tags
             clickEvent = function (e) {
                 e = e || window.event; // IE-fix
@@ -89,13 +91,15 @@
                     }
                     // A test to se if the player has won the game.
                     if (foundPairs >= that.memoryCards.length / 2) {
-                        startAgainBtn.disabled = false;
+                        startAgainBtn.removeAttribute("disabled");
+                        startAgainBtn.removeAttribute("class");
                         that.writeInfo("GRATTIS! Du behövde " + nbrOfGuesses +
                             " gissningar för att vinna!");
                     }
                 }
 
             };
+
             // Creates the board and the div for presentation.
             for (i = 1; i <= rows; i += 1) {
                 tr = document.createElement("tr");
@@ -116,8 +120,10 @@
                 }
                 table.appendChild(tr);
             }
+
             div.appendChild(table);
             div.appendChild(presDiv);
+            div.appendChild(startAgainBtn);
             this.writeInfo("Antal par kvar att hitta: " +
                 (this.memoryCards.length / 2 - foundPairs) +
                 "<br />Antal gjorda gissningar: " + nbrOfGuesses);
@@ -153,6 +159,6 @@
 
 
     // On window.onload
-    new MemoryBoard("memoryBoard1", 2, 4).init();
+    new MemoryBoard("memoryBoard1", 3, 4).init();
     new MemoryBoard("memoryBoard2", 2, 4).init();
 }());

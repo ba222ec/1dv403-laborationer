@@ -1,3 +1,63 @@
-div#memoryBoard1, div#memoryBoard2 {
-	border: 5px solid blue; 
+body {
+    background: #2b2922;
+    font-size: 100%;
 }
+
+div#content {
+    width: 400px;
+    background: inherit;
+    margin: auto;
+}
+
+div.gameBoard {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    border: groove 10px #a32500;
+}
+
+    div.gameBoard table {
+        width: auto;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+
+        div.gameBoard table a {
+            border: none;
+            margin: 2px;
+        }
+
+    div.gameBoard div.gameBoardInfo {
+        width: 100%;
+        height: 4.5em;
+    }
+
+        div.gameBoard div.gameBoardInfo p {
+            width: 100%;
+            color: #a32500;
+            font-family: Andalus, 'Bookman Old Style', serif;
+            text-align: center;
+            cursor: default;
+        }
+
+    div.gameBoard button {
+        width: 80%;
+        line-height: 1.6;
+        padding: 2px;
+        margin-left: 10%;
+        border: outset 2px #fff;
+        cursor: pointer;
+        color: #fff;
+        background: #a32500;
+        letter-spacing: 2px;
+        font-weight: bold;
+        font-family: Andalus, 'Bookman Old Style', serif;
+    }
+
+        div.gameBoard button.notInUse {
+            opacity: 0.5;
+            cursor: default;
+        }
