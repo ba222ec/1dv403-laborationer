@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     "use strict";
 
     function MemoryBoard(memoryID, rows, cols) {

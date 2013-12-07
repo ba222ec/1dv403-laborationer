@@ -10,8 +10,9 @@ div#content {
 }
 
 div.gameBoard {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    box-sizing: border-box;
     width: 100%;
     background: #fff;
     margin: 20px auto;
