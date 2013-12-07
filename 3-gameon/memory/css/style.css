@@ -30,6 +30,14 @@ div.gameBoard {
             border: none;
             margin: 2px;
         }
+        
+        div.gameBoard table a.clickable {
+            cursor: pointer;
+        }
+        
+        div.gameBoard table a.unclickable {
+            cursor: default;
+        }
 
     div.gameBoard div.gameBoardInfo {
         width: 100%;

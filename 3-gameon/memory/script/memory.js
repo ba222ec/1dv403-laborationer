@@ -107,7 +107,7 @@
                     img = document.createElement("img");
                     img.setAttribute("src", "pics/0.png");
                     anchor = document.createElement("a");
-                    anchor.setAttribute("class", this.memoryCards[k]);
+                    anchor.setAttribute("class", (this.memoryCards[k] + " clickable") );
                     anchor.setAttribute("id", k + memoryID);
                     anchor.setAttribute("href", "#");
                     td = document.createElement("td");
@@ -131,7 +131,7 @@
 
         this.turnUp = function (nodeId) {
             var node = document.getElementById(nodeId),
-                index = node.getAttribute("class");
+                index = parseInt(node.getAttribute("class"));
             node.firstChild.setAttribute("src", "pics/" + index + ".png");
         };
 
@@ -148,6 +148,7 @@
 
         this.setEventToNull = function (nodeId) {
             var node = document.getElementById(nodeId);
+            node.setAttribute("class", (node.getAttribute("class").replace("clickable", "unclickable")) );
             node.onclick = null;
         };
 
