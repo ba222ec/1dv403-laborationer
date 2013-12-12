@@ -51,6 +51,9 @@
             
             // This is the event handler for the a-tags
             clickEvent = function (e) {
+                if (picsUp > 2) {
+                        // Empty!
+                    }
                 e = e || window.event; // IE-fix
                 var currentChoice = e.currentTarget.getAttribute("id");
                 e.preventDefault();
@@ -66,6 +69,7 @@
                         }
                     }
                     if (picsUp === 2) {
+                        picsUp += 1;
                         if (that.compareSrc(currentChoice, lastChoice)) {
                             that.setEventToNull(currentChoice);
                             that.setEventToNull(lastChoice);
@@ -88,9 +92,6 @@
                                     "<br />Antal gjorda gissningar: " + nbrOfGuesses);
                             }, 1000);
                         }
-                    }
-                    if (picsUp > 2) {
-                        // Empty!
                     }
                     // A test to se if the player has won the game.
                     if (foundPairs >= that.memoryCards.length / 2) {

@@ -65,6 +65,10 @@ div.gameBoard {
         font-weight: bold;
         font-family: Andalus, 'Bookman Old Style', serif;
     }
+    
+    div.gameBoard button:active {
+        border: inset 2px #fff;
+    }
 
         div.gameBoard button.notInUse {
             opacity: 0.5;
