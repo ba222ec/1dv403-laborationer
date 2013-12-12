@@ -65,7 +65,7 @@
                             lastChoice = currentChoice;
                         }
                     }
-                    if (picsUp >= 2) {
+                    if (picsUp === 2) {
                         if (that.compareSrc(currentChoice, lastChoice)) {
                             that.setEventToNull(currentChoice);
                             that.setEventToNull(lastChoice);
@@ -88,6 +88,9 @@
                                     "<br />Antal gjorda gissningar: " + nbrOfGuesses);
                             }, 1000);
                         }
+                    }
+                    if (picsUp > 2) {
+                        // Empty!
                     }
                     // A test to se if the player has won the game.
                     if (foundPairs >= that.memoryCards.length / 2) {
@@ -131,7 +134,7 @@
 
         this.turnUp = function (nodeId) {
             var node = document.getElementById(nodeId),
-                index = parseInt(node.getAttribute("class"));
+                index = parseInt(node.getAttribute("class"), 10);
             node.firstChild.setAttribute("src", "pics/" + index + ".png");
         };
 
@@ -148,7 +151,8 @@
 
         this.setEventToNull = function (nodeId) {
             var node = document.getElementById(nodeId);
-            node.setAttribute("class", (node.getAttribute("class").replace("clickable", "unclickable")) );
+            node.setAttribute("class", (node.getAttribute("class").replace("clickable",
+                        "unclickable")) );
             node.onclick = null;
         };
 
