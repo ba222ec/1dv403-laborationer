@@ -52,7 +52,7 @@
             // This is the event handler for the a-tags
             clickEvent = function (e) {
                 if (picsUp > 2) {
-                        // Empty!
+                        return;
                     }
                 e = e || window.event; // IE-fix
                 var currentChoice = e.currentTarget.getAttribute("id");
@@ -101,7 +101,6 @@
                             " gissningar för att vinna!");
                     }
                 }
-
             };
 
             // Creates the board and the div for presentation.
@@ -162,7 +161,6 @@
             node.firstChild.innerHTML = text;
         };
     }
-
 
     // On window.onload
     new MemoryBoard("memoryBoard1", 3, 4).init();
