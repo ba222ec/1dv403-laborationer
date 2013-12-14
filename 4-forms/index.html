@@ -13,17 +13,17 @@
             <fieldset>
                 <legend>Fyll i din betalningsplan</legend>
 
-                <label>Förnamn</label>
+                <label id="firstName">Förnamn</label>
                 <input type="text" name="firstName" placeholder="Ditt förnamn" autofocus="autofocus" />
 
-                <label>Efternamn</label>
+                <label id="lastName">Efternamn</label>
                 <input type="text" name="lastName" placeholder="Ditt efternamn" />
 
-                <label>Postnummer</label>
+                <label id="postalCode">Postnummer</label>
                 <input type="text" name="postalCode" placeholder="ex: &#34;12345&#34;" />
 
-                <label>E-post</label>
-                <input type="email" name="emailAddress" placeholder="din@epost.här" />
+                <label id="emailAddress">E-post</label>
+                <input type="text" name="emailAddress" placeholder="din@epost.här" />
 
                 <label>Prismodell</label>
                 <select name="priceModel">
@@ -35,10 +35,7 @@
                 <input type="submit" class="button normal" value="Genomför köp" />
             </fieldset>
         </form>
-
     </div>
-
-
 
     <!-- From zurb.foundation -->
     <script src="js/jquery.js"></script>
