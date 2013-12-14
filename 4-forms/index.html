@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <title>Form validation</title>    
+    <script src="js/modernizr.js"></script>
+</head>
+<body>
+    <div id="content" class="row">
+        <form id="form1" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php" method="post" target="_blank">
+            <fieldset>
+                <legend>Fyll i din betalningsplan</legend>
+                
+                <label>Förnamn</label>
+                <input type="text" name="firstName" placeholder="Ditt förnamn" autofocus="autofocus" />
+                
+                <label>Efternamn</label>
+                <input type="text" name="lastName" placeholder="Ditt efternamn" />
+                
+                <label>Postnummer</label>
+                <input type="text" name="postalCode" placeholder="ex: &#34;12345&#34;" />
+                
+                <label>E-post</label>
+                <input type="email" name="emailAddress" placeholder="din@epost.här" />
+                
+                <label>Prismodell</label>
+                <select name="priceModel">
+                    <option value="budget">Budget</option>
+                    <option value="normal" selected="selected">Normal</option>
+                    <option value="luxury">Lyx</option>
+                </select>
+
+                <input type="submit" class="button normal" value="Genomför köp" />
+            </fieldset>
+        </form>
+
+    </div>
+
+
+
+    <!-- From zurb.foundation -->
+    <script src="js/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+
+    <!-- My own scripts -->
+
+</body>
+</html>
