@@ -8,7 +8,7 @@
         createModalPopup,
         addError,
         removeError,
-        setDisableAllFields;
+        setDisabledAllFields;
 
     // Creates an error message for the given input node.
     addError = function (node, text) {
