@@ -146,6 +146,7 @@
 
     form.addEventListener("submit", function (e) {
         e = e || window.event; // IE-fix
+        e.preventDefault();
 
         removeError(form.elements[1]);
         removeError(form.elements[2]);
@@ -160,12 +161,8 @@
         if (controlInputs()) {
             setDisabledAllFields(true);
             createModalPopup();
-            /* Tillfälligt */
-            e.preventDefault();
-        } else {
-            e.preventDefault();
         }
-
+        
     }, false);
 
 }());
