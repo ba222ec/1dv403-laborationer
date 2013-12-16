@@ -47,11 +47,11 @@
 
         if (!controlInput(/^.{1,255}$/, form.elements[1].value)) {
             allValid = false;
-            addError(form.elements[1], "F�ltet f�r ej l�mnas blankt.");
+            addError(form.elements[1], "Fältet får ej lämnas blankt.");
         }
         if (!controlInput(/^.{1,255}$/, form.elements[2].value)) {
             allValid = false;
-            addError(form.elements[2], "F�ltet f�r ej l�mnas blankt.");
+            addError(form.elements[2], "Fältet får ej lämnas blankt.");
         }
         if (!controlInput(/^(SE)?[\ ]?[\d]{3}(-|\ )?[\d]{2}$/, form.elements[3].value)) {
             allValid = false;
@@ -59,7 +59,8 @@
         } else {
             form.elements[3].value = form.elements[3].value.replace(/(SE|\ |-)/g, "");
         }
-        if (!controlInput(/^([\w\.\+]+)@([\w]+)\.([a-zA-Z]{2,6})$/, form.elements[4].value)) {
+        if (!controlInput(/^([\w\.\+]+)@([\w]+)\.([a-zA-Z]{2,6})$/,
+                form.elements[4].value)) {
             allValid = false;
             addError(form.elements[4], "Fyll i en korrekt e-postadress.");
         }
@@ -76,12 +77,12 @@
             div3 = document.createElement("div"),
             a = document.createElement("a"),
             img = document.createElement("img"),
-            headerText = document.createTextNode("V�nligen bekr�fta ditt k�p"),
+            headerText = document.createTextNode("Vänligen bekräfta ditt köp"),
             div4 = document.createElement("div"),
             div5 = document.createElement("div"),
             button1 = document.createElement("button"),
             button2 = document.createElement("button"),
-            button1Text = document.createTextNode("Bekr�fta k�p"),
+            button1Text = document.createTextNode("Bekräfta köp"),
             button2Text = document.createTextNode("Avbryt"),
             p,
             text,
@@ -136,10 +137,10 @@
         document.body.appendChild(div1);
     };
 
-    setDisableAllFields = function (bool) {
+    setDisabledAllFields = function (bool) {
         var i;
         for (i = 1; i <= form.elements.length - 1; i += 1) {
-            form.elements[i].disable = bool;
+            form.elements[i].disabled = bool;
         }
     };
 
@@ -159,7 +160,7 @@
         if (controlInputs()) {
             setDisableAllFields(true);
             createModalPopup();
-            /* Tillf�lligt */
+            /* Tillfälligt */
             e.preventDefault();
         } else {
             e.preventDefault();
