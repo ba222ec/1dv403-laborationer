@@ -158,7 +158,7 @@
         form.elements[4].value = form.elements[4].value.trim();
 
         if (controlInputs()) {
-            setDisableAllFields(true);
+            setDisabledAllFields(true);
             createModalPopup();
             /* Tillfälligt */
             e.preventDefault();
