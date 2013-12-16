@@ -2,24 +2,24 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
-    padding: 0; 
-	background: #f6e497;
+    padding: 0;
+    background: #f6e497;
 }
 
 form {
-    margin: 20px;  
+    margin: 20px;
     padding: 5px 20px;
     background: #fcfae1;
 }
 
-form fieldset legend {
-    background: none;
-}
+    form fieldset legend {
+        background: none;
+    }
 
 div#modalDiv {
     z-index: 500;
     width: 40%;
-    height: 200px;
+    height: auto;
     position: absolute;
     top: 40px;
     left: 30%;
@@ -28,6 +28,51 @@ div#modalDiv {
     border: solid 2px #f6e497;
     box-shadow: 0 0 2px 2px #f6e497;
 }
+
+    div#modalDiv div {
+        padding: 4px 0;
+    }
+
+    div#modalDiv div#closeDiv {
+        padding-top: 0;
+        padding-right: 2px;
+    }
+
+        div#modalDiv div#closeDiv a {
+            position: relative;
+            float: right;
+            height: 32px;
+            width: 32px;
+        }
+
+            div#modalDiv div#closeDiv a img {
+                height: 32px;
+                width: 32px;
+            }
+
+    div#modalDiv h3 {
+        font-size: 1em;
+        line-height: 1.2;
+        font-weight: bold;
+    }
+
+    div#modalDiv p {
+        font-size: 1em;
+        line-height: 1.2;
+        margin-bottom: 0.9rem;
+    }
+
+    div#modalDiv p.field {
+        font-weight: bold;
+    }
+
+    div#modalDiv div#buttonRow {
+        padding: 0 0.9375em;
+    }
+
+        div#modalDiv div#buttonRow button {
+            margin-right: 10px;
+        }
 
 div#overlay {
     width: 100%;
