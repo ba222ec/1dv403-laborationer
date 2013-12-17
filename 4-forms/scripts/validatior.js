@@ -1,4 +1,4 @@
-﻿// Client validation of user input
+// Client validation of user input
 (function () {
     "use strict";
 
@@ -61,7 +61,7 @@
             } else if (form.elements[i].getAttribute("class").indexOf("postalCode") !== -1) {
                 if (!controlInput(/^(SE)?[\ ]?[\d]{3}(-|\ )?[\d]{2}$/, form.elements[i].value)) {
                     allValid = false;
-                    addError(form.elements[i], "Fyll i ett korrekt postnummer");
+                    addError(form.elements[i], "Fyll i ett korrekt postnummer.");
                 } else {
                     form.elements[i].value = form.elements[i].value.replace(/(SE|\ |-)/g, "");
                 }
@@ -154,8 +154,8 @@
         div2.appendChild(div3);
         button1.appendChild(button1Text);
         button2.appendChild(button2Text);
-        div5.appendChild(button1);
         div5.appendChild(button2);
+        div5.appendChild(button1);
         div1.appendChild(div2);
         div1.appendChild(div4);
         div1.appendChild(div5);

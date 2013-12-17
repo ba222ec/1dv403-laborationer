@@ -71,7 +71,8 @@ div#modalDiv {
     }
 
         div#modalDiv div#buttonRow button {
-            margin-right: 10px;
+            float: right;
+            margin-left: 10px;
         }
 
 div#overlay {
