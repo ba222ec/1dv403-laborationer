@@ -25,7 +25,7 @@
         node.parentNode.insertBefore(explanation, node.nextSibling);
     };
 
-    // If the node has an errormessage, this method removes it.
+    // If the node has an error message, this method removes it.
     removeError = function (node) {
         var label = document.getElementById(node.getAttribute("name")),
             explanation;
@@ -130,18 +130,20 @@
         button2.setAttribute("type", "button");
         button2.setAttribute("class", "button tiny radius alert");
 
-        a.addEventListener("click", function () {
+        a.addEventListener("click", function (e) {
+			e = e || window.event;
+			e.preventDefault();
             removeModalPopup();
             setDisabledAllFields(false);
         }, false);
         // This is the only way to submit the form...
-        button1.addEventListener("click", function () {
+        button1.addEventListener("click", function (e) {
             removeModalPopup();
             setDisabledAllFields(false);
             form.submit();
             form.reset();
         }, false);
-        button2.addEventListener("click", function () {
+        button2.addEventListener("click", function (e) {
             removeModalPopup();
             setDisabledAllFields(false);
         }, false);
@@ -172,7 +174,7 @@
         document.body.removeChild(div1);
     };
 
-    // Disables och undisables all the form elements.
+    // Disables and undisables all the form elements.
     setDisabledAllFields = function (bool) {
         var i;
         for (i = 1; i <= form.elements.length - 1; i += 1) {
