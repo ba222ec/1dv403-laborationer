@@ -101,9 +101,9 @@
         div0.setAttribute("id", "overlay");
         div1.setAttribute("id", "modalDiv");
         div2.setAttribute("class", "row");
-        header.setAttribute("class", "small-10 columns");
+        header.setAttribute("class", "small-11 columns");
         div3.setAttribute("id", "closeDiv");
-        div3.setAttribute("class", "small-2 columns");
+        div3.setAttribute("class", "small-1 columns");
         a.setAttribute("href", "#");
         img.setAttribute("src", "img/close-icon.png");
         div4.setAttribute("class", "row");
