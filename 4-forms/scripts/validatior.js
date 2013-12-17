@@ -67,7 +67,7 @@
                 }
             // Control email fields.
             } else if (form.elements[i].getAttribute("class").indexOf("email") !== -1) {
-                if (!controlInput(/^\w+([\.\+]?\w+)@([\w]+)\.([a-zA-Z]{2,6})$/, form.elements[i].value)) {
+                if (!controlInput(/^\w+([\.\+]?\w+)*@([\w]+)\.([a-zA-Z]{2,6})$/, form.elements[i].value)) {
                     allValid = false;
                     addError(form.elements[i], "Fyll i en korrekt e-postadress.");
                 }
