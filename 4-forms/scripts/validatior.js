@@ -6,6 +6,7 @@
         controlInput,
         controlInputs,
         createModalPopup,
+        removeModalPopup,
         addError,
         removeError,
         setDisabledAllFields;
@@ -20,7 +21,7 @@
         explanation.appendChild(explanationText);
 
         label.setAttribute("class", "error");
-        node.setAttribute("class", "error");
+        node.setAttribute("class", node.getAttribute("class") + " error");
         node.parentNode.insertBefore(explanation, node.nextSibling);
     };
 
@@ -29,10 +30,12 @@
         var label = document.getElementById(node.getAttribute("name")),
             explanation;
 
-        if (node.getAttribute("class") === "error") {
+        if (node.getAttribute("class") === "name error" ||
+                node.getAttribute("class") === "email error" ||
+                node.getAttribute("class") === "postalCode error") {
             explanation = node.nextSibling;
             label.removeAttribute("class");
-            node.removeAttribute("class");
+            node.setAttribute("class", node.getAttribute("class").replace(" error", ""));
             node.parentNode.removeChild(explanation);
         }
     };
@@ -42,32 +45,39 @@
         return regex.test(input);
     };
 
+    // Returns true if all inputs are valid.
     controlInputs = function () {
-        var allValid = true;
+        var allValid = true,
+            i;
 
-        if (!controlInput(/^.{1,255}$/, form.elements[1].value)) {
-            allValid = false;
-            addError(form.elements[1], "Fältet får ej lämnas blankt.");
-        }
-        if (!controlInput(/^.{1,255}$/, form.elements[2].value)) {
-            allValid = false;
-            addError(form.elements[2], "Fältet får ej lämnas blankt.");
-        }
-        if (!controlInput(/^(SE)?[\ ]?[\d]{3}(-|\ )?[\d]{2}$/, form.elements[3].value)) {
-            allValid = false;
-            addError(form.elements[3], "Fyll i ett korrekt postnummer");
-        } else {
-            form.elements[3].value = form.elements[3].value.replace(/(SE|\ |-)/g, "");
-        }
-        if (!controlInput(/^([\w\.\+]+)@([\w]+)\.([a-zA-Z]{2,6})$/,
-                form.elements[4].value)) {
-            allValid = false;
-            addError(form.elements[4], "Fyll i en korrekt e-postadress.");
+        for (i = 1; i <= form.elements.length - 3; i += 1) {
+            // Control name fields.
+            if (form.elements[i].getAttribute("class").indexOf("name") !== -1) {
+                if (!controlInput(/^.{1,255}$/, form.elements[i].value)) {
+                    allValid = false;
+                    addError(form.elements[i], "Fältet får ej lämnas blankt.");
+                }
+            // Control postal code fields.
+            } else if (form.elements[i].getAttribute("class").indexOf("postalCode") !== -1) {
+                if (!controlInput(/^(SE)?[\ ]?[\d]{3}(-|\ )?[\d]{2}$/, form.elements[i].value)) {
+                    allValid = false;
+                    addError(form.elements[i], "Fyll i ett korrekt postnummer");
+                } else {
+                    form.elements[i].value = form.elements[i].value.replace(/(SE|\ |-)/g, "");
+                }
+            // Control email fields.
+            } else if (form.elements[i].getAttribute("class").indexOf("email") !== -1) {
+                if (!controlInput(/^([\w\.\+]+)@([\w]+)\.([a-zA-Z]{2,6})$/, form.elements[i].value)) {
+                    allValid = false;
+                    addError(form.elements[i], "Fyll i en korrekt e-postadress.");
+                }
+            }
         }
 
         return allValid;
     };
 
+    // Creates and adds a modal popup with the data from the form elements.
     createModalPopup = function () {
         var div0 = document.createElement("div"),
             div1 = document.createElement("div"),
@@ -98,6 +108,7 @@
         img.setAttribute("src", "img/close-icon.png");
         div4.setAttribute("class", "row");
 
+        // Reads the data from the form elements.
         for (i = 1; i <= form.elements.length - 2; i += 1) {
             p = document.createElement("p");
             p.setAttribute("class", "small-3 columns field");
@@ -105,7 +116,6 @@
                 .textContent);
             p.appendChild(text);
             div4.appendChild(p);
-
             p = document.createElement("p");
             p.setAttribute("class", "small-9 columns");
             text = document.createTextNode(form.elements[i].value);
@@ -119,6 +129,22 @@
         button1.setAttribute("class", "button tiny radius success");
         button2.setAttribute("type", "button");
         button2.setAttribute("class", "button tiny radius alert");
+
+        a.addEventListener("click", function () {
+            removeModalPopup();
+            setDisabledAllFields(false);
+        }, false);
+        // This is the only way to submit the form...
+        button1.addEventListener("click", function () {
+            removeModalPopup();
+            setDisabledAllFields(false);
+            form.submit();
+            form.reset();
+        }, false);
+        button2.addEventListener("click", function () {
+            removeModalPopup();
+            setDisabledAllFields(false);
+        }, false);
 
         a.appendChild(img);
         div3.appendChild(a);
@@ -137,6 +163,16 @@
         document.body.appendChild(div1);
     };
 
+    // Removes the modal Popup.
+    removeModalPopup = function () {
+        var div0 = document.getElementById("overlay"),
+            div1 = document.getElementById("modalDiv");
+
+        document.body.removeChild(div0);
+        document.body.removeChild(div1);
+    };
+
+    // Disables och undisables all the form elements.
     setDisabledAllFields = function (bool) {
         var i;
         for (i = 1; i <= form.elements.length - 1; i += 1) {
@@ -145,7 +181,8 @@
     };
 
     form.addEventListener("submit", function (e) {
-        e = e || window.event; // IE-fix
+        e = e || window.event;
+        // The real submit-button is in the modal popup...
         e.preventDefault();
 
         removeError(form.elements[1]);
@@ -161,8 +198,8 @@
         if (controlInputs()) {
             setDisabledAllFields(true);
             createModalPopup();
+        } else {
+            // Empty!
         }
-        
     }, false);
-
 }());
