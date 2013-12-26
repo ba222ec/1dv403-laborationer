@@ -33,7 +33,7 @@
         // If user clicked on the camera icon.
         if (hit.parentNode.id === "open-gallery") {
             oWindows.aWindows[oWindows.aWindows.length] = new SVANTE.constructors.AppWindowGallery
-                (300, 300, iStartX + oWindows.aWindows.length * 20, iStartY + oWindows.aWindows.length * 20);
+                (350, 350, iStartX + oWindows.aWindows.length * 20, iStartY + oWindows.aWindows.length * 20);
             oWindows.giveFocus(oWindows.aWindows.length - 1);
             SVANTE.methods.desktopMethods.clearDesktop();
             // Show all windows.

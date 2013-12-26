@@ -6,7 +6,7 @@ html, body {
     max-height: 100%;
     max-width: 100%;
     /* Background should be controlled by JS-script later. */
-    background-color: #a32500;
+    background-image: url(../img/default-background.png);
 }
 
 /* --- The icon bar and the icons --- */
@@ -139,7 +139,35 @@ div#desktop {
             margin: 0 2px;
             background-color: #efe4bd;
             border: inset 1px #fff;
+            padding: 10px;
+            overflow-y: auto;
         }
+
+            div#desktop div.window div.content.gallery ul li {
+                display: inline;
+                float: left;
+                /* Height and Width should be created by JS later. */
+                height: 50px;
+                width: 75px;
+                padding: 5px;
+                margin: 0 5px 10px;
+            }
+
+            div#desktop div.window div.content.gallery ul li a {
+                display: block;
+                height: 100%;
+                width: 100%;
+                padding: 5px;
+                background-color: #bab293;
+            }
+
+            div#desktop div.window div.content.gallery ul li a img {
+                display: block;
+                height: 100%;
+                width: auto;
+                margin: 0 auto;
+                
+            }
 
         div#desktop div.window div.bottom-bar {
             -moz-box-sizing: border-box;
