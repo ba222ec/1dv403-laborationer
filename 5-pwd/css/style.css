@@ -42,7 +42,7 @@ div#iconbar {
                     height: 48px;
                 }
 
-                div#iconbar ul li a:hover, div#iconbar ul li a:focus {
+                div#iconbar ul li a:hover {
                     background-color: rgb(163, 151, 112);
                     background-color: rgba(163, 151, 112, 0.5);
                 }
@@ -65,15 +65,17 @@ div#desktop {
 }
 
     div#desktop div.window {
-        position: relative;
-        /* Top and left should be written as a style attribute later. 
-            JS should control where the window is placed. */
-        top: 50px;
-        left: 175px;
-        width: 350px;
-        height: 350px;
+        position: absolute;
+            /* JS should control where the window is placed. */
         background-color: #a39770;
         border: outset 1px #fff;
+        z-index: 0;
+    }
+
+    div#desktop div.window.ontop {
+        box-shadow: 2px 2px 1px 1px #000;
+        box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
     }
 
         div#desktop div.window div.top-bar {
@@ -103,6 +105,7 @@ div#desktop {
                 font-size: 1rem;
                 font-family: sans-serif;
                 height: 21px;
+                cursor: default;
             }
 
             div#desktop div.window div.top-bar a.close-icon {
@@ -158,4 +161,5 @@ div#desktop {
                 font-family: sans-serif;
                 font-size: 0.7rem;
                 font-style: italic;
+                cursor: default;
             }

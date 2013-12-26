@@ -13,17 +13,17 @@
     <div id="iconbar">
         <ul>
             <li>
-                <a href="#" id="open-gallery" title="Öppna galleriet">
+                <a href="#" id="open-gallery" class="icons" title="Öppna galleriet">
                     <img src="img/photography_48x48.png" alt="Öppna galleriet" />
                 </a>
             </li>
             <li>
-                <a href="#" id="open-memory" title="Öppna memoryspelet">
+                <a href="#" id="open-memory" class="icons" title="Öppna memoryspelet">
                     <img src="img/theater_48x48.png" alt="Öppna memoryspelet"/>
                 </a>
             </li>
             <li>
-                <a href="#" id="open-rssfeed" title="Öppna RSS">
+                <a href="#" id="open-rssfeed" class="icons" title="Öppna RSS">
                     <img src="img/publishing_48x48.png" alt="Öppna RSS" />
                 </a>
             </li>
@@ -32,7 +32,7 @@
     <div id="desktop">
 
         <!-- The window should be created by JS-script later. -->
-        <div class="window">
+<!--    <div id="window0" class="window ontop" style="left: 275px; top: 50px; width: 350px; height: 350px;">
             <div class="top-bar">
                 <img src="img/photography_32x32.png" alt="Galleri" />
                 <p>Galleri</p>
@@ -41,13 +41,19 @@
                 </a>
             </div>
             <div class="content">
-                <!-- Place for the gallery. -->
             </div>
             <div class="bottom-bar">
                 <small>Senast uppdaterad kl. 13:41</small>
             </div>
-        </div>
+        </div> -->
 
     </div>
+
+    <script src="js/jquery-2.0.3.js"></script>
+    <!-- My own scripts -->
+    <script src="js/methods.js"></script>
+    <script src="js/AppWindow.js"></script>
+    <script src="js/AppWindowGallery.js"></script>
+    <script src="js/Desktop.js"></script>
 </body>
 </html>

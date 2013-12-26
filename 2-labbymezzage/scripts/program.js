@@ -1,4 +1,4 @@
-"use strict";
+-"use strict";
 
 (function () {
     // Nodes from DOM used in the functions. 
