@@ -3,9 +3,9 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, iX, iY, sStatus) {
+SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, iX, iY) {
 
-    var createBasicWindow = function (sName, sIconURL, sStatus, iWidth, iHeight, iX, iY) {
+    function createBasicWindow(sName, divContentClassname, sIconURL, sStatus, iWidth, iHeight, iX, iY) {
         var doc = document,
 		    eDivWindow = doc.createElement("div"),
 		    eDivTopBar = doc.createElement("div"),
@@ -17,7 +17,7 @@ SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, i
 		    eDivContent = doc.createElement("div"),
 		    eDivBottomBar = doc.createElement("div"),
 		    eStatus = doc.createElement("small"),
-            eStatusText = doc.createTextNode(sStatus);
+            eDivResize = doc.createElement("div");
 
         // Add common classnames
         eDivWindow.className = "window";
@@ -33,8 +33,9 @@ SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, i
         eAClose.className = "close-icon";
         eImgCloseIcon.src = "img/close_32x32.png";
         eImgCloseIcon.alt = "Stäng fönstret";
-        eDivContent.className = "content";
+        eDivContent.className = divContentClassname;
         eDivBottomBar.className = "bottom-bar";
+        eDivResize.className = "resize";
 
         // Add to fragment
         ePName.appendChild(ePText);
@@ -42,29 +43,25 @@ SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, i
         eDivTopBar.appendChild(eImgIcon);
         eDivTopBar.appendChild(ePName);
         eDivTopBar.appendChild(eAClose);
-        eStatus.appendChild(eStatusText);
         eDivBottomBar.appendChild(eStatus);
+        eDivBottomBar.appendChild(eDivResize);
 
         eDivWindow.appendChild(eDivTopBar);
         eDivWindow.appendChild(eDivContent);
         eDivWindow.appendChild(eDivBottomBar);
 
         return eDivWindow;
-    };
+    }
 
-    var createWindow = function (sWindowType, iWidth, iHeight, iX, iY) {
+    function createWindow(sWindowType, iWidth, iHeight, iX, iY) {
         switch (sWindowType) {
             case "AppWindowGallery":
-                var window = createBasicWindow("Galleri",
+                var window = createBasicWindow("Galleri", "content gallery",
                     "img/photography_32x32.png", "Skapades klockan 14:51", iWidth, iHeight, iX, iY);
                 return window;
         }
-    };
+    }
 
-    this.name = sName;
-    this.status = sStatus;
-    this.height = iHeight;
-    this.width = iWidth;
     this.windowHTML = createWindow(sWindowType, iWidth, iHeight, iX, iY);
 };
 

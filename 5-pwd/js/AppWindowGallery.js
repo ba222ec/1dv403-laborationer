@@ -6,22 +6,22 @@ SVANTE.constructors = SVANTE.constructors || {};
 SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
     // Initiates the superObject.
     SVANTE.constructors.AppWindow.call(this, "AppWindowGallery", "Galleri",
-        iWidth, iHeight, iX, iY, "Fönstret skapades klo 14:26");
+        iWidth, iHeight, iX, iY);
 
-    // Add "gallery" to content-element
-    this.windowHTML.childNodes[1].className += " gallery";
+    this.aPictures = null;
+    this.galleryHTML = null;
 
     var that = this,
-        createGallery;
+        doc = document,
+        iTimerID;
 
     /* These are created inside the function $.ajax().
     this.aPictures --> An array with pictures, from a distance server.
     this.galleryHTML --> The DOM structure for the Gallery. */
 
     // Creates the DOM structure for the Gallery.
-    createGallery = function () {
-        var doc = document,
-			iHeight = 0,
+    function createGallery() {
+        var iHeight = 0,
 			iWidth = 0,
 			i,
 			p = that.aPictures.length,
@@ -61,7 +61,15 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
 
         // galleryHTML is the DOM structure.
         return galleryHTML;
-    };
+    }
+
+    function createLoadAnimation() {
+        var eStatus = that.windowHTML.childNodes[2].childNodes[0],
+            eImg = doc.createElement("img");
+
+        eImg.src = "img/ajax-loader.gif";
+        eStatus.appendChild(eImg);
+    }
 
     // Calls and handle the ajax-request.
     $.ajax({
@@ -70,10 +78,12 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
             // Handle the request-result when it arrives.
             that.aPictures = JSON.parse(result);
             that.galleryHTML = createGallery();
-            console.log(that.galleryHTML);
             that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
+            clearTimeout(iTimerID);
+            that.windowHTML.childNodes[2].childNodes[0].innerHTML = "";
         }
     });
+    iTimerID = setTimeout(function () { createLoadAnimation(); }, 100);
 
 };
 
