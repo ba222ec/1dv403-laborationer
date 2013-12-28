@@ -5,7 +5,9 @@
 html, body {
     max-height: 100%;
     max-width: 100%;
-    /* Background should be controlled by JS-script later. */
+}
+
+body {
     background-image: url('../img/default-background.png');
 }
 

@@ -54,12 +54,14 @@ SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, i
     }
 
     function createWindow(sWindowType, iWidth, iHeight, iX, iY) {
+        var window = null;
         switch (sWindowType) {
             case "AppWindowGallery":
-                var window = createBasicWindow("Galleri", "content gallery",
+                window = createBasicWindow("Galleri", "content gallery",
                     "img/photography_32x32.png", "Skapades klockan 14:51", iWidth, iHeight, iX, iY);
-                return window;
+                break;
         }
+        return window;
     }
 
     this.windowHTML = createWindow(sWindowType, iWidth, iHeight, iX, iY);
