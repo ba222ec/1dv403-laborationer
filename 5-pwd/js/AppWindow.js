@@ -3,7 +3,7 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, iX, iY) {
+SVANTE.constructors.AppWindow = function (sWindowType, sStatus, iWidth, iHeight, iX, iY) {
 
     function createBasicWindow(sName, divContentClassname, sIconURL, sStatus, iWidth, iHeight, iX, iY) {
         var doc = document,
@@ -35,6 +35,7 @@ SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, i
         eImgCloseIcon.alt = "Stäng fönstret";
         eDivContent.className = divContentClassname;
         eDivBottomBar.className = "bottom-bar";
+        eStatus.innerHTML = sStatus;
         eDivResize.className = "resize";
 
         // Add to fragment
@@ -53,18 +54,20 @@ SVANTE.constructors.AppWindow = function (sWindowType, sName, iWidth, iHeight, i
         return eDivWindow;
     }
 
-    function createWindow(sWindowType, iWidth, iHeight, iX, iY) {
-        var window = null;
+    function createWindow(sStatus, sWindowType, iWidth, iHeight, iX, iY) {
+        var eWindow = null;
         switch (sWindowType) {
             case "AppWindowGallery":
-                window = createBasicWindow("Galleri", "content gallery",
-                    "img/photography_32x32.png", "Skapades klockan 14:51", iWidth, iHeight, iX, iY);
+                eWindow = createBasicWindow("Galleri", "content gallery", "img/photography_32x32.png", sStatus, iWidth, iHeight, iX, iY);
+                break;
+            case "AppWindowPicture":
+                eWindow = createBasicWindow("Bild", "content image", "img/photography_32x32.png", sStatus, iWidth, iHeight, iX, iY);
                 break;
         }
-        return window;
+        return eWindow;
     }
 
-    this.windowHTML = createWindow(sWindowType, iWidth, iHeight, iX, iY);
+    this.windowHTML = createWindow(sStatus, sWindowType, iWidth, iHeight, iX, iY);
 };
 
 SVANTE.constructors.AppWindow.prototype.testMethod = function () {

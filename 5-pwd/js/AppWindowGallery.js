@@ -3,9 +3,9 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
+SVANTE.constructors.AppWindowGallery = function (sStatus, iWidth, iHeight, iX, iY) {
     // Initiates the superObject.
-    SVANTE.constructors.AppWindow.call(this, "AppWindowGallery", "Galleri",
+    SVANTE.constructors.AppWindow.call(this, "AppWindowGallery", sStatus, 
         iWidth, iHeight, iX, iY);
 
     // An array with all picture-objects. Ajax-request callback function assign the value.

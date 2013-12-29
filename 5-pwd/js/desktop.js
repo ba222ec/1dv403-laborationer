@@ -46,21 +46,21 @@ SVANTE.Desktop = function () {
             var iterations = Math.floor(aPictures.length / 8),
                 leftover = aPictures.length % 8,
                 i = 0,
-                sURL = "";
+                oPicture = null;
 
             // A faster way to loop through a big array.
             function process(i) {
                 if (aPictures[i].thumbURL === sThumbURL) {
-                    sURL = aPictures[i].URL;
+                    oPicture = aPictures[i];
                 }
             }
             if (leftover > 0) {
                 do {
                     process(i++);
-                    if (sURL !== "") {
-                        return sURL;
+                    if (oPicture) {
+                        return oPicture;
                     }
-                } while (leftover -= 1 > 0);
+                } while (--leftover > 0);
             }
             do {
                 process(i++);
@@ -71,10 +71,10 @@ SVANTE.Desktop = function () {
                 process(i++);
                 process(i++);
                 process(i++);
-                if (sURL !== "") {
-                    return sURL;
+                if (oPicture) {
+                    return oPicture;
                 }
-            } while (iterations -= 1 > 0);
+            } while (--iterations > 0);
         }
 
         // Deletes a given index from the window-array. 
@@ -95,6 +95,20 @@ SVANTE.Desktop = function () {
             oWindow.windowHTML.id = sID;
         }
 
+        function setNextCordinates() {
+            console.log("Här!");
+            // Next windows X-cordinate.
+            iNextX += 20;
+            if (iNextX + iWindowDefaultWidth > iBrowserWidth) {
+                iNextX = iStartX;
+            }
+            // Next windows Y-cordinate.
+            iNextY += 20;
+            if (iNextY + iWindowDefaultHeight > iBrowserHeight) {
+                iNextY = iStartY;
+            }
+        }
+
         // Show the given window-structure on the desktop.
         function showWindow(oWindow) {
             // OBS!!!
@@ -110,18 +124,9 @@ SVANTE.Desktop = function () {
 
             // If user clicked on the camera icon.
             if (hit.parentNode.id === "open-gallery") {
-                that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
+                that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
                 that.aWindows[that.aWindows.length - 1].init();
-                // Next windows X-cordinate.
-                iNextX += 20;
-                if (iNextX + iWindowDefaultWidth > iBrowserWidth) {
-                    iNextX = iStartX;
-                }
-                // Next windows Y-cordinate.
-                iNextY += 20;
-                if (iNextY + iWindowDefaultHeight > iBrowserHeight) {
-                    iNextY = iStartY;
-                }
+                setNextCordinates();
                 setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
                 giveFocus(that.aWindows.length - 1);
                 // Show window.
@@ -139,7 +144,11 @@ SVANTE.Desktop = function () {
                 i = 0,
                 p = 0,
                 sImgSrc,
-                sBigImgSrc;
+                sBigImgSrc,
+                iWidth,
+                iHeight,
+                temp,
+                temp2;
 
             // It user clicks on a thumbnail picture in a gallery window.
             if (hit.parentNode.parentNode.className === "galleryPic") {
@@ -147,10 +156,46 @@ SVANTE.Desktop = function () {
                 // If ctrlKey is pressed, the backgroundImage is changed.
                 if (e.ctrlKey) {
                     iIndex = parseInt(hit.parentNode.parentNode.parentNode.parentNode.parentNode.id, 10);
-                    sBigImgSrc = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc);
+                    sBigImgSrc = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc).URL;
                     doc.body.style.backgroundImage = "url(" + sBigImgSrc + ")";
+                } else {
+                    iIndex = parseInt(hit.parentNode.parentNode.parentNode.parentNode.parentNode.id, 10);
+                    temp = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc);
+                    sBigImgSrc = temp.URL;
+                    
+                    iWidth = temp.width + 24;
+                    iHeight = temp.height + 65;
+
+                    if (iHeight + iNextY > iBrowserHeight) {
+                        temp = iNextY;
+                        iNextY = 0;
+                        if (iHeight > iBrowserHeight) {
+                            iHeight = iBrowserHeight;
+                        }
+                    }
+                    if (iWidth + iNextX > iBrowserWidth) {
+                        temp2 = iNextX;
+                        iNextX = 0;
+                        if (iWidth > iBrowserWidth) {
+                            iWidth = iBrowserWidth;
+                        }
+                    }
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowPicture(sBigImgSrc, iWidth, iHeight, iNextX, iNextY);
+                    that.aWindows[that.aWindows.length - 1].init();
+                    if (iNextY === 0) {
+                        iNextY = temp;
+                    }
+                    if (iNextX === 0) {
+                        iNextX = temp2;
+                    }
+                    setNextCordinates();
+                    setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
+                    giveFocus(that.aWindows.length - 1);
+                    // Show window.
+                    showWindow(that.aWindows[that.aWindows.length - 1]);
+
                 }
-                // If user wants to close a window.
+            // If user wants to close a window.
             } else if (hit.parentNode.className === "close-icon") {
                 iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
                 removeWindow(iIndex);
@@ -213,8 +258,9 @@ SVANTE.Desktop = function () {
                 } else {
                     oDragging.style.top = (e.clientY - iDiffY) + "px";
                 }
-
-                // Resize the window.
+                iDiffX = e.clientX - oDragging.offsetLeft;
+                iDiffY = e.clientY - oDragging.offsetTop;
+            // Resize the window.
             } else if (oResizeing !== null) {
                 if (e.clientX - oResizeing.offsetLeft < iWindowMaxWidth) {
                     // Empty!
