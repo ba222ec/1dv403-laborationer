@@ -14,7 +14,9 @@ SVANTE.constructors.AppWindowPicture = function (sURL, iWidth, iHeight, iX, iY) 
     }();
 
     this.init = function () {
-        var that = this;
-        that.windowHTML.children[1].appendChild(that.pictureHTML);
+        this.windowHTML.children[1].appendChild(this.pictureHTML);
     }
 };
+
+SVANTE.constructors.AppWindowPicture.prototype = Object.create(SVANTE.constructors.AppWindow.prototype);
+SVANTE.constructors.AppWindowPicture.prototype.constructor = SVANTE.constructors.AppWindowPicture;

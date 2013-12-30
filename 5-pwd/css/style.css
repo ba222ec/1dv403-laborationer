@@ -139,7 +139,7 @@ div#desktop {
             bottom: 20px;
             left: 0;
             margin: 0 2px;
-            background-color: #efe4bd;
+            background-color: /*#efe4bd*/#fff;
             border: inset 1px #fff;
             padding: 10px;
             overflow-y: auto;
@@ -168,6 +168,68 @@ div#desktop {
                         height: 100%;
                         width: auto;
                         margin: 0 auto;
+                    }
+
+            div#desktop div.window div.content.memory {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: 20px;
+            }
+
+                div#desktop div.window div.content.memory table {
+                    width: auto;
+                    margin: auto;
+                    margin-bottom: 10px;
+                }
+
+                    div#desktop div.window div.content.memory table a {
+                        border: none;
+                        margin: 2px;
+                    }
+
+                        div#desktop div.window div.content.memory table a.clickable {
+                            cursor: pointer;
+                        }
+
+                        div#desktop div.window div.content.memory table a.unclickable {
+                            cursor: default;
+                        }
+
+                div#desktop div.window div.content.memory div.gameBoardInfo {
+                    width: 100%;
+                    height: 4.5em;
+                }
+
+                    div#desktop div.window div.content.memory div.gameBoardInfo p {
+                        width: 100%;
+                        color: #a32500;
+                        font-family: Andalus, 'Bookman Old Style', serif;
+                        text-align: center;
+                        cursor: default;
+                    }
+
+                div#desktop div.window div.content.memory button {
+                    width: 80%;
+                    line-height: 1.6;
+                    padding: 2px;
+                    margin-left: 10%;
+                    border: outset 2px #fff;
+                    cursor: pointer;
+                    color: #fff;
+                    background: #a32500;
+                    letter-spacing: 2px;
+                    font-weight: bold;
+                    font-family: Andalus, 'Bookman Old Style', serif;
+                }
+
+                    div#desktop div.window div.content.memory button:active {
+                        border: inset 2px #fff;
+                    }
+
+                    div#desktop div.window div.content.memory button.notInUse {
+                        opacity: 0.5;
+                        cursor: default;
                     }
 
         div#desktop div.window div.bottom-bar {

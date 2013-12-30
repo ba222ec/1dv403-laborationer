@@ -29,7 +29,8 @@ SVANTE.Desktop = function () {
             iWindowMaxWidth = 200,
             iWindowMaxHeight = 200,
             // To "this"
-            that = this;
+            that = this,
+            iNbrOfMemoryGames = 0;
 
         // Gives the given index in the aWindow-array focus (by adding a className) . 
         function giveFocus(iIndex) {
@@ -95,8 +96,8 @@ SVANTE.Desktop = function () {
             oWindow.windowHTML.id = sID;
         }
 
+        // Sets cordinates for the next window.
         function setNextCordinates() {
-            console.log("Här!");
             // Next windows X-cordinate.
             iNextX += 20;
             if (iNextX + iWindowDefaultWidth > iBrowserWidth) {
@@ -132,6 +133,16 @@ SVANTE.Desktop = function () {
                 // Show window.
                 showWindow(that.aWindows[that.aWindows.length - 1]);
             }
+            if (hit.parentNode.id === "open-memory") {
+                that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, 280, iNextX, iNextY, iNbrOfMemoryGames);
+                that.aWindows[that.aWindows.length - 1].init();
+                iNbrOfMemoryGames += 1;
+                setNextCordinates();
+                setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
+                giveFocus(that.aWindows.length - 1);
+                // Show window.
+                showWindow(that.aWindows[that.aWindows.length - 1]);
+            }
         }, false);
 
         // All click events on the desktopDiv.
@@ -156,6 +167,7 @@ SVANTE.Desktop = function () {
                 // If ctrlKey is pressed, the backgroundImage is changed.
                 if (e.ctrlKey) {
                     iIndex = parseInt(hit.parentNode.parentNode.parentNode.parentNode.parentNode.id, 10);
+                    giveFocus(iIndex);
                     sBigImgSrc = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc).URL;
                     doc.body.style.backgroundImage = "url(" + sBigImgSrc + ")";
                 } else {
