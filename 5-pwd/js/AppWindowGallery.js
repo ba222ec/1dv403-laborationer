@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
@@ -65,6 +65,7 @@ SVANTE.constructors.AppWindowGallery = function (sStatus, iWidth, iHeight, iX, i
             return galleryHTML;
         }
 
+        // Shows a load animation in the window frame.
         function createLoadAnimation() {
             var eStatus = that.windowHTML.childNodes[2].childNodes[0],
                 eImg = doc.createElement("img");
@@ -73,19 +74,60 @@ SVANTE.constructors.AppWindowGallery = function (sStatus, iWidth, iHeight, iX, i
             eStatus.appendChild(eImg);
         }
 
+        // The animation is interupted or replaced when the axaj-request is ready.
+        iTimerID = setTimeout(function () {
+            createLoadAnimation();
+        }, 100);
+
         // Calls and handle the ajax-request.
-        $.ajax({
-            url: "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/",
-            success: function (result) {
+        if (typeof XDomainRequest !== "undefined") {
+            var xdr = new XDomainRequest();
+            xdr.contentType = "text/plain";
+            xdr.onload = function () {
                 // Handle the request-result when it arrives.
-                that.aPictures = JSON.parse(result);
+                that.aPictures = JSON.parse(xdr.responseText);
                 that.galleryHTML = createGallery();
                 that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
                 clearTimeout(iTimerID);
                 that.windowHTML.childNodes[2].childNodes[0].innerHTML = "";
+            };
+            xdr.onerror = function () {
+                that.galleryHTML = (function () {
+                    var eP = doc.createElement("p");
+                    eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas från servern.";
+                    return eP;
+                })();
+                that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
+                clearTimeout(iTimerID);
+                that.windowHTML.childNodes[2].childNodes[0].innerHTML = "";
             }
-        });
-        iTimerID = setTimeout(function () { createLoadAnimation(); }, 100);
+            xdr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/");
+            xdr.send(null);
+        } else {
+            $.ajax({
+                url: "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/",
+                crossDomain: true,
+                success: function (result) {
+                    // Handle the request-result when it arrives.
+                    that.aPictures = JSON.parse(result);
+                    that.galleryHTML = createGallery();
+                },
+                error: function () {
+                    that.galleryHTML = function () {
+                        var eP = doc.createElement("p");
+                        eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas från servern.";
+                        return eP;
+                    }();
+                },
+                complete: function () {
+                    that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
+                    clearTimeout(iTimerID);
+                    that.windowHTML.children[2].children[0].innerHTML = "";
+                }
+            });
+        }
+
+        
     };
 
 };

@@ -203,7 +203,6 @@ div#desktop {
 
                     div#desktop div.window div.content.memory div.gameBoardInfo p {
                         width: 100%;
-                        color: #a32500;
                         font-family: Andalus, 'Bookman Old Style', serif;
                         text-align: center;
                         cursor: default;
@@ -216,8 +215,7 @@ div#desktop {
                     margin-left: 10%;
                     border: outset 2px #fff;
                     cursor: pointer;
-                    color: #fff;
-                    background: #a32500;
+                    background: #a39770;
                     letter-spacing: 2px;
                     font-weight: bold;
                     font-family: Andalus, 'Bookman Old Style', serif;
@@ -231,6 +229,42 @@ div#desktop {
                         opacity: 0.5;
                         cursor: default;
                     }
+
+            div#desktop div.window div.content.rss div.rssFeed h2.rss_title {
+                font-weight: bold;
+                font-family: Arial, sans-serif;
+                margin: 30px 0 5px;
+                font-size: 1rem;
+            }
+
+            div#desktop div.window div.content.rss div.rssFeed h2.rss_title:first-of-type {
+                font-weight: bold;
+                font-family: Arial, sans-serif;
+                margin: 5px 0 5px;
+                font-size: 1.5rem;
+            }
+
+            div#desktop div.window div.content.rss div.rssFeed p {
+                font-size: 0.85rem;
+                line-height: 1.2;
+                font-family: 'Times New Roman', serif;
+                margin-top: 5px;
+                
+            }
+
+            div#desktop div.window div.content.rss div.rssFeed a {
+                font-family: 'Times New Roman', serif;
+                line-height: 1.2;
+                text-decoration: none;
+            }
+
+            div#desktop div.window div.content.rss div.rssFeed a:hover {
+                font-family: 'Times New Roman', serif;
+                line-height: 1.2;
+                text-decoration: underline;
+                background-color: rgb(163, 151, 112);
+                background-color: rgba(163, 151, 112, 0.5);
+            }
 
         div#desktop div.window div.bottom-bar {
             position: relative;

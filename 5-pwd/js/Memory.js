@@ -26,7 +26,7 @@ SVANTE.constructors.Memory = function (memoryID, rows, cols, mother) {
             startAgainBtn,
             clickEvent,
             table = document.createElement("table"),
-            div = mother.windowHTML.children[1].children[0];
+            div = mother.windowHTML.children[1];
 
         // Generates a random array
         this.memoryCards = SVANTE.RandomGenerator.getPictureArray(rows, cols);
@@ -159,7 +159,7 @@ SVANTE.constructors.Memory = function (memoryID, rows, cols, mother) {
     };
 
     this.writeInfo = function (text) {
-        var node = mother.windowHTML.children[1].children[0].children[1];
+        var node = mother.windowHTML.children[1].children[1];
         node.firstChild.innerHTML = text;
     };
 }

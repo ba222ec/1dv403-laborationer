@@ -123,26 +123,26 @@ SVANTE.Desktop = function () {
 
             var hit = e.target;
 
-            // If user clicked on the camera icon.
-            if (hit.parentNode.id === "open-gallery") {
-                that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
-                that.aWindows[that.aWindows.length - 1].init();
+            if (hit.parentNode.className === "icons") {
+                // If user clicked on the camera icon.
+                if (hit.parentNode.id === "open-gallery") {
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
+                    that.aWindows[that.aWindows.length - 1].init();
+                } else if (hit.parentNode.id === "open-memory") {
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, /*Special-size for memory.*/280, iNextX, iNextY, iNbrOfMemoryGames);
+                    that.aWindows[that.aWindows.length - 1].init();
+                    iNbrOfMemoryGames += 1;
+                } else if (hit.parentNode.id === "open-rssfeed") {
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
+                    that.aWindows[that.aWindows.length - 1].init();
+                }
                 setNextCordinates();
                 setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
                 giveFocus(that.aWindows.length - 1);
                 // Show window.
                 showWindow(that.aWindows[that.aWindows.length - 1]);
             }
-            if (hit.parentNode.id === "open-memory") {
-                that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, 280, iNextX, iNextY, iNbrOfMemoryGames);
-                that.aWindows[that.aWindows.length - 1].init();
-                iNbrOfMemoryGames += 1;
-                setNextCordinates();
-                setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
-                giveFocus(that.aWindows.length - 1);
-                // Show window.
-                showWindow(that.aWindows[that.aWindows.length - 1]);
-            }
+
         }, false);
 
         // All click events on the desktopDiv.
@@ -210,6 +210,9 @@ SVANTE.Desktop = function () {
             // If user wants to close a window.
             } else if (hit.parentNode.className === "close-icon") {
                 iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
+                if (typeof that.aWindows[iIndex].stopTimer !== "undefined") {
+                    that.aWindows[iIndex].stopTimer();
+                }
                 removeWindow(iIndex);
                 that.aWindows.splice(iIndex, 1);
                 for (i = 0, p = that.aWindows.length; i < p; i += 1) {
