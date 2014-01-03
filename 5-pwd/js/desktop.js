@@ -237,18 +237,22 @@ SVANTE.Desktop = function () {
             e = e || window.event;
             e.preventDefault();
             var hit = e.target,
-                iIndex;
+                iIndex,
+                topBar;
 
             // If user holds the cursor over the top-bar.
             if (hit.className === "top-bar" || hit.parentNode.className === "top-bar") {
                 if (hit.className === "top-bar") {
                     iIndex = parseInt(hit.parentNode.id, 10);
                     oDragging = hit.parentNode;
+                    topBar = hit;
                 } else {
                     iIndex = parseInt(hit.parentNode.parentNode.id, 10);
                     oDragging = hit.parentNode.parentNode;
+                    topBar = hit.parentNode;
                 }
                 giveFocus(iIndex);
+                topBar.style.cursor = "move";
                 iDiffX = e.clientX - oDragging.offsetLeft;
                 iDiffY = e.clientY - oDragging.offsetTop;
                 // If user hold the cursor over the south/east corner.
@@ -276,8 +280,6 @@ SVANTE.Desktop = function () {
                 } else {
                     oDragging.style.top = (e.clientY - iDiffY) + "px";
                 }
-                iDiffX = e.clientX - oDragging.offsetLeft;
-                iDiffY = e.clientY - oDragging.offsetTop;
             // Resize the window.
             } else if (oResizeing !== null) {
                 if (e.clientX - oResizeing.offsetLeft < iWindowMaxWidth) {
@@ -298,7 +300,19 @@ SVANTE.Desktop = function () {
             e = e || window.event;
             e.preventDefault();
 
+            var hit = e.target,
+                topBar;
+
             resetODraggingAndOResizeing();
+            if (hit.className === "top-bar" || hit.parentNode.className === "top-bar") {
+                if (hit.className === "top-bar") {
+                    topBar = hit;
+                } else {
+                    topBar = hit.parentNode;
+                }
+                topBar.style.cursor = "pointer";
+            }
+            
         }, false);
 
         // A part of the Drag and Drop and Resize.
@@ -306,7 +320,19 @@ SVANTE.Desktop = function () {
             e = e || window.event;
             e.preventDefault();
 
+            var hit = e.target,
+                topBar;
+
             resetODraggingAndOResizeing();
+            if (hit.className === "top-bar" || hit.parentNode.className === "top-bar") {
+                if (hit.className === "top-bar") {
+                    topBar = hit;
+                } else {
+                    topBar = hit.parentNode;
+                }
+                topBar.style.cursor = "pointer";
+            }
+            
         }, false);
     };
 };

@@ -93,6 +93,7 @@ div#desktop {
             height: 25px;
             padding: 2px;
             background-color: #a39770;
+            /* Cursor style in controlled by JS. */
         }
 
             div#desktop div.window div.top-bar img {
@@ -109,7 +110,7 @@ div#desktop {
                 font-size: 1rem;
                 font-family: sans-serif;
                 height: 21px;
-                cursor: default;
+                /*cursor: pointer;*/
             }
 
             div#desktop div.window div.top-bar a.close-icon {

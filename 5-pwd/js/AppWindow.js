@@ -26,6 +26,7 @@ SVANTE.constructors.AppWindow = function (sWindowType, sStatus, iWidth, iHeight,
         eDivWindow.style.width = iWidth + "px";
         eDivWindow.style.height = iHeight + "px";
         eDivTopBar.className = "top-bar";
+        eDivTopBar.style.cursor = "pointer";
         eImgIcon.src = sIconURL;
         eImgIcon.alt = sName;
         eAClose.href = "#";
