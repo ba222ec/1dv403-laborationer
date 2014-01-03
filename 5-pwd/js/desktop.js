@@ -129,8 +129,8 @@ SVANTE.Desktop = function () {
                     that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
                     that.aWindows[that.aWindows.length - 1].init();
                 } else if (hit.parentNode.id === "open-memory") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, /*Special-size for memory.*/280, iNextX, iNextY, iNbrOfMemoryGames);
-                    that.aWindows[that.aWindows.length - 1].init();
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, iNbrOfMemoryGames);
+                    that.aWindows[that.aWindows.length - 1].init("big");
                     iNbrOfMemoryGames += 1;
                 } else if (hit.parentNode.id === "open-rssfeed") {
                     that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
@@ -212,6 +212,9 @@ SVANTE.Desktop = function () {
                 iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
                 if (typeof that.aWindows[iIndex].stopTimer !== "undefined") {
                     that.aWindows[iIndex].stopTimer();
+                }
+                if (typeof that.aWindows[iIndex].deleteEventHandelers !== "undefined") {
+                    that.aWindows[iIndex].deleteEventHandelers();
                 }
                 removeWindow(iIndex);
                 that.aWindows.splice(iIndex, 1);

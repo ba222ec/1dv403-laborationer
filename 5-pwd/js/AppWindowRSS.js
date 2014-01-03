@@ -15,6 +15,7 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 
 	this.interval = 300000;
 
+    // Stops the updating of the feed. Called before canceling the window.
 	this.stopTimer = function () {
 		clearTimeout(iTimerUpdateID);
 	};
@@ -44,13 +45,14 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 		if (typeof XDomainrequest !== "undefined") {
 			xdr = new XDomainrequest();
 			xdr.contenttype = "text/plain";
+		    // Handle the request-result when it arrives.
 			xdr.onload = function () {
-				// Handle the request-result when it arrives.
 				that.rssHTML = xdr.responsetext;
 				that.windowhtml.childnodes[1].innerhtml = that.rssHTML;
 				cleartimeout(iTimerID);
 				that.windowHTML.children[2].children[0].innerHTML = "Senast uppdaterad klockan " + date.toLocaleTimeString();
 			};
+            // Handle the result if an error occurs.
 			xdr.onerror = function () {
 				that.galleryhtml = (function () {
 					var ep = doc.createelement("p");
@@ -68,10 +70,12 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 			$.ajax({
 				url: sURL,
 				crossDomain: true,
+			    // Handle the request-result when it arrives.
 				success: function (result) {
 					that.rssHTML = result;
 					that.windowHTML.children[1].innerHTML = that.rssHTML;
 				},
+			    // Handle the result if an error occurs.
 				error: function () {
 					that.rssHTML = (function () {
 						var eP = document.createElement("p");
