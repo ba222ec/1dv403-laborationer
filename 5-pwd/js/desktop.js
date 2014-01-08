@@ -133,7 +133,7 @@ SVANTE.Desktop = function () {
                     that.aWindows[that.aWindows.length - 1].init("big");
                     iNbrOfMemoryGames += 1;
                 } else if (hit.parentNode.id === "open-rssfeed") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt"));
                     that.aWindows[that.aWindows.length - 1].init();
                 } else if (hit.parentNode.id === "open-chat") {
                     that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowChat("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);

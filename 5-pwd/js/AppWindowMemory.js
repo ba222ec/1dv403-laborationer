@@ -49,6 +49,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
 	                eContentDiv.children[3].className += " hidden";
 	            }, false);
 
+	            
+
 	            eAClose.appendChild(eTextClose);
 	            eANewGame.appendChild(eTextNewGame);
 	            eLi2.appendChild(eAClose);
@@ -168,6 +170,13 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                         eAProperties.className = eAArchive.className.replace(/ active/g, "");
                         eContentDiv.children[4].className += " hidden";
                     }
+                }, false);
+
+                that.windowHTML.addEventListener("mouseleave", function () {
+                    eMenubar.children[0].children[0].children[0].className = "";
+                    eContentDiv.children[3].className += " hidden";
+                    eMenubar.children[0].children[1].children[0].className = "";
+                    eContentDiv.children[4].className += " hidden";
                 }, false);
 
                 // Collect the structure.

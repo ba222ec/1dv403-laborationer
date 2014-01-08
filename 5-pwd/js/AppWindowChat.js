@@ -7,14 +7,19 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
     SVANTE.constructors.AppWindow.call(this, "AppWindowChat", sStatus,
         iWidth, iHeight, iX, iY);
 
+    var iIntervalID;
+
     this.messages = null;
 
     // Changable...
     this.interval = 10000;
 
+    this.stopTimer = function () {
+        clearInterval(iIntervalID);
+    };
+
     this.init = function () {
         var doc = document,
-            iIntervalID = 0,
             that = this,
             // Change when menu-bar!!!
             eContentArea = this.windowHTML.children[1],
@@ -31,7 +36,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                     eForm = doc.createElement("form"),
                     eTextarea = doc.createElement("textarea"),
                     eInputSubmit = doc.createElement("input"),
-                    sendMessage = null;
+                    sendMessage = null,
+                    sURL;
 
                 eDivInputarea.className = "chat-inputarea";
                 eTextarea.name = "inputmessage";
@@ -43,14 +49,40 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                     var username = "Svante",
                         text = eTextarea.value.trim();
 
-                    $.ajax({
-                        url: "http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php",
-                        data: "text=" + text + "&username=" + username,
-                        type: "POST",
-                        crossDomain: true
-                    });
+                    if (typeof XDomainRequest !== "undefined") {
+                        // Buggie woggie...
+                        sURL = "http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php?text=" + text + "&username=" + username;
+                        xdr = new XDomainRequest();
+                        // Handle the request-result when it arrives.
+                        xdr.onload = function () {
+                            that.messages = $.parseXML(xdr.responseText);
+                            that.renderMessages();
+                        };
+                        // Handle the result if an error occurs.
+                        xdr.onerror = function () {
+                            that.messages = (function () {
+                                var eP = doc.createElement("p");
+                                eP.innerHTML = "Det inträffade ett fel. Data kunde inte skickas till servern.";
+                                return eP;
+                            }());
+                            that.windowHTML.children[1].children[0].innerHTML = "";
+                            that.windowHTML.children[1].children[0].appendChild(that.messages);
+                        };
+                        xdr.open("post", encodeURI(sURL));
+                        xdr.send(null);
+                        // All other browsers.
+                    } else {
+                        $.ajax({
+                            url: "http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php",
+                            data: "text=" + text + "&username=" + username,
+                            type: "POST",
+                            crossDomain: true,
+                            complete: function () {
+                                that.update();
+                            }
+                        });
+                    }
                     eTextarea.value = "";
-                    that.update();
                 };
 
                 // Add Event Listeners
@@ -78,7 +110,7 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                             sendMessage(e);
                         }
                     }
-                }, false)
+                }, false);
 
                 eForm.appendChild(eTextarea);
                 eForm.appendChild(eInputSubmit);
@@ -158,38 +190,68 @@ SVANTE.constructors.AppWindowChat.prototype.renderMessages = function () {
 
 SVANTE.constructors.AppWindowChat.prototype.update = function () {
     var that = this,
-        iTimeoutID;
+        iTimeoutID,
+        sURL;
 
     iTimeoutID = setTimeout(function () {
         that.createLoadAnimation();
     }, 100);
 
-    $.ajax({
-        url: "http://homepage.lnu.se/staff/tstjo/labbyserver/getmessage.php",
-        // Temporary hard-coded...
-        data: "history=25",
-        type: "get",
-        crossdomain: true,
-        // handle the request-result when it arrives.
-        success: function (result) {
-            that.messages = $.parseXML(result);
+    if (typeof XDomainRequest !== "undefined") {
+        sURL = "http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php?history=" + 25;
+        console.log(sURL);
+        xdr = new XDomainRequest();
+        xdr.contentType = "text/plain";
+        // Handle the request-result when it arrives.
+        xdr.onload = function () {
+            that.messages = $.parseXML(xdr.responseText);
             that.renderMessages();
-        },
-        // handle the result if an error occurs.
-        error: function () {
+            clearTimeout(iTimeoutID);
+            that.windowHTML.children[2].children[0].innerHTML = "Senast uppdaterad klockan " + new Date().toLocaleTimeString();
+        };
+        // Handle the result if an error occurs.
+        xdr.onerror = function () {
             that.messages = (function () {
                 var eP = document.createElement("p");
-                eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas.";
+                eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas från servern.";
                 return eP;
             }());
             that.windowHTML.children[1].children[0].innerHTML = "";
-            that.windowHTML.children[1].children[0].appendChild(that.messagesHTML);
-        },
-        complete: function () {
+            that.windowHTML.children[1].children[0].appendChild(that.messages);
             clearTimeout(iTimeoutID);
             that.windowHTML.children[2].children[0].innerHTML = "Senast uppdaterad klockan " + new Date().toLocaleTimeString();
-        }
-    });
+        };
+        xdr.open("get", encodeURI(sURL));
+        xdr.send(null);
+        // All other browsers.
+    } else {
+        $.ajax({
+            url: "http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php",
+            // Temporary hard-coded...
+            data: "history=25",
+            type: "get",
+            crossdomain: true,
+            // handle the request-result when it arrives.
+            success: function (result) {
+                that.messages = $.parseXML(result);
+                that.renderMessages();
+            },
+            // handle the result if an error occurs.
+            error: function () {
+                that.messages = (function () {
+                    var eP = document.createElement("p");
+                    eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas.";
+                    return eP;
+                }());
+                that.windowHTML.children[1].children[0].innerHTML = "";
+                that.windowHTML.children[1].children[0].appendChild(that.messages);
+            },
+            complete: function () {
+                clearTimeout(iTimeoutID);
+                that.windowHTML.children[2].children[0].innerHTML = "Senast uppdaterad klockan " + new Date().toLocaleTimeString();
+            }
+        });
+    }
 };
 
 SVANTE.constructors.AppWindowChat.prototype.createLoadAnimation = function () {

@@ -42,24 +42,24 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 
 		// Calls and handle the ajax-request.
 		// If IE9.
-		if (typeof XDomainrequest !== "undefined") {
-			xdr = new XDomainrequest();
-			xdr.contenttype = "text/plain";
+		if (typeof XDomainRequest !== "undefined") {
+			xdr = new XDomainRequest();
+			xdr.contentType = "text/plain";
 		    // Handle the request-result when it arrives.
 			xdr.onload = function () {
-				that.rssHTML = xdr.responsetext;
-				that.windowhtml.childnodes[1].innerhtml = that.rssHTML;
-				cleartimeout(iTimerID);
+				that.rssHTML = xdr.responseText;
+				that.windowHTML.childNodes[1].innerHTML = that.rssHTML;
+				clearTimeout(iTimerID);
 				that.windowHTML.children[2].children[0].innerHTML = "Senast uppdaterad klockan " + date.toLocaleTimeString();
 			};
             // Handle the result if an error occurs.
 			xdr.onerror = function () {
-				that.galleryhtml = (function () {
-					var ep = doc.createelement("p");
-					ep.innerhtml = "Det inträffade ett fel. data kunde inte hämtas från servern.";
+				that.galleryHTML = (function () {
+					var ep = doc.createElement("p");
+					ep.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas från servern.";
 					return ep;
 				}());
-				that.windowHTML.childnodes[1].appendChild(that.galleryhtml);
+				that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
 				clearTimeout(iTimerID);
 				that.windowHTML.children[2].children[0].innerHTML = "Senast uppdaterad klockan " + date.toLocaleTimeString();
 			};
