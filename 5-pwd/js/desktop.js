@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 var SVANTE = SVANTE || {};
 
 // Creates most of the events in the application.
@@ -135,6 +135,9 @@ SVANTE.Desktop = function () {
                 } else if (hit.parentNode.id === "open-rssfeed") {
                     that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
                     that.aWindows[that.aWindows.length - 1].init();
+                } else if (hit.parentNode.id === "open-chat") {
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowChat("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
+                    that.aWindows[that.aWindows.length - 1].init();
                 }
                 setNextCordinates();
                 setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
@@ -148,7 +151,6 @@ SVANTE.Desktop = function () {
         // All click events on the desktopDiv.
         desktopDiv.addEventListener("click", function (e) {
             e = e || window.event;
-            e.preventDefault();
 
             var hit = e.target,
                 iIndex,
@@ -163,6 +165,7 @@ SVANTE.Desktop = function () {
 
             // It user clicks on a thumbnail picture in a gallery window.
             if (hit.parentNode.parentNode.className === "galleryPic") {
+                e.preventDefault();
                 sImgSrc = hit.src;
                 // If ctrlKey is pressed, the backgroundImage is changed.
                 if (e.ctrlKey) {
@@ -209,6 +212,7 @@ SVANTE.Desktop = function () {
                 }
             // If user wants to close a window.
             } else if (hit.parentNode.className === "close-icon") {
+                e.preventDefault();
                 iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
                 if (typeof that.aWindows[iIndex].stopTimer !== "undefined") {
                     that.aWindows[iIndex].stopTimer();
@@ -235,13 +239,14 @@ SVANTE.Desktop = function () {
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mousedown", function (e) {
             e = e || window.event;
-            e.preventDefault();
+            
             var hit = e.target,
                 iIndex,
                 topBar;
 
             // If user holds the cursor over the top-bar.
             if (hit.className === "top-bar" || hit.parentNode.className === "top-bar") {
+                e.preventDefault();
                 if (hit.className === "top-bar") {
                     iIndex = parseInt(hit.parentNode.id, 10);
                     oDragging = hit.parentNode;
@@ -257,6 +262,7 @@ SVANTE.Desktop = function () {
                 iDiffY = e.clientY - oDragging.offsetTop;
                 // If user hold the cursor over the south/east corner.
             } else if (hit.className === "resize") {
+                e.preventDefault();
                 iIndex = parseInt(hit.parentNode.parentNode.id, 10);
                 giveFocus(iIndex);
                 oResizeing = hit.parentNode.parentNode;
@@ -265,11 +271,11 @@ SVANTE.Desktop = function () {
 
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mousemove", function (e) {
-            e = e || window.event;
-            e.preventDefault();
+            e = e || window.event;            
 
             // Drag the window.
             if (oDragging !== null) {
+                e.preventDefault();
                 if (e.clientX - iDiffX <= 0 || e.clientX - iDiffX + oDragging.offsetWidth > iBrowserWidth) {
                     // Empty!
                 } else {
@@ -282,6 +288,7 @@ SVANTE.Desktop = function () {
                 }
             // Resize the window.
             } else if (oResizeing !== null) {
+                e.preventDefault();
                 if (e.clientX - oResizeing.offsetLeft < iWindowMaxWidth) {
                     // Empty!
                 } else {
@@ -297,14 +304,14 @@ SVANTE.Desktop = function () {
 
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mouseup", function (e) {
-            e = e || window.event;
-            e.preventDefault();
+            e = e || window.event;         
 
             var hit = e.target,
                 topBar;
 
             resetODraggingAndOResizeing();
             if (hit.className === "top-bar" || hit.parentNode.className === "top-bar") {
+                e.preventDefault();
                 if (hit.className === "top-bar") {
                     topBar = hit;
                 } else {
@@ -318,13 +325,13 @@ SVANTE.Desktop = function () {
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mouseleave", function (e) {
             e = e || window.event;
-            e.preventDefault();
 
             var hit = e.target,
                 topBar;
 
             resetODraggingAndOResizeing();
             if (hit.className === "top-bar" || hit.parentNode.className === "top-bar") {
+                e.preventDefault();
                 if (hit.className === "top-bar") {
                     topBar = hit;
                 } else {

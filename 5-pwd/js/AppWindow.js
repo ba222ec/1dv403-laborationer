@@ -65,10 +65,13 @@ SVANTE.constructors.AppWindow = function (sWindowType, sStatus, iWidth, iHeight,
                 eWindow = createBasicWindow("Bild", "content image", "img/photography_32x32.png", sStatus, iWidth, iHeight, iX, iY);
                 break;
             case "AppWindowMemory":
-                eWindow = createBasicWindow("Memory", "content memory", "img/theater_48x48.png", sStatus, iWidth, iHeight, iX, iY);
+                eWindow = createBasicWindow("Memory", "content memory", "img/theater_32x32.png", sStatus, iWidth, iHeight, iX, iY);
                 break;
             case "AppWindowRSS":
-                eWindow = createBasicWindow("RSS-läsare", "content rss", "img/publishing_48x48.png", sStatus, iWidth, iHeight, iX, iY);
+                eWindow = createBasicWindow("RSS-läsare", "content rss", "img/literature_32x32.png", sStatus, iWidth, iHeight, iX, iY);
+                break;
+            case "AppWindowChat":
+                eWindow = createBasicWindow("Chat", "content chat", "img/creative_writing_32x32.png", sStatus, iWidth, iHeight, iX, iY);
                 break;
         }
         return eWindow;

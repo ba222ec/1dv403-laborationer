@@ -24,7 +24,12 @@
             </li>
             <li>
                 <a href="#" id="open-rssfeed" class="icons" title="Öppna RSS">
-                    <img src="img/publishing_48x48.png" alt="Öppna RSS" />
+                    <img src="img/literature_48x48.png" alt="Öppna RSS" />
+                </a>
+            </li>
+            <li>
+                <a href="#" id="open-chat" class="icons" title="Öppna Chatt">
+                    <img src="img/creative_writing_48x48.png" alt="Öppna chatten" />
                 </a>
             </li>
         </ul>
@@ -34,40 +39,37 @@
         <!-- The window should be created by JS-script later. -->
         <!--<div id="window0" class="window ontop" style="left: 275px; top: 50px; width: 350px; height: 350px;">
             <div class="top-bar">
-                <img src="img/photography_32x32.png" alt="Galleri" />
-                <p>Galleri</p>
+                <img src="img/creative_writing_32x32.png" alt="Chatt" />
+                <p>Chatt</p>
                 <a href="#" class="close-icon" title="Stäng fönstret">
                     <img src="img/close_32x32.png" alt="Stäng fönstret" />
                 </a>
             </div>
-            <div class="menu-bar">
-                <ul>
-                    <li>
-                        <a href="#" class="active">Arkiv</a>
-                    </li>
-                    <li>
-                        <a href="#">Inställningar</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="archive">
-                <ul>
-                    <li>
-                        <a href="#">Nytt spel</a>
-                    </li>
-                    <li>
-                        <a href="#">Stäng</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="content memory">
+            <div class="content chat">
+                <div class="chatt-outputarea">
+                    <div class="message">
+                        <p class="author">Andreas</p>
+                        <p class="time">den 2 januari 2014 01:18:06</p>
+                        <p class="text">Testar</p>
+                    </div>
+                    <div class="message">
+                        <p class="author">Andreas</p>
+                        <p class="time">den 2 januari 2014 01:18:06</p>
+                        <p class="text">Testar</p>
+                    </div>
+                </div>
+                <div class="chatt-inputarea">
+                    <form>
+                        <textarea autofocus spellcheck="false" name="inputmessage"></textarea>
+                        <input type="submit" value="Skicka" />
+                    </form>
+                </div>
             </div>
             <div class="bottom-bar">
                 <small></small>
                 <div class="resize"></div>
             </div>
         </div>-->
-
     </div>
 
     <script src="js/jquery-2.0.3.js"></script>
@@ -78,6 +80,7 @@
     <script src="js/AppWindowPicture.js"></script>
     <script src="js/AppWindowMemory.js"></script>
     <script src="js/AppWindowRSS.js"></script>
+    <script src="js/AppWindowChat.js"></script>
     <script src="js/desktop.js"></script>
 </body>
 </html>

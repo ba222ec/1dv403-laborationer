@@ -191,6 +191,14 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
         } else if (sSize === "small") {
             new SVANTE.constructors.Memory(eContentDiv.id, 2, 4, this).init();
         }
+        // Adds a event listener on the "start again"-button.
+        eContentDiv.children[2].addEventListener("click", function () {
+            that.deleteEventHandelers();
+            eContentDiv.innerHTML = "";
+            eMenubar.parentNode.removeChild(eMenubar);
+            that.init(sLatestSize);
+        }, false);
+
         eContentDiv.appendChild(eDropdownMenuArchive);
         eContentDiv.appendChild(eDropdownMenuProperties);
     };

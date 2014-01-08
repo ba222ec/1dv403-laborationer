@@ -44,12 +44,6 @@ SVANTE.constructors.Memory = function (memoryID, rows, cols, mother) {
         startAgainBtn.innerHTML = "Nytt spel";
         startAgainBtn.setAttribute("disabled", "disabled");
         startAgainBtn.setAttribute("class", "notInUse");
-        startAgainBtn.onclick = function () {
-            div.removeChild(table);
-            div.removeChild(presDiv);
-            div.removeChild(startAgainBtn);
-            that.init();
-        };
 
         // This is the event handler for the a-tags
         clickEvent = function (e) {

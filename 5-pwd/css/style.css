@@ -365,6 +365,82 @@ div#desktop {
                     background-color: rgba(163, 151, 112, 0.5);
                 }
 
+            /* For the Chatt-window. */
+
+            div#desktop div.window div.content.chat div.chat-outputarea {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                position: absolute;
+                top: 0;
+                bottom: 92px;
+                left: 0;
+                width: 100%;
+                padding: 5px;
+                overflow-y: auto;
+            }
+
+            div#desktop div.window div.content.chat div.chat-outputarea div.message {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                background-color: #efe4bd;
+                margin-bottom: 5px;
+                padding: 5px;
+                word-wrap: break-word;
+            }
+
+            div#desktop div.window div.content.chat div.chat-outputarea div.message p.author {
+                display: inline;
+                float: left;
+                font-family: sans-serif;
+                font-size: 0.8rem;
+                font-weight: bold;
+                line-height: 1.2;
+                word-wrap: break-word;
+            }
+
+            div#desktop div.window div.content.chat div.chat-outputarea div.message p.time {
+                display: inline;
+                float: right;
+                font-family: sans-serif;
+                font-size: 0.7rem;
+                font-style: italic;
+                line-height: 1.2;
+                word-wrap: break-word;
+            }
+
+            div#desktop div.window div.content.chat div.chat-outputarea div.message p.text {
+                display: block;
+                clear: both;
+                font-family: sans-serif;
+                font-size: 0.8rem;
+                line-height: 1.1;
+            }
+
+            div#desktop div.window div.content.chat div.chat-outputarea div.message p.text img {
+                width: 80%;
+                height: auto;
+                margin: 0 10%;
+            }
+
+            div#desktop div.window div.content.chat div.chat-inputarea {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+                padding: 5px 10px 5px 5px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+            div#desktop div.window div.content.chat form textarea {
+                display: block;
+                height: 50px;
+                width: 100%;
+            }
+
         /* For the bottom-bar of all windows. */
 
         div#desktop div.window div.bottom-bar {
