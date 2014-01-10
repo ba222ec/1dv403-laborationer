@@ -175,7 +175,7 @@ div#desktop {
 
         div#desktop div.window div.archive {
             position: absolute;
-            top: 0;
+            top: 22px;
             left: 0;
             width: auto;
             height: auto;
@@ -184,7 +184,7 @@ div#desktop {
 
         div#desktop div.window div.properties {
             position: absolute;
-            top: 0;
+            top: 22px;
             left: 41px;
             width: auto;
             height: auto;
@@ -199,7 +199,7 @@ div#desktop {
 
                 div#desktop div.window div.archive li a, div#desktop div.window div.properties li a {
                     display: block;
-                    padding: 6px 4px;
+                    padding: 6px;
                     width: 100%;
                     height: auto;
                     background-color: #efe4bd;
@@ -330,6 +330,20 @@ div#desktop {
 
             /* For the rss window. */
 
+            div#desktop div.window div.content.rss {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                top: 50px;
+                border-top: none;
+            }
+
+            div#desktop div.window div.content.rss img {
+                max-width: 80%;
+                height: auto;
+                display: block;
+            }
+
             div#desktop div.window div.content.rss div.rssFeed h2.rss_title {
                 font-weight: bold;
                 font-family: Arial, sans-serif;
@@ -365,7 +379,7 @@ div#desktop {
                     background-color: rgba(163, 151, 112, 0.5);
                 }
 
-            /* For the Chatt-window. */
+            /* For the Chat-window. */
 
             div#desktop div.window div.content.chat div.chat-outputarea {
                 -moz-box-sizing: border-box;

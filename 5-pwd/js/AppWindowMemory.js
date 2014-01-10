@@ -46,7 +46,7 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
 	            // Hides the menu.
 	            eArchiveMenu.addEventListener("mouseleave", function () {
 	                eMenubar.children[0].children[0].children[0].className = "";
-	                eContentDiv.children[3].className += " hidden";
+	                eMenubar.children[1].className += " hidden";
 	            }, false);
 
 	            
@@ -78,6 +78,7 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
 
                 // Add attributes.
                 eABigBoard.href = "#";
+                eAMediumBoard.href = "#";
                 eASmallBoard.href = "#";
                 ePropertiesMenu.className = "properties hidden";
 
@@ -108,7 +109,7 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 // Hides the menu.
                 ePropertiesMenu.addEventListener("mouseleave", function () {
                     eMenubar.children[0].children[1].children[0].className = "";
-                    eContentDiv.children[4].className += " hidden";
+                    eMenubar.children[2].className += " hidden";
                 }, false);
 
                 eABigBoard.appendChild(eTextBigBoard);
@@ -165,18 +166,18 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
 
                     if (hit === eAArchive) {
                         eAArchive.className = eAArchive.className.replace(/ active/g, "");
-                        eContentDiv.children[3].className += " hidden";
+                        eMenubar.children[1].className += " hidden";
                     } else {
                         eAProperties.className = eAArchive.className.replace(/ active/g, "");
-                        eContentDiv.children[4].className += " hidden";
+                        eMenubar.children[2].className += " hidden";
                     }
                 }, false);
 
                 that.windowHTML.addEventListener("mouseleave", function () {
                     eMenubar.children[0].children[0].children[0].className = "";
-                    eContentDiv.children[3].className += " hidden";
+                    eMenubar.children[1].className += " hidden";
                     eMenubar.children[0].children[1].children[0].className = "";
-                    eContentDiv.children[4].className += " hidden";
+                    eMenubar.children[2].className += " hidden";
                 }, false);
 
                 // Collect the structure.
@@ -208,8 +209,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
             that.init(sLatestSize);
         }, false);
 
-        eContentDiv.appendChild(eDropdownMenuArchive);
-        eContentDiv.appendChild(eDropdownMenuProperties);
+        eMenubar.appendChild(eDropdownMenuArchive);
+        eMenubar.appendChild(eDropdownMenuProperties);
     };
 
     // Deletes all eventhandelers. Called before erasing the Memory-game. Prevent memory-leakage.

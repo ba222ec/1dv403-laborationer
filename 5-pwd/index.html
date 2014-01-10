@@ -6,10 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modalPopupStyle.css" />
 
     <title>PWD - Personal Web Desktop</title>
 </head>
 <body>
+    <!--<div>
+        <div id="overlay">
+        </div>
+        <div id="modalPopup">
+            <a href="#">
+                <img src="img/close-icon.png" />
+            </a>
+            <form>
+                <fieldset>
+                    <legend>Välj ett RSS-flöde</legend>
+                    <input class="RSS-source" type="radio" name="RSS-source" value="En adress" /><p>Aftonbladet</p>
+                    <input class="RSS-source" type="radio" name="RSS-source" value="En annan adress" /><p>Dagens Nyheter</p>
+                    <input class="RSS-source" type="radio" name="RSS-source" value="Ena nnann dress" /><p>Expressen</p>
+                    <input class="submit-button" type="submit" value="Välj" />
+                </fieldset>
+                <fieldset>
+                    <legend>Välj ett eget RSS-flöde</legend>
+                    <input class="own-defined-RSS-source" type="text" name="own-defined-RSS-source" />
+                    <input class="submit-button" type="submit" value="Välj" />
+                </fieldset>
+            </form>
+        </div>
+    </div>-->
+
     <div id="iconbar">
         <ul>
             <li>
@@ -39,7 +64,7 @@
         <!-- The window should be created by JS-script later. -->
         <!--<div id="window0" class="window ontop" style="left: 275px; top: 50px; width: 350px; height: 350px;">
             <div class="top-bar">
-                <img src="img/creative_writing_32x32.png" alt="Chatt" />
+                <img src="img/creative_writing_32x32.png" alt="Chat" />
                 <p>Chatt</p>
                 <a href="#" class="close-icon" title="Stäng fönstret">
                     <img src="img/close_32x32.png" alt="Stäng fönstret" />
@@ -81,6 +106,7 @@
     <script src="js/AppWindowMemory.js"></script>
     <script src="js/AppWindowRSS.js"></script>
     <script src="js/AppWindowChat.js"></script>
+    <script src="js/ModalPopup.js"></script>
     <script src="js/desktop.js"></script>
 </body>
 </html>
