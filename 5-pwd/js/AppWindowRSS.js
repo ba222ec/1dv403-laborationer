@@ -118,8 +118,8 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	                    eForm.addEventListener("submit", function (e) {
 	                        e.preventDefault();
 	                        that.interval = eSelect.value;
-	                        oModalPopup.closeDialog();
 	                        that.startUpdateInterval();
+	                        oModalPopup.closeDialog();
 	                    }, false);
 
 	                    eSelect.appendChild(eOption1);
@@ -210,7 +210,6 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	                            oModalPopup.closeDialog();
 	                        } else {
 	                            that.URL = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=" + eInputText.value.trim());
-	                            console.log(that.URL);
 	                            that.updateRSS();
 	                            oModalPopup.closeDialog();
 	                        }

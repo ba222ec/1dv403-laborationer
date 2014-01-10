@@ -179,6 +179,9 @@ div#desktop {
             left: 0;
             width: auto;
             height: auto;
+            border-right: solid 1px #fff;
+            border-bottom: solid 1px #fff;
+            border-left: solid 1px #fff;
             z-index: 2000;
         }
 
@@ -188,6 +191,9 @@ div#desktop {
             left: 41px;
             width: auto;
             height: auto;
+            border-right: solid 1px #fff;
+            border-bottom: solid 1px #fff;
+            border-left: solid 1px #fff;
             z-index: 2000;
         }
 
@@ -380,6 +386,14 @@ div#desktop {
                 }
 
             /* For the Chat-window. */
+
+            div#desktop div.window div.content.chat {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                top: 50px;
+                border-top: none;
+            }
 
             div#desktop div.window div.content.chat div.chat-outputarea {
                 -moz-box-sizing: border-box;

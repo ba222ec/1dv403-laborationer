@@ -73,6 +73,6 @@ div#modalPopup {
         margin-top: 5px;
     }
 
-    div#modalPopup form input.own-defined-RSS-source {
+    div#modalPopup form input.own-defined-RSS-source, div#modalPopup form input.chose-username, div#modalPopup form input.chose-nbrOfMessanges {
         width: 98%;
     }

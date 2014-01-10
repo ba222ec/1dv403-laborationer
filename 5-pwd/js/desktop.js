@@ -13,8 +13,8 @@ SVANTE.Desktop = function () {
             desktopDiv = doc.getElementById("desktop"),
             iconbarDiv = doc.getElementById("iconbar"),
             // The first window get this positions.
-            iWindowDefaultWidth = 350,
-            iWindowDefaultHeight = 350,
+            iWindowDefaultWidth = 400,
+            iWindowDefaultHeight = 500,
             iStartX = 20,
             iStartY = 20,
             iNextX = iStartX,
@@ -129,7 +129,7 @@ SVANTE.Desktop = function () {
                     that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
                     that.aWindows[that.aWindows.length - 1].init();
                 } else if (hit.parentNode.id === "open-memory") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, iNbrOfMemoryGames);
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, 350, iNextX, iNextY, iNbrOfMemoryGames);
                     that.aWindows[that.aWindows.length - 1].init("big");
                     iNbrOfMemoryGames += 1;
                 } else if (hit.parentNode.id === "open-rssfeed") {
