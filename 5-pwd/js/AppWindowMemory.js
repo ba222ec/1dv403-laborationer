@@ -3,9 +3,8 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY, iNumberOfMemorys) {
-    SVANTE.constructors.AppWindow.call(this, "AppWindowMemory", sStatus,
-        iWidth, iHeight, iX, iY);
+SVANTE.constructors.AppWindowMemory = function (iWidth, iHeight, iX, iY, iNumberOfMemorys) {
+    SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, false,  "Memory", "content memory", "img/theater_32x32.png", "");
 
     this.init = function (sSize) {
         var eContentDiv = this.windowHTML.children[1],
@@ -83,7 +82,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 ePropertiesMenu.className = "properties hidden";
 
                 // Click on "Big Board"
-                eABigBoard.addEventListener("click", function () {
+                eABigBoard.addEventListener("click", function (e) {
+                    e.preventDefault();
                     that.deleteEventHandelers();
                     eContentDiv.innerHTML = "";
                     eMenubar.parentNode.removeChild(eMenubar);
@@ -91,7 +91,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 }, false);
 
                 // Click on "Medium Board"
-                eAMediumBoard.addEventListener("click", function () {
+                eAMediumBoard.addEventListener("click", function (e) {
+                    e.preventDefault();
                     that.deleteEventHandelers();
                     eContentDiv.innerHTML = "";
                     eMenubar.parentNode.removeChild(eMenubar);
@@ -99,7 +100,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 }, false);
 
                 // Click on "Small Board"
-                eASmallBoard.addEventListener("click", function () {
+                eASmallBoard.addEventListener("click", function (e) {
+                    e.preventDefault();
                     that.deleteEventHandelers();
                     eContentDiv.innerHTML = "";
                     eMenubar.parentNode.removeChild(eMenubar);
@@ -107,7 +109,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 }, false);
 
                 // Hides the menu.
-                ePropertiesMenu.addEventListener("mouseleave", function () {
+                ePropertiesMenu.addEventListener("mouseleave", function (e) {
+                    e.preventDefault();
                     eMenubar.children[0].children[1].children[0].className = "";
                     eMenubar.children[2].className += " hidden";
                 }, false);
@@ -143,7 +146,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 eDivMenubar.className = "menu-bar";
 
                 // Mouseover over Archive.
-                eAArchive.addEventListener("mouseover", function () {
+                eAArchive.addEventListener("mouseover", function (e) {
+                    e.preventDefault();
                     eAProperties.className = eAProperties.className.replace(/ active/g, "");
                     eAProperties.className += " hidden";
                     eAArchive.className += " active";
@@ -152,7 +156,8 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                 }, false);
 
                 // Mouseover over Properties.
-                eAProperties.addEventListener("mouseover", function () {
+                eAProperties.addEventListener("mouseover", function (e) {
+                    e.preventDefault();
                     eAArchive.className = eAProperties.className.replace(/ active/g, "");
                     eAArchive.className += " hidden";
                     eAProperties.className += " active";
@@ -165,15 +170,18 @@ SVANTE.constructors.AppWindowMemory = function (sStatus, iWidth, iHeight, iX, iY
                     var hit = e.target;
 
                     if (hit === eAArchive) {
+                        e.preventDefault();
                         eAArchive.className = eAArchive.className.replace(/ active/g, "");
                         eMenubar.children[1].className += " hidden";
                     } else {
+                        e.preventDefault();
                         eAProperties.className = eAArchive.className.replace(/ active/g, "");
                         eMenubar.children[2].className += " hidden";
                     }
                 }, false);
 
-                that.windowHTML.addEventListener("mouseleave", function () {
+                that.windowHTML.addEventListener("mouseleave", function (e) {
+                    e.preventDefault();
                     eMenubar.children[0].children[0].children[0].className = "";
                     eMenubar.children[1].className += " hidden";
                     eMenubar.children[0].children[1].children[0].className = "";

@@ -3,9 +3,8 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) {
-    SVANTE.constructors.AppWindow.call(this, "AppWindowChat", sStatus,
-        iWidth, iHeight, iX, iY);
+SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
+    SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, true, "Chat", "content chat", "img/creative_writing_32x32.png", "");
 
     this.iIntervalID = 0;
 
@@ -65,7 +64,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                     eTextarea = doc.createElement("textarea"),
                     eInputSubmit = doc.createElement("input"),
                     sendMessage = null,
-                    sURL;
+                    sURL = null,
+                    sData = null;
 
                 eDivInputarea.className = "chat-inputarea";
                 eTextarea.name = "inputmessage";
@@ -78,7 +78,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
 
                     if (typeof XDomainRequest !== "undefined") {
                         // Buggie woggie...
-                        sURL = "http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php?text=" + text + "&username=" + that.username;
+                        sURL = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php");
+                        sData = encodeURIComponent("text") + "=" + encodeURIComponent(text) + "&" + encodeURIComponent("username") + "=" + encodeURIComponent(that.username);
                         xdr = new XDomainRequest();
                         // Handle the request-result when it arrives.
                         xdr.onload = function () {
@@ -95,8 +96,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                             that.windowHTML.children[2].children[0].innerHTML = "";
                             that.windowHTML.children[2].children[0].appendChild(that.messages);
                         };
-                        xdr.open("post", encodeURI(sURL));
-                        xdr.send(null);
+                        xdr.open("post", sURL + "?text=" + text + "&username=" + that.username);
+                        xdr.send();
                         // All other browsers.
                     } else {
                         $.ajax({
@@ -162,18 +163,21 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 eArchiveMenu.className = "archive hidden";
 
                 // Click on "Update Now".
-                eAUpdateNow.addEventListener("click", function () {
+                eAUpdateNow.addEventListener("click", function (e) {
+                    e.preventDefault();
                     that.update();
                 }, false);
 
                 // Click on "Close".
-                eAClose.addEventListener("click", function () {
+                eAClose.addEventListener("click", function (e) {
+                    e.preventDefault();
                     var sThisWindowID = that.windowHTML.id;
                     $("div#" + sThisWindowID + " div.top-bar a.close-icon img").trigger("click");
                 }, false);
 
                 // Hides the menu.
-                eArchiveMenu.addEventListener("mouseleave", function () {
+                eArchiveMenu.addEventListener("mouseleave", function (e) {
+                    e.preventDefault();
                     eMenubar.children[0].children[0].children[0].className = "";
                     eMenubar.children[1].className += " hidden";
                 }, false);
@@ -209,7 +213,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 ePropertiesMenu.className = "properties hidden";
 
                 // Click on "Chose username"
-                eAChoseUsername.addEventListener("click", function () {
+                eAChoseUsername.addEventListener("click", function (e) {
+                    e.preventDefault();
                     // Create the Modal Popup window.
                     var oModalPopup = new SVANTE.constructors.ModalPopup((function () {
                         var doc = document,
@@ -255,7 +260,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 }, false);
 
                 // Click on "Chose NbrOfMessages"
-                eAChoseNbrOfMessanges.addEventListener("click", function () {
+                eAChoseNbrOfMessanges.addEventListener("click", function (e) {
+                    e.preventDefault();
                     // Create the Modal Popup window.
                     var oModalPopup = new SVANTE.constructors.ModalPopup((function () {
                         var doc = document,
@@ -301,7 +307,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 }, false);
 
                 // Click on "UpdateInterval"
-                eAUpdateInterval.addEventListener("click", function () {
+                eAUpdateInterval.addEventListener("click", function (e) {
+                    e.preventDefault();
                     // Create the Modal Popup window.
                     var oModalPopup = new SVANTE.constructors.ModalPopup((function () {
                         var doc = document,
@@ -356,7 +363,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 }, false);
 
                 // Hides the menu.
-                ePropertiesMenu.addEventListener("mouseleave", function () {
+                ePropertiesMenu.addEventListener("mouseleave", function (e) {
+                    e.preventDefault();
                     eMenubar.children[0].children[1].children[0].className = "";
                     eMenubar.children[2].className += " hidden";
                 }, false);
@@ -393,7 +401,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 eDivMenubar.className = "menu-bar";
 
                 // Mouseover over Archive.
-                eAArchive.addEventListener("mouseover", function () {
+                eAArchive.addEventListener("mouseover", function (e) {
+                    e.preventDefault();
                     eAProperties.className = eAProperties.className.replace(/ active/g, "");
                     eAProperties.className += " hidden";
                     eAArchive.className += " active";
@@ -402,7 +411,8 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                 }, false);
 
                 // Mouseover over Properties.
-                eAProperties.addEventListener("mouseover", function () {
+                eAProperties.addEventListener("mouseover", function (e) {
+                    e.preventDefault();
                     eAArchive.className = eAProperties.className.replace(/ active/g, "");
                     eAArchive.className += " hidden";
                     eAProperties.className += " active";
@@ -415,16 +425,19 @@ SVANTE.constructors.AppWindowChat = function (sStatus, iWidth, iHeight, iX, iY) 
                     e = e || window.event;
                     var hit = e.target;
                     if (hit === eAArchive) {
+                        e.preventDefault();
                         eAArchive.className = eAArchive.className.replace(/ active/g, "");
                         eMenubar.children[1].className += " hidden";
                     } else {
+                        e.preventDefault();
                         eAProperties.className = eAArchive.className.replace(/ active/g, "");
                         eMenubar.children[2].className += " hidden";
                     }
                 }, false);
 
                 // If the mouse leaves the window, all dropdown menues are hidden.
-                that.windowHTML.addEventListener("mouseleave", function () {
+                that.windowHTML.addEventListener("mouseleave", function (e) {
+                    e.preventDefault();
                     eMenubar.children[0].children[0].children[0].className = "";
                     eMenubar.children[1].className += " hidden";
                     eMenubar.children[0].children[1].children[0].className = "";
@@ -543,7 +556,6 @@ SVANTE.constructors.AppWindowChat.prototype.update = function () {
 
     if (typeof XDomainRequest !== "undefined") {
         sURL = "http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php?history=" + that.nbrOfMessages;
-        console.log(sURL);
         xdr = new XDomainRequest();
         xdr.contentType = "text/plain";
         // Handle the request-result when it arrives.
@@ -577,14 +589,17 @@ SVANTE.constructors.AppWindowChat.prototype.update = function () {
             crossdomain: true,
             // handle the request-result when it arrives.
             success: function (result) {
+                var outputArea = that.windowHTML.children[2].children[0];
                 that.messages = $.parseXML(result);
                 that.renderMessages();
+                // Scrolls to the bottom af the page.
+                outputArea.scrollTop = outputArea.scrollHeight - outputArea.clientHeight;
             },
             // handle the result if an error occurs.
             error: function () {
                 that.messages = (function () {
                     var eP = document.createElement("p");
-                    eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas.";
+                    eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas från servern.";
                     return eP;
                 }());
                 that.windowHTML.children[2].children[0].innerHTML = "";

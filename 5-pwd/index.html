@@ -11,23 +11,6 @@
     <title>PWD - Personal Web Desktop</title>
 </head>
 <body>
-    <!--<div>
-        <div id="overlay">
-        </div>
-        <div id="modalPopup">
-            <a href="#">
-                <img src="img/close-icon.png" />
-            </a>
-            <form>
-                <fieldset>
-                    <legend>Välj antal meddelanden</legend>
-                    <input class="chose-nbrOfMessanges" type="number" name="chose-nbrOfMessanges" />
-                    <input class="submit-button" type="submit" value="Välj" />
-                </fieldset>
-            </form>
-        </div>
-    </div>-->
-
     <div id="iconbar">
         <ul>
             <li>
@@ -59,12 +42,16 @@
             <div class="top-bar">
                 <img src="img/creative_writing_32x32.png" alt="Chat" />
                 <p>Chatt</p>
+                
                 <a href="#" class="close-icon" title="Stäng fönstret">
                     <img src="img/close_32x32.png" alt="Stäng fönstret" />
                 </a>
+                <a href="#" class="minimize-icon" title="Minimera fönstret">
+                    <img src="img/minimize-icon.png" alt="Minimera fönstret" />
+                </a>
             </div>
             <div class="content chat">
-                <div class="chatt-outputarea">
+                <div class="chat-outputarea">
                     <div class="message">
                         <p class="author">Andreas</p>
                         <p class="time">den 2 januari 2014 01:18:06</p>
@@ -76,7 +63,7 @@
                         <p class="text">Testar</p>
                     </div>
                 </div>
-                <div class="chatt-inputarea">
+                <div class="chat-inputarea">
                     <form>
                         <textarea autofocus spellcheck="false" name="inputmessage"></textarea>
                         <input type="submit" value="Skicka" />

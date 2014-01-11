@@ -3,9 +3,8 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, sURL) {
-	SVANTE.constructors.AppWindow.call(this, "AppWindowRSS", sStatus,
-        iWidth, iHeight, iX, iY);
+SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY, sURL) {
+    SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, true, "RSS-läsare", "content rss", "img/literature_32x32.png", "");
 
     // The Timer ID for the update interval.
 	this.iTimerUpdateID = 0;
@@ -41,18 +40,21 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	            eArchiveMenu.className = "archive hidden";
 
 	            // Click on "Update Now".
-	            eAUpdateNow.addEventListener("click", function () {
+	            eAUpdateNow.addEventListener("click", function (e) {
+	                e.preventDefault();
 	                that.updateRSS();
 	            }, false);
 
 	            // Click on "Close".
-	            eAClose.addEventListener("click", function () {
+	            eAClose.addEventListener("click", function (e) {
+	                e.preventDefault();
 	                var sThisWindowID = that.windowHTML.id;
 	                $("div#" + sThisWindowID + " div.top-bar a.close-icon img").trigger("click");
 	            }, false);
 
 	            // Hides the menu.
-	            eArchiveMenu.addEventListener("mouseleave", function () {
+	            eArchiveMenu.addEventListener("mouseleave", function (e) {
+	                e.preventDefault();
 	                eMenubar.children[0].children[0].children[0].className = "";
 	                eMenubar.children[1].className += " hidden";
 	            }, false);
@@ -85,7 +87,8 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	            ePropertiesMenu.className = "properties hidden";
 
 	            // Click on "UpdateInterval"
-	            eAUpdateInterval.addEventListener("click", function () {
+	            eAUpdateInterval.addEventListener("click", function (e) {
+	                e.preventDefault();
                     // Create the Modal Popup window.
 	                var oModalPopup = new SVANTE.constructors.ModalPopup((function () {
 	                    var doc = document,
@@ -139,7 +142,8 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	            }, false);
 
 	            // Click on "Chose source"
-	            eAChoseSource.addEventListener("click", function () {
+	            eAChoseSource.addEventListener("click", function (e) {
+	                e.preventDefault();
 	                // Create the Modal Popup window.
 	                var oModalPopup = new SVANTE.constructors.ModalPopup((function () {
 	                    var doc = document,
@@ -162,19 +166,19 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	                    eLegend1.innerHTML = "Välj ett RSS-flöde";
 	                    eInputRadio1.className = "RSS-source";
 	                    eInputRadio1.type = "radio";
-	                    eInputRadio1.id = "Aftonbladet";
+	                    eInputRadio1.id = "Dagens-Nyheter";
 	                    eInputRadio1.name = "RSS-source";
-	                    eInputRadio1.value = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.aftonbladet.se/rss.xml");
-	                    eLabel1.innerHTML = "Aftonbladet<br />";
-	                    eLabel1.setAttribute("for", "Aftonbladet");
+	                    eInputRadio1.checked = true;
+	                    eInputRadio1.value = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt");
+	                    eLabel1.innerHTML = "Dagens Nyheter<br />";
+	                    eLabel1.setAttribute("for", "Dagens-Nyheter");
 	                    eInputRadio2.className = "RSS-source";
 	                    eInputRadio2.type = "radio";
-	                    eInputRadio2.id = "Dagens-Nyheter";
+	                    eInputRadio2.id = "Aftonbladet";
 	                    eInputRadio2.name = "RSS-source";
-	                    eInputRadio2.checked = true;
-	                    eInputRadio2.value = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt");
-	                    eLabel2.innerHTML = "Dagens Nyheter<br />";
-	                    eLabel2.setAttribute("for", "Dagens-Nyheter");
+	                    eInputRadio2.value = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.aftonbladet.se/rss.xml");
+	                    eLabel2.innerHTML = "Aftonbladet<br />";
+	                    eLabel2.setAttribute("for", "Aftonbladet");
 	                    eInputRadio3.className = "RSS-source";
 	                    eInputRadio3.type = "radio";
 	                    eInputRadio3.id = "Helsinki-Times";
@@ -240,7 +244,8 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	            }, false);
 
 	            // Hides the menu.
-	            ePropertiesMenu.addEventListener("mouseleave", function () {
+	            ePropertiesMenu.addEventListener("mouseleave", function (e) {
+	                e.preventDefault();
 	                eMenubar.children[0].children[1].children[0].className = "";
 	                eMenubar.children[2].className += " hidden";
 	            }, false);
@@ -274,7 +279,8 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	            eDivMenubar.className = "menu-bar";
 
 	            // Mouseover over Archive.
-	            eAArchive.addEventListener("mouseover", function () {
+	            eAArchive.addEventListener("mouseover", function (e) {
+	                e.preventDefault();
 	                eAProperties.className = eAProperties.className.replace(/ active/g, "");
 	                eAProperties.className += " hidden";
 	                eAArchive.className += " active";
@@ -283,7 +289,8 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	            }, false);
 
 	            // Mouseover over Properties.
-	            eAProperties.addEventListener("mouseover", function () {
+	            eAProperties.addEventListener("mouseover", function (e) {
+	                e.preventDefault();
 	                eAArchive.className = eAProperties.className.replace(/ active/g, "");
 	                eAArchive.className += " hidden";
 	                eAProperties.className += " active";
@@ -296,16 +303,19 @@ SVANTE.constructors.AppWindowRSS = function (sStatus, iWidth, iHeight, iX, iY, s
 	                e = e || window.event;
 	                var hit = e.target;
 	                if (hit === eAArchive) {
+	                    e.preventDefault();
 	                    eAArchive.className = eAArchive.className.replace(/ active/g, "");
 	                    eMenubar.children[1].className += " hidden";
 	                } else {
+	                    e.preventDefault();
 	                    eAProperties.className = eAArchive.className.replace(/ active/g, "");
 	                    eMenubar.children[2].className += " hidden";
 	                }
 	            }, false);
 
                 // If the mouse leaves the window, all dropdown menues are hidden.
-	            that.windowHTML.addEventListener("mouseleave", function () {
+	            that.windowHTML.addEventListener("mouseleave", function (e) {
+	                e.preventDefault();
 	                eMenubar.children[0].children[0].children[0].className = "";
 	                eMenubar.children[1].className += " hidden";
 	                eMenubar.children[0].children[1].children[0].className = "";

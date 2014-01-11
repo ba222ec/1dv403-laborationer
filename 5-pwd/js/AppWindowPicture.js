@@ -4,8 +4,9 @@ var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
 SVANTE.constructors.AppWindowPicture = function (sURL, iWidth, iHeight, iX, iY) {
-    SVANTE.constructors.AppWindow.call(this, "AppWindowPicture", sURL,
-        iWidth, iHeight, iX, iY);
+    var sStatus = sURL;
+
+    SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, false, "Bild", "content image", "img/photography_32x32.png", sStatus);
 
     this.pictureHTML = function () {
         var eImg = document.createElement("img");

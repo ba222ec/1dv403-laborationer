@@ -59,6 +59,9 @@ div#iconbar {
 /* --- The desktop and the windows --- */
 
 div#desktop {
+    -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     position: absolute;
     top: 0;
     right: 80px;
@@ -113,7 +116,7 @@ div#desktop {
                 /*cursor: pointer;*/
             }
 
-            div#desktop div.window div.top-bar a.close-icon {
+            div#desktop div.window div.top-bar a.close-icon, div#desktop div.window div.top-bar a.minimize-icon, div#desktop div.window div.top-bar a.maximize-icon {
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
@@ -124,12 +127,49 @@ div#desktop {
                 padding: 1px;
             }
 
-                div#desktop div.window div.top-bar a.close-icon:active {
+                div#desktop div.window div.top-bar a.close-icon:active, div#desktop div.window div.top-bar a.maximize-icon:active, div#desktop div.window div.top-bar a.minimize-icon:active {
                     padding: 0;
                     border: inset 1px #fff;
                     height: 21px;
                     width: 21px;
                 }
+
+                
+            /*div#desktop div.window div.top-bar a.maximize-icon {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                float: right;
+                display: inline;
+                height: 21px;
+                width: 21px;
+                padding: 1px;
+            }
+
+                div#desktop div.window div.top-bar a.maximize-icon:active {
+                    padding: 0;
+                    border: inset 1px #fff;
+                    height: 21px;
+                    width: 21px;
+                }
+
+        div#desktop div.window div.top-bar a.minimize-icon {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                float: right;
+                display: inline;
+                height: 21px;
+                width: 21px;
+                padding: 1px;
+            }
+
+                div#desktop div.window div.top-bar a.minimize-icon:active {
+                    padding: 0;
+                    border: inset 1px #fff;
+                    height: 21px;
+                    width: 21px;
+                }*/
 
         /* The menu bar if existing. */
 
@@ -347,7 +387,8 @@ div#desktop {
             div#desktop div.window div.content.rss img {
                 max-width: 80%;
                 height: auto;
-                display: block;
+                display: block !important;
+                float: none !important;
             }
 
             div#desktop div.window div.content.rss div.rssFeed h2.rss_title {

@@ -4,7 +4,8 @@ var SVANTE = SVANTE || {};
 // Creates most of the events in the application.
 SVANTE.Desktop = function () {
 
-    // In this array all the windows are stored. Some methods to handle the windows are added here.
+    // In this array all the windows are stored.
+    // If an old array is stored in localStorage, that is used.
     this.aWindows = [];
 
     this.init = function () {
@@ -30,7 +31,9 @@ SVANTE.Desktop = function () {
             iWindowMaxHeight = 200,
             // To "this"
             that = this,
-            iNbrOfMemoryGames = 0;
+            iNbrOfMemoryGames = 0,
+            i,
+            p;
 
         // Gives the given index in the aWindow-array focus (by adding a className) . 
         function giveFocus(iIndex) {
@@ -112,7 +115,6 @@ SVANTE.Desktop = function () {
 
         // Show the given window-structure on the desktop.
         function showWindow(oWindow) {
-            // OBS!!!
             desktopDiv.appendChild(oWindow.windowHTML);
         }
 
@@ -126,17 +128,17 @@ SVANTE.Desktop = function () {
             if (hit.parentNode.className === "icons") {
                 // If user clicked on the camera icon.
                 if (hit.parentNode.id === "open-gallery") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowGallery(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
                     that.aWindows[that.aWindows.length - 1].init();
                 } else if (hit.parentNode.id === "open-memory") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory("", iWindowDefaultWidth, 350, iNextX, iNextY, iNbrOfMemoryGames);
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowMemory(iWindowDefaultWidth, 350, iNextX, iNextY, iNbrOfMemoryGames);
                     that.aWindows[that.aWindows.length - 1].init("big");
                     iNbrOfMemoryGames += 1;
                 } else if (hit.parentNode.id === "open-rssfeed") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt"));
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt"));
                     that.aWindows[that.aWindows.length - 1].init();
                 } else if (hit.parentNode.id === "open-chat") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowChat("", iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowChat(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
                     that.aWindows[that.aWindows.length - 1].init();
                 }
                 setNextCordinates();
@@ -225,7 +227,47 @@ SVANTE.Desktop = function () {
                 for (i = 0, p = that.aWindows.length; i < p; i += 1) {
                     setID(that.aWindows[i], i + "window");
                 }
-                // If user wants to give a window focus and hits TopBar, Content or BottomBar. If user wants to give a window focus and hits icon or status.
+            } else if (hit.parentNode.className === "maximize-icon") {
+                e.preventDefault();
+                iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
+                temp = that.aWindows[iIndex];
+                giveFocus(iIndex);
+
+                // Change the icon to minimize.
+                temp2 = temp.windowHTML.children[0].children[3];
+                temp2.className = "minimize-icon";
+                temp2.title = "Minimera fönstret";
+                temp2.children[0].src = "img/minimize-icon.png";
+                temp2.children[0].alt = "Minimera fönstret";
+
+                // Maximize the window.
+                temp.windowHTML.style.width = (iBrowserWidth - 5) + "px";
+                temp.windowHTML.style.height = (iBrowserHeight - 5) + "px";
+                temp.windowHTML.style.top = 0;
+                temp.windowHTML.style.left = 0;
+                
+            } else if (hit.parentNode.className === "minimize-icon") {
+                e.preventDefault();
+                iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
+                temp = that.aWindows[iIndex];
+                giveFocus(iIndex);
+
+                // Change the icon to maximize.
+                temp2 = temp.windowHTML.children[0].children[3];
+                temp2.className = "maximize-icon";
+                temp2.title = "Maximera fönstret";
+                temp2.children[0].src = "img/maximize-icon.png";
+                temp2.children[0].alt = "Maximera fönstret";
+
+                // Minimize the window.
+                temp.windowHTML.style.width = iWindowDefaultWidth + "px";
+                temp.windowHTML.style.height = iWindowDefaultHeight + "px";
+                temp.windowHTML.style.top = iNextY + "px";
+                temp.windowHTML.style.left = iNextX + "px";
+
+                setNextCordinates();
+
+            // If user wants to give a window focus and hits TopBar, Content or BottomBar. If user wants to give a window focus and hits icon or status.
             } else if (hit.className === "top-bar" || hit.className === "content" || hit.className === "bottom-bar" || hit.parentNode.className === "top-bar" || hit.parentNode.className === "bottom-bar") {
                 if (hit.className === "top-bar" || hit.className === "content" || hit.className === "bottom-bar") {
                     iIndex = parseInt(hit.parentNode.id, 10);
@@ -341,10 +383,21 @@ SVANTE.Desktop = function () {
             }
             
         }, false);
+
+        // If an old desktop was stored in localStorage, the windows are painted on the desktop.
+        if (this.aWindows.length > 0) {
+            for (i = 0, p = this.aWindows.length; i < p; i += 1) {
+                console.log(this.aWindows[i].windowHTML);
+                console.log(i);
+                showWindow(this.aWindows[i]);
+            }
+            giveFocus(this.aWindows[this.aWindows.length - 1]);
+        }
     };
 };
 
 // The last statement to be executed before user interaction.
 window.onload = function () {
-    new SVANTE.Desktop().init();
+    SVANTE.DesktopObject = new SVANTE.Desktop();
+    SVANTE.DesktopObject.init();
 };
