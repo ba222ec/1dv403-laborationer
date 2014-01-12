@@ -3,7 +3,7 @@
 var SVANTE = window.SVANTE || {};
 SVANTE.constructors = SVANTE.constructors || {};
 
-SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY, sURL) {
+SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY) {
     SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, true, "RSS-läsare", "content rss", "img/literature_32x32.png", "");
 
     // The Timer ID for the update interval.
@@ -12,11 +12,29 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY, sURL) {
     // The HTML-code with the request result.
 	this.rssHTML = null;
 
-    // The URL the request is send to.
-	this.URL = sURL;
+    // The URL the request is send to. If an old one is stered in localStorage, that is used.
+	this.URL = (function () {
+	    var temp = null;
+	    if (localStorage.RSSurl) {
+	        temp = localStorage.RSSurl;
+	    } else {
+	        localStorage.RSSurl = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt");
+	        temp = localStorage.RSSurl;
+	    }
+	    return temp;
+	}());
 
-    // The update interval in ms.
-	this.interval = 60000;
+    // The update interval in ms. If stored in localStorage, that is used.
+	this.interval = (function () {
+	    var temp = null;
+	    if (localStorage.RSSInterval) {
+	        temp = localStorage.RSSInterval;
+	    } else {
+	        localStorage.RSSInterval = 60000;
+	        temp = localStorage.RSSInterval;
+	    }
+	    return temp;
+	}());
 
     // Initiates the RSS-reader.
 	this.init = function () {
@@ -120,7 +138,8 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY, sURL) {
                         // On click on Submit.
 	                    eForm.addEventListener("submit", function (e) {
 	                        e.preventDefault();
-	                        that.interval = eSelect.value;
+	                        localStorage.RSSInterval = eSelect.value;
+	                        that.interval = localStorage.RSSInterval;
 	                        that.startUpdateInterval();
 	                        oModalPopup.closeDialog();
 	                    }, false);
@@ -193,7 +212,8 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY, sURL) {
                         // Chose predefined RSS-scources.
 	                    eInputSubmit1.addEventListener("click", function (e) {
 	                        e.preventDefault();
-	                        that.URL = $("div#modalPopup form fieldset input[name=RSS-source]:checked").val();
+	                        localStorage.RSSurl = $("div#modalPopup form fieldset input[name=RSS-source]:checked").val();
+	                        that.URL = localStorage.RSSurl;
 	                        that.updateRSS();
 	                        oModalPopup.closeDialog();
 	                    }, false);
@@ -213,7 +233,8 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY, sURL) {
 	                        if (eInputText.value.trim() === "") {
 	                            oModalPopup.closeDialog();
 	                        } else {
-	                            that.URL = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=" + eInputText.value.trim());
+	                            localStorage.RSSurl = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=" + eInputText.value.trim());
+	                            that.URL = localStorage.RSSurl;
 	                            that.updateRSS();
 	                            oModalPopup.closeDialog();
 	                        }

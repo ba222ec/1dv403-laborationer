@@ -122,6 +122,23 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
                     that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
                     clearTimeout(iTimerID);
                     that.windowHTML.children[2].children[0].innerHTML = "";
+
+                    that.windowHTML.addEventListener("mouseover", function (e) {
+                        var hit = e.target,
+                            sBigPictureURL = null;
+
+                        if (hit.parentNode.parentNode.className === "galleryPic" || hit.parentNode.className === "galleryPic") {
+                            e.preventDefault();
+                            if (hit.parentNode.parentNode.className === "galleryPic") {
+                                sBigPictureURL = that.matchPicture(hit.src).URL;
+                            } else {
+                                sBigPictureURL = that.matchPicture(hit.children[0].src).URL;
+                            }
+                            that.windowHTML.children[2].children[0].innerHTML = sBigPictureURL;
+                        } else {
+                            that.windowHTML.children[2].children[0].innerHTML = "";
+                        }
+                    }, false);
                 }
             });
         }
@@ -150,22 +167,7 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
             }
         }, false);
 
-        this.windowHTML.addEventListener("mouseover", function (e) {
-            var hit = e.target,
-                sBigPictureURL = null;
-
-            if (hit.parentNode.parentNode.className === "galleryPic" || hit.parentNode.className === "galleryPic") {
-                e.preventDefault();
-                if (hit.parentNode.parentNode.className === "galleryPic") {
-                    sBigPictureURL = that.matchPicture(hit.src).URL;
-                } else {
-                    sBigPictureURL = that.matchPicture(hit.children[0].src).URL;
-                }
-                that.windowHTML.children[2].children[0].innerHTML = sBigPictureURL;
-            } else {
-                that.windowHTML.children[2].children[0].innerHTML = "";
-            }
-        }, false);
+        
 
     };
 };

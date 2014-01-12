@@ -135,7 +135,7 @@ SVANTE.Desktop = function () {
                     that.aWindows[that.aWindows.length - 1].init("big");
                     iNbrOfMemoryGames += 1;
                 } else if (hit.parentNode.id === "open-rssfeed") {
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY, encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt"));
+                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowRSS(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
                     that.aWindows[that.aWindows.length - 1].init();
                 } else if (hit.parentNode.id === "open-chat") {
                     that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowChat(iWindowDefaultWidth, iWindowDefaultHeight, iNextX, iNextY);
@@ -234,8 +234,8 @@ SVANTE.Desktop = function () {
                 temp2.children[0].alt = "Minimera fönstret";
 
                 // Maximize the window.
-                temp.windowHTML.style.width = (iBrowserWidth - 5) + "px";
-                temp.windowHTML.style.height = (iBrowserHeight - 5) + "px";
+                temp.windowHTML.style.width = (iBrowserWidth - 2) + "px";
+                temp.windowHTML.style.height = (iBrowserHeight - 2) + "px";
                 temp.windowHTML.style.top = 0;
                 temp.windowHTML.style.left = 0;
 
