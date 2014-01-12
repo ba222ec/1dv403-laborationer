@@ -126,10 +126,86 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
             });
         }
 
-        
-    };
+        // If right click on a thumbnail, context-menu isn't showed.
+        this.windowHTML.addEventListener("contextmenu", function (e) {
+            var hit = e.target;
 
+            if (hit.parentNode.parentNode.className === "galleryPic") {
+                e.preventDefault();
+            }
+        }, false);
+
+        // If right click on a thumbnail, background picture is changed.
+        this.windowHTML.addEventListener("mousedown", function (e) {
+            var hit = e.target,
+                sBigPictureURL = null;
+
+            if (hit.parentNode.parentNode.className === "galleryPic") {
+                e.preventDefault();
+                if (e.which === 3) {
+                    e.preventDefault();
+                    sBigPictureURL = that.matchPicture(hit.src).URL;
+                    doc.body.style.backgroundImage = "url(" + sBigPictureURL + ")";
+                }
+            }
+        }, false);
+
+        this.windowHTML.addEventListener("mouseover", function (e) {
+            var hit = e.target,
+                sBigPictureURL = null;
+
+            if (hit.parentNode.parentNode.className === "galleryPic" || hit.parentNode.className === "galleryPic") {
+                e.preventDefault();
+                if (hit.parentNode.parentNode.className === "galleryPic") {
+                    sBigPictureURL = that.matchPicture(hit.src).URL;
+                } else {
+                    sBigPictureURL = that.matchPicture(hit.children[0].src).URL;
+                }
+                that.windowHTML.children[2].children[0].innerHTML = sBigPictureURL;
+            } else {
+                that.windowHTML.children[2].children[0].innerHTML = "";
+            }
+        }, false);
+
+    };
 };
 
 SVANTE.constructors.AppWindowGallery.prototype = Object.create(SVANTE.constructors.AppWindow.prototype);
 SVANTE.constructors.AppWindowGallery.prototype.constructor = SVANTE.constructors.AppWindowGallery;
+
+// Returns the URL for the fullsize picture matching the thumbnail picture.
+SVANTE.constructors.AppWindowGallery.prototype.matchPicture = function (sThumbURL) {
+    var that = this;
+    var iterations = Math.floor(this.aPictures.length / 8),
+        leftover = this.aPictures.length % 8,
+        i = 0,
+        oPicture = null;
+
+    // A faster way to loop through a big array.
+    function process(i) {
+        if (that.aPictures[i].thumbURL === sThumbURL) {
+            oPicture = that.aPictures[i];
+        }
+    }
+    if (leftover > 0) {
+        do {
+            process(i++);
+            if (oPicture) {
+                return oPicture;
+            }
+        } while (--leftover > 0);
+    }
+    do {
+        process(i++);
+        process(i++);
+        process(i++);
+        process(i++);
+        process(i++);
+        process(i++);
+        process(i++);
+        process(i++);
+        if (oPicture) {
+            return oPicture;
+        }
+    } while (--iterations > 0);
+}

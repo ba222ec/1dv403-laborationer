@@ -76,6 +76,8 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                     // Changable...
                     var text = eTextarea.value.trim();
 
+                    // Nothing works properly in IE9. I hav absolutely no Ide of what to do next, 
+                    // and the stupid error messages from IE9 is completely impossible to understand!
                     if (typeof XDomainRequest !== "undefined") {
                         // Buggie woggie...
                         sURL = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyserver/setMessage.php");
@@ -83,8 +85,7 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                         xdr = new XDomainRequest();
                         // Handle the request-result when it arrives.
                         xdr.onload = function () {
-                            that.messages = $.parseXML(xdr.responseText);
-                            that.renderMessages();
+                            that.update();
                         };
                         // Handle the result if an error occurs.
                         xdr.onerror = function () {
@@ -96,7 +97,7 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                             that.windowHTML.children[2].children[0].innerHTML = "";
                             that.windowHTML.children[2].children[0].appendChild(that.messages);
                         };
-                        xdr.open("post", sURL + "?text=" + text + "&username=" + that.username);
+                        xdr.open("post", sURL + "?" + sData);
                         xdr.send();
                         // All other browsers.
                     } else {

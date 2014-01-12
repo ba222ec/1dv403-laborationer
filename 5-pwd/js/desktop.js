@@ -5,7 +5,7 @@ var SVANTE = SVANTE || {};
 SVANTE.Desktop = function () {
 
     // In this array all the windows are stored.
-    // If an old array is stored in localStorage, that is used.
+    // If an old array is stored in sessionStorage, that is used.
     this.aWindows = [];
 
     this.init = function () {
@@ -165,54 +165,47 @@ SVANTE.Desktop = function () {
                 temp,
                 temp2;
 
-            // It user clicks on a thumbnail picture in a gallery window.
+            // It user clicks on a thumbnail picture in a gallery window, a new Picture window opens.
             if (hit.parentNode.parentNode.className === "galleryPic") {
                 e.preventDefault();
                 sImgSrc = hit.src;
-                // If ctrlKey is pressed, the backgroundImage is changed.
-                if (e.ctrlKey) {
-                    iIndex = parseInt(hit.parentNode.parentNode.parentNode.parentNode.parentNode.id, 10);
-                    giveFocus(iIndex);
-                    sBigImgSrc = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc).URL;
-                    doc.body.style.backgroundImage = "url(" + sBigImgSrc + ")";
-                } else {
-                    iIndex = parseInt(hit.parentNode.parentNode.parentNode.parentNode.parentNode.id, 10);
-                    temp = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc);
-                    sBigImgSrc = temp.URL;
-                    
-                    iWidth = temp.width + 24;
-                    iHeight = temp.height + 65;
 
-                    if (iHeight + iNextY > iBrowserHeight) {
-                        temp = iNextY;
-                        iNextY = 0;
-                        if (iHeight > iBrowserHeight) {
-                            iHeight = iBrowserHeight;
-                        }
-                    }
-                    if (iWidth + iNextX > iBrowserWidth) {
-                        temp2 = iNextX;
-                        iNextX = 0;
-                        if (iWidth > iBrowserWidth) {
-                            iWidth = iBrowserWidth;
-                        }
-                    }
-                    that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowPicture(sBigImgSrc, iWidth, iHeight, iNextX, iNextY);
-                    that.aWindows[that.aWindows.length - 1].init();
-                    if (iNextY === 0) {
-                        iNextY = temp;
-                    }
-                    if (iNextX === 0) {
-                        iNextX = temp2;
-                    }
-                    setNextCordinates();
-                    setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
-                    giveFocus(that.aWindows.length - 1);
-                    // Show window.
-                    showWindow(that.aWindows[that.aWindows.length - 1]);
+                iIndex = parseInt(hit.parentNode.parentNode.parentNode.parentNode.parentNode.id, 10);
+                temp = matchPicture(that.aWindows[iIndex].aPictures, sImgSrc);
+                sBigImgSrc = temp.URL;
 
+                iWidth = temp.width + 24;
+                iHeight = temp.height + 65;
+
+                if (iHeight + iNextY > iBrowserHeight) {
+                    temp = iNextY;
+                    iNextY = 0;
+                    if (iHeight > iBrowserHeight) {
+                        iHeight = iBrowserHeight;
+                    }
                 }
-            // If user wants to close a window.
+                if (iWidth + iNextX > iBrowserWidth) {
+                    temp2 = iNextX;
+                    iNextX = 0;
+                    if (iWidth > iBrowserWidth) {
+                        iWidth = iBrowserWidth;
+                    }
+                }
+                that.aWindows[that.aWindows.length] = new SVANTE.constructors.AppWindowPicture(sBigImgSrc, iWidth, iHeight, iNextX, iNextY);
+                that.aWindows[that.aWindows.length - 1].init();
+                if (iNextY === 0) {
+                    iNextY = temp;
+                }
+                if (iNextX === 0) {
+                    iNextX = temp2;
+                }
+                setNextCordinates();
+                setID(that.aWindows[that.aWindows.length - 1], that.aWindows.length - 1 + "window");
+                giveFocus(that.aWindows.length - 1);
+                // Show window.
+                showWindow(that.aWindows[that.aWindows.length - 1]);
+
+                // If user wants to close a window.
             } else if (hit.parentNode.className === "close-icon") {
                 e.preventDefault();
                 iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
@@ -245,7 +238,7 @@ SVANTE.Desktop = function () {
                 temp.windowHTML.style.height = (iBrowserHeight - 5) + "px";
                 temp.windowHTML.style.top = 0;
                 temp.windowHTML.style.left = 0;
-                
+
             } else if (hit.parentNode.className === "minimize-icon") {
                 e.preventDefault();
                 iIndex = parseInt(hit.parentNode.parentNode.parentNode.id, 10);
@@ -267,7 +260,7 @@ SVANTE.Desktop = function () {
 
                 setNextCordinates();
 
-            // If user wants to give a window focus and hits TopBar, Content or BottomBar. If user wants to give a window focus and hits icon or status.
+                // If user wants to give a window focus and hits TopBar, Content or BottomBar. If user wants to give a window focus and hits icon or status.
             } else if (hit.className === "top-bar" || hit.className === "content" || hit.className === "bottom-bar" || hit.parentNode.className === "top-bar" || hit.parentNode.className === "bottom-bar") {
                 if (hit.className === "top-bar" || hit.className === "content" || hit.className === "bottom-bar") {
                     iIndex = parseInt(hit.parentNode.id, 10);
@@ -281,7 +274,7 @@ SVANTE.Desktop = function () {
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mousedown", function (e) {
             e = e || window.event;
-            
+
             var hit = e.target,
                 iIndex,
                 topBar;
@@ -313,7 +306,7 @@ SVANTE.Desktop = function () {
 
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mousemove", function (e) {
-            e = e || window.event;            
+            e = e || window.event;
 
             // Drag the window.
             if (oDragging !== null) {
@@ -328,7 +321,7 @@ SVANTE.Desktop = function () {
                 } else {
                     oDragging.style.top = (e.clientY - iDiffY) + "px";
                 }
-            // Resize the window.
+                // Resize the window.
             } else if (oResizeing !== null) {
                 e.preventDefault();
                 if (e.clientX - oResizeing.offsetLeft < iWindowMaxWidth) {
@@ -346,7 +339,7 @@ SVANTE.Desktop = function () {
 
         // A part of the Drag and Drop and Resize.
         desktopDiv.addEventListener("mouseup", function (e) {
-            e = e || window.event;         
+            e = e || window.event;
 
             var hit = e.target,
                 topBar;
@@ -361,7 +354,7 @@ SVANTE.Desktop = function () {
                 }
                 topBar.style.cursor = "pointer";
             }
-            
+
         }, false);
 
         // A part of the Drag and Drop and Resize.
@@ -381,18 +374,8 @@ SVANTE.Desktop = function () {
                 }
                 topBar.style.cursor = "pointer";
             }
-            
-        }, false);
 
-        // If an old desktop was stored in localStorage, the windows are painted on the desktop.
-        if (this.aWindows.length > 0) {
-            for (i = 0, p = this.aWindows.length; i < p; i += 1) {
-                console.log(this.aWindows[i].windowHTML);
-                console.log(i);
-                showWindow(this.aWindows[i]);
-            }
-            giveFocus(this.aWindows[this.aWindows.length - 1]);
-        }
+        }, false);
     };
 };
 
