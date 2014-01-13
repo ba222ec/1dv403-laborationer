@@ -6,6 +6,15 @@ SVANTE.constructors = SVANTE.constructors || {};
 SVANTE.constructors.AppWindowMemory = function (iWidth, iHeight, iX, iY, iNumberOfMemorys) {
     SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, false,  "Memory", "content memory", "img/theater_32x32.png", "");
 
+    // Deletes all eventhandelers. Called before erasing the Memory-game. Prevent memory-leakage.
+    this.deleteEventHandelers = function () {
+        var aATags = this.windowHTML.getElementsByTagName("a"),
+	        i;
+        for (i = aATags.length - 1; i >= 0; i -= 1) {
+            aATags[i].onclick = null;
+        }
+    };
+
     this.init = function (sSize) {
         var eContentDiv = this.windowHTML.children[1],
 	        doc = document,
@@ -47,8 +56,6 @@ SVANTE.constructors.AppWindowMemory = function (iWidth, iHeight, iX, iY, iNumber
 	                eMenubar.children[0].children[0].children[0].className = "";
 	                eMenubar.children[1].className += " hidden";
 	            }, false);
-
-	            
 
 	            eAClose.appendChild(eTextClose);
 	            eANewGame.appendChild(eTextNewGame);
@@ -219,15 +226,6 @@ SVANTE.constructors.AppWindowMemory = function (iWidth, iHeight, iX, iY, iNumber
 
         eMenubar.appendChild(eDropdownMenuArchive);
         eMenubar.appendChild(eDropdownMenuProperties);
-    };
-
-    // Deletes all eventhandelers. Called before erasing the Memory-game. Prevent memory-leakage.
-    this.deleteEventHandelers = function () {
-        var aATags = this.windowHTML.getElementsByTagName("a"),
-	        i;
-        for (i = aATags.length - 1; i >= 0; i -= 1) {
-            aATags[i].onclick = null;
-        }
     };
 };
 

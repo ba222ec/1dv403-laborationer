@@ -5,9 +5,14 @@ SVANTE.constructors = SVANTE.constructors || {};
 
 SVANTE.constructors.Memory = function (memoryID, rows, cols, mother) {
 
-    // To save the random array from random.js.
-    this.memoryCards = [];
+    // Compare two pictures to see if they are the same.
+    this.compareSrc = function (nodeId1, nodeId2) {
+        var src1 = document.getElementById(nodeId1).firstChild.getAttribute("src"),
+            src2 = document.getElementById(nodeId2).firstChild.getAttribute("src");
+        return (src1 === src2);
+    };
 
+    // Initiste the Memory-object.
     this.init = function () {
         var i,
             j,
@@ -128,23 +133,10 @@ SVANTE.constructors.Memory = function (memoryID, rows, cols, mother) {
             "<br />Antal gjorda gissningar: " + nbrOfGuesses);
     };
 
-    this.turnUp = function (nodeId) {
-        var node = document.getElementById(nodeId),
-            index = parseInt(node.getAttribute("class"), 10);
-        node.firstChild.setAttribute("src", "img/memory-img/" + index + ".png");
-    };
+    // To save the random array from random.js.
+    this.memoryCards = [];
 
-    this.turnDown = function (nodeId) {
-        var node = document.getElementById(nodeId);
-        node.firstChild.setAttribute("src", "img/memory-img/0.png");
-    };
-
-    this.compareSrc = function (nodeId1, nodeId2) {
-        var src1 = document.getElementById(nodeId1).firstChild.getAttribute("src"),
-            src2 = document.getElementById(nodeId2).firstChild.getAttribute("src");
-        return (src1 === src2);
-    };
-
+    // Takes away the possibility to click on a picture.
     this.setEventToNull = function (nodeId) {
         var node = document.getElementById(nodeId);
         node.setAttribute("class", (node.getAttribute("class").replace("clickable",
@@ -152,14 +144,28 @@ SVANTE.constructors.Memory = function (memoryID, rows, cols, mother) {
         node.onclick = null;
     };
 
+    // Turn a picture down.
+    this.turnDown = function (nodeId) {
+        var node = document.getElementById(nodeId);
+        node.firstChild.setAttribute("src", "img/memory-img/0.png");
+    };
+
+    // turn a picture up.
+    this.turnUp = function (nodeId) {
+        var node = document.getElementById(nodeId),
+            index = parseInt(node.getAttribute("class"), 10);
+        node.firstChild.setAttribute("src", "img/memory-img/" + index + ".png");
+    };
+
+    // Write out the text in the HTML-div.
     this.writeInfo = function (text) {
         var node = mother.windowHTML.children[2].children[1];
         node.firstChild.innerHTML = text;
     };
 };
 
+// Returns a series of random numbers.
 SVANTE.RandomGenerator = {
-
     getPictureArray: function (rows, cols) {
         var numberOfImages = rows * cols,
             maxImageNumber = numberOfImages / 2,

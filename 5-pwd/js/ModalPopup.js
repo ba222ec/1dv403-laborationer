@@ -9,6 +9,11 @@ SVANTE.constructors.ModalPopup = function (eForm) {
         eBody = doc.body,
         that = this;
 
+    // Closes the popup window.
+    this.closeDialog = function () {
+        eBody.removeChild(eBody.firstChild);
+    };
+
     // The HTML code for the popup window.
     this.dialogHTML = (function () {
         var eDiv = doc.createElement("div"),
@@ -40,11 +45,6 @@ SVANTE.constructors.ModalPopup = function (eForm) {
 
     // Shows the popup window.
     this.open = function () {
-        eBody.insertBefore(this.dialogHTML, eBody.firstChild)
-    };
-
-    // Closes the popup window.
-    this.closeDialog = function () {
-        eBody.removeChild(eBody.firstChild);
+        eBody.insertBefore(this.dialogHTML, eBody.firstChild);
     };
 };

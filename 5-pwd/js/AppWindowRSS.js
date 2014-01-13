@@ -6,36 +6,6 @@ SVANTE.constructors = SVANTE.constructors || {};
 SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY) {
     SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, true, "RSS-läsare", "content rss", "img/literature_32x32.png", "");
 
-    // The Timer ID for the update interval.
-	this.iTimerUpdateID = 0;
-
-    // The HTML-code with the request result.
-	this.rssHTML = null;
-
-    // The URL the request is send to. If an old one is stered in localStorage, that is used.
-	this.URL = (function () {
-	    var temp = null;
-	    if (localStorage.RSSurl) {
-	        temp = localStorage.RSSurl;
-	    } else {
-	        localStorage.RSSurl = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt");
-	        temp = localStorage.RSSurl;
-	    }
-	    return temp;
-	}());
-
-    // The update interval in ms. If stored in localStorage, that is used.
-	this.interval = (function () {
-	    var temp = null;
-	    if (localStorage.RSSInterval) {
-	        temp = localStorage.RSSInterval;
-	    } else {
-	        localStorage.RSSInterval = 60000;
-	        temp = localStorage.RSSInterval;
-	    }
-	    return temp;
-	}());
-
     // Initiates the RSS-reader.
 	this.init = function () {
 	    var that = this,
@@ -121,7 +91,7 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY) {
                             eInputSubmit = doc.createElement("input");
 
                         // The Oprions in the select box.
-	                    eLegend.innerHTML = "Välj Uppdateringsintervall"
+	                    eLegend.innerHTML = "Välj Uppdateringsintervall";
 	                    eSelect.name = "interval";
 	                    eOption1.value = "60000";
 	                    eOption1.innerHTML = "1 minut";
@@ -133,7 +103,7 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY) {
 	                    eOption4.innerHTML = "10 minuter";
 	                    eInputSubmit.type = "submit";
 	                    eInputSubmit.value = "Välj";
-                        eInputSubmit.className = "sumbit-button"
+	                    eInputSubmit.className = "sumbit-button";
 
                         // On click on Submit.
 	                    eForm.addEventListener("submit", function (e) {
@@ -152,7 +122,7 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY) {
 	                    eFieldset.appendChild(eLegend);
 	                    eFieldset.appendChild(eSelect);
 	                    eFieldset.appendChild(eInputSubmit);
-	                    eForm.appendChild(eFieldset)
+	                    eForm.appendChild(eFieldset);
 
 	                    return eForm;
 	                }()));
@@ -363,6 +333,36 @@ SVANTE.constructors.AppWindowRSS = function (iWidth, iHeight, iX, iY) {
 	    this.startUpdateInterval();
 
 	};
+
+    // The update interval in ms. If stored in localStorage, that is used.
+	this.interval = (function () {
+	    var temp = null;
+	    if (localStorage.RSSInterval) {
+	        temp = localStorage.RSSInterval;
+	    } else {
+	        localStorage.RSSInterval = 60000;
+	        temp = localStorage.RSSInterval;
+	    }
+	    return temp;
+	}());
+
+    // The Timer ID for the update interval.
+	this.iTimerUpdateID = 0;
+
+    // The HTML-code with the request result.
+	this.rssHTML = null;
+
+    // The URL the request is send to. If an old one is stered in localStorage, that is used.
+	this.URL = (function () {
+	    var temp = null;
+	    if (localStorage.RSSurl) {
+	        temp = localStorage.RSSurl;
+	    } else {
+	        localStorage.RSSurl = encodeURI("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url=http://www.dn.se/m/rss/senaste-nytt");
+	        temp = localStorage.RSSurl;
+	    }
+	    return temp;
+	}());
 };
 
 SVANTE.constructors.AppWindowRSS.prototype = Object.create(SVANTE.constructors.AppWindow.prototype);
@@ -394,6 +394,7 @@ SVANTE.constructors.AppWindowRSS.prototype.updateRSS = function () {
     var that = this,
 		iTimerID,
 		date = new Date(),
+        iTimeStamp = date.getTime(),
 		xdr;
 
     // Shows a load animation in the window frame.
@@ -433,12 +434,12 @@ SVANTE.constructors.AppWindowRSS.prototype.updateRSS = function () {
             clearTimeout(iTimerID);
             that.windowHTML.children[3].children[0].innerHTML = "Senast uppdaterad klockan " + date.toLocaleTimeString();
         };
-        xdr.open("get", that.URL);
+        xdr.open("get", that.URL + "&timestamp=" + iTimeStamp);
         xdr.send(null);
         // All other browsers.
     } else {
         $.ajax({
-            url: that.URL,
+            url: that.URL + "&timestamp=" + iTimeStamp,
             crossDomain: true,
             // Handle the request-result when it arrives.
             success: function (result) {

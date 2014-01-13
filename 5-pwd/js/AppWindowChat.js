@@ -6,49 +6,11 @@ SVANTE.constructors = SVANTE.constructors || {};
 SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
     SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, true, "Chat", "content chat", "img/creative_writing_32x32.png", "");
 
-    this.iIntervalID = 0;
-
-    this.messages = null;
-
-    // Changable...
-    this.updateInterval = (function () {
-        var temp = null;
-        if (localStorage.chatUpdateInterval && typeof localStorage.chatUpdateInterval === "number") {
-            temp = localStorage.chatUpdateInterval;
-        } else {
-            localStorage.chatUpdateInterval = 10000;
-            temp = localStorage.chatUpdateInterval;
-        }
-        return temp;
-    }());
-
-    // Changable...
-    this.username = (function () {
-        var temp = null;
-        if (localStorage.chatUsername && typeof localStorage.chatUsername === "string") {
-            temp = localStorage.chatUsername;
-        } else {
-            localStorage.chatUsername = "Anonymus";
-            temp = localStorage.chatUsername;
-        }
-        return temp;
-    }());
-
-    // Changable...
-    this.nbrOfMessages = (function () {
-        var temp = null;
-        if (localStorage.chatNbrOfMessages && !(isNaN(localStorage.chatNbrOfMessages))) {
-            temp = localStorage.chatNbrOfMessages;
-        } else {
-            localStorage.chatNbrOfMessages = 25;
-            temp = localStorage.chatNbrOfMessages;
-        }
-        return temp;
-    }());
-
+    // Initiates the object.
     this.init = function () {
         var doc = document,
             that = this,
+            xdr = null,
             eContentArea = this.windowHTML.children[1],
             // The area where messages is shown.
             eOutputarea = (function () {
@@ -97,8 +59,8 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                             that.windowHTML.children[2].children[0].innerHTML = "";
                             that.windowHTML.children[2].children[0].appendChild(that.messages);
                         };
-                        xdr.open("post", sURL + "?" + sData);
-                        xdr.send();
+                        xdr.open("POST", sURL);
+                        xdr.send(sData);
                         // All other browsers.
                     } else {
                         $.ajax({
@@ -269,14 +231,14 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                             eForm = doc.createElement("form"),
                             eFieldset = doc.createElement("fieldset"),
                             eLegend = doc.createElement("legend"),
-                            eInputText = doc.createElement("input"),
+                            eInputNumber = doc.createElement("input"),
                             eInputSubmit = doc.createElement("input");
 
                         // Attributes and event listeners.
                         eLegend.innerHTML = "Välj antal visade meddelanden";
-                        eInputText.className = "chose-nbrOfMessanges";
-                        eInputText.type = "number";
-                        eInputText.name = "chose-nbrOfMessanges";
+                        eInputNumber.className = "chose-nbrOfMessanges";
+                        eInputNumber.type = "text";
+                        eInputNumber.name = "chose-nbrOfMessanges";
                         eInputSubmit.type = "submit";
                         eInputSubmit.value = "Välj";
                         eInputSubmit.className = "submit-button";
@@ -284,10 +246,10 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                         // Change nbrOfMessages.
                         eInputSubmit.addEventListener("click", function (e) {
                             e.preventDefault();
-                            if (eInputText.value.trim() === "" || isNaN(Number(eInputText.value.trim())) || Number(eInputText.value.trim()) > 500 || Number(eInputText.value.trim()) < 10) {
+                            if (eInputNumber.value.trim() === "" || isNaN(Number(eInputNumber.value.trim())) || Number(eInputNumber.value.trim()) > 500 || Number(eInputNumber.value.trim()) < 10) {
                                 oModalPopup.closeDialog();
                             } else {
-                                localStorage.chatNbrOfMessages = Number(eInputText.value.trim());
+                                localStorage.chatNbrOfMessages = Number(eInputNumber.value.trim());
                                 that.nbrOfMessages = localStorage.chatNbrOfMessages;
                                 that.update();
                                 oModalPopup.closeDialog();
@@ -296,7 +258,7 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
 
                         // Collect fieldset.
                         eFieldset.appendChild(eLegend);
-                        eFieldset.appendChild(eInputText);
+                        eFieldset.appendChild(eInputNumber);
                         eFieldset.appendChild(eInputSubmit);
 
                         eForm.appendChild(eFieldset);
@@ -324,7 +286,7 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                             eInputSubmit = doc.createElement("input");
 
                         // The Oprions in the select box.
-                        eLegend.innerHTML = "Välj Uppdateringsintervall"
+                        eLegend.innerHTML = "Välj Uppdateringsintervall";
                         eSelect.name = "interval";
                         eOption1.value = "10000";
                         eOption1.innerHTML = "10 sekunder";
@@ -336,7 +298,7 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                         eOption4.innerHTML = "1 minut";
                         eInputSubmit.type = "submit";
                         eInputSubmit.value = "Välj";
-                        eInputSubmit.className = "sumbit-button"
+                        eInputSubmit.className = "sumbit-button";
 
                         // Change update interval.
                         eForm.addEventListener("submit", function (e) {
@@ -355,7 +317,7 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
                         eFieldset.appendChild(eLegend);
                         eFieldset.appendChild(eSelect);
                         eFieldset.appendChild(eInputSubmit);
-                        eForm.appendChild(eFieldset)
+                        eForm.appendChild(eFieldset);
 
                         return eForm;
                     }()));
@@ -468,12 +430,64 @@ SVANTE.constructors.AppWindowChat = function (iWidth, iHeight, iX, iY) {
 
         this.startUpdateInterval();
     };
+
+    // Contains the XML-document with the messages.
+    this.messages = null;
+
+    // Used to stop the update Interval.
+    this.iIntervalID = 0;
+
+    // Changable...
+    this.nbrOfMessages = (function () {
+        var temp = null;
+        if (localStorage.chatNbrOfMessages && !(isNaN(localStorage.chatNbrOfMessages))) {
+            temp = localStorage.chatNbrOfMessages;
+        } else {
+            localStorage.chatNbrOfMessages = 25;
+            temp = localStorage.chatNbrOfMessages;
+        }
+        return temp;
+    }());
+
+    // Changable...
+    this.updateInterval = (function () {
+        var temp = null;
+        if (localStorage.chatUpdateInterval && typeof localStorage.chatUpdateInterval === "number") {
+            temp = localStorage.chatUpdateInterval;
+        } else {
+            localStorage.chatUpdateInterval = 10000;
+            temp = localStorage.chatUpdateInterval;
+        }
+        return temp;
+    }());
+
+    // Changable...
+    this.username = (function () {
+        var temp = null;
+        if (localStorage.chatUsername && typeof localStorage.chatUsername === "string") {
+            temp = localStorage.chatUsername;
+        } else {
+            localStorage.chatUsername = "Anonymus";
+            temp = localStorage.chatUsername;
+        }
+        return temp;
+    }());
 };
 
 SVANTE.constructors.AppWindowChat.prototype = Object.create(SVANTE.constructors.AppWindow.prototype);
-
 SVANTE.constructors.AppWindowChat.prototype.constructor = SVANTE.constructors.AppWindowChat;
 
+// Creates a load animatn while ajax-request is loading.
+SVANTE.constructors.AppWindowChat.prototype.createLoadAnimation = function () {
+    var eStatus = this.windowHTML.childNodes[3].childNodes[0],
+        eImg = document.createElement("img");
+
+    eImg.src = "img/ajax-loader.gif";
+    eStatus.innerHTML = "";
+    eStatus.appendChild(eImg);
+};
+
+// Construct HTML of a XML-message.
 SVANTE.constructors.AppWindowChat.prototype.renderMessage = function (xmlNode) {
     var doc = document,
         eMessageContainer = this.windowHTML.children[2].children[0],
@@ -513,6 +527,7 @@ SVANTE.constructors.AppWindowChat.prototype.renderMessage = function (xmlNode) {
     eMessageContainer.appendChild(eDivMessage);
 };
 
+// Loops the xmlNodeList and render all the messages.
 SVANTE.constructors.AppWindowChat.prototype.renderMessages = function () {
     var xmlNodeList = this.messages.getElementsByTagName("message"),
         i,
@@ -546,22 +561,31 @@ SVANTE.constructors.AppWindowChat.prototype.stopTimer = function () {
     clearInterval(this.iTimerUpdateID);
 };
 
+// Get messages from the server.
 SVANTE.constructors.AppWindowChat.prototype.update = function () {
     var that = this,
         iTimeoutID,
-        sURL;
+        sURL,
+        iTimeStamp = new Date().getTime(),
+        oDOMParser = null,
+        xdr = null;
 
     iTimeoutID = setTimeout(function () {
         that.createLoadAnimation();
     }, 100);
 
     if (typeof XDomainRequest !== "undefined") {
-        sURL = "http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php?history=" + that.nbrOfMessages;
+        sURL = "http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php?history=" + that.nbrOfMessages + "&timestamp=" + iTimeStamp;
         xdr = new XDomainRequest();
         xdr.contentType = "text/plain";
         // Handle the request-result when it arrives.
         xdr.onload = function () {
-            that.messages = $.parseXML(xdr.responseText);
+            if (typeof DOMParser !== "undefined") {
+                oDOMParser = new DOMParser();
+                that.messages = oDOMParser.parseFromString(xdr.responseText, "text/xml");
+            } else {
+                that.messages = $.parseXML(xdr.responseText);
+            }
             that.renderMessages();
             clearTimeout(iTimeoutID);
             that.windowHTML.children[3].children[0].innerHTML = "Senast uppdaterad klockan " + new Date().toLocaleTimeString();
@@ -585,7 +609,7 @@ SVANTE.constructors.AppWindowChat.prototype.update = function () {
         $.ajax({
             url: "http://homepage.lnu.se/staff/tstjo/labbyserver/getMessage.php",
             // Temporary hard-coded...
-            data: "history=" + that.nbrOfMessages,
+            data: "history=" + that.nbrOfMessages + "&timestamp=" + iTimeStamp,
             type: "get",
             crossdomain: true,
             // handle the request-result when it arrives.
@@ -614,11 +638,3 @@ SVANTE.constructors.AppWindowChat.prototype.update = function () {
     }
 };
 
-SVANTE.constructors.AppWindowChat.prototype.createLoadAnimation = function () {
-    var eStatus = this.windowHTML.childNodes[3].childNodes[0],
-        eImg = document.createElement("img");
-
-    eImg.src = "img/ajax-loader.gif";
-    eStatus.innerHTML = "";
-    eStatus.appendChild(eImg);
-};

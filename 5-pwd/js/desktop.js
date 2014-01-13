@@ -8,6 +8,7 @@ SVANTE.Desktop = function () {
     // If an old array is stored in sessionStorage, that is used.
     this.aWindows = [];
 
+    // Initiates the obkect.
     this.init = function () {
         var doc = document,
             win = window,

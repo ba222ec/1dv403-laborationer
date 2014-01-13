@@ -8,15 +8,15 @@ SVANTE.constructors.AppWindowPicture = function (sURL, iWidth, iHeight, iX, iY) 
 
     SVANTE.constructors.AppWindow.call(this, iWidth, iHeight, iX, iY, false, "Bild", "content image", "img/photography_32x32.png", sStatus);
 
-    this.pictureHTML = function () {
-        var eImg = document.createElement("img");
-        eImg.src = sURL
-        return eImg;
-    }();
-
     this.init = function () {
         this.windowHTML.children[1].appendChild(this.pictureHTML);
-    }
+    };
+
+    this.pictureHTML = (function () {
+        var eImg = document.createElement("img");
+        eImg.src = sURL;
+        return eImg;
+    }());
 };
 
 SVANTE.constructors.AppWindowPicture.prototype = Object.create(SVANTE.constructors.AppWindow.prototype);

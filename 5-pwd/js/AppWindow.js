@@ -6,10 +6,8 @@ SVANTE.constructors = SVANTE.constructors || {};
 SVANTE.constructors.AppWindow = function (iWidth, iHeight, iX, iY, bResizable, sName, divContentClassname, sIconURL, sStatus) {
 
     this.windowHTML = createWindow(iWidth, iHeight, iX, iY, bResizable, sName, divContentClassname, sIconURL, sStatus);
-      
     // Creates the window.
     function createWindow(iWidth, iHeight, iX, iY, bResizable, sName, divContentClassname, sIconURL, sStatus) {
-
         var doc = document,
 		    eDivWindow = doc.createElement("div"),
 		    eDivTopBar = doc.createElement("div"),
@@ -51,7 +49,7 @@ SVANTE.constructors.AppWindow = function (iWidth, iHeight, iX, iY, bResizable, s
         eAClose.appendChild(eImgCloseIcon);
         eDivTopBar.appendChild(eImgIcon);
         eDivTopBar.appendChild(ePName);
-        eDivTopBar.appendChild(eAClose);  
+        eDivTopBar.appendChild(eAClose);
         eDivBottomBar.appendChild(eStatus);
 
         // If resizable.
@@ -76,5 +74,5 @@ SVANTE.constructors.AppWindow = function (iWidth, iHeight, iX, iY, bResizable, s
         eDivWindow.appendChild(eDivBottomBar);
 
         return eDivWindow;
-    };
+    }
 };

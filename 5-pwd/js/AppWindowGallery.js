@@ -17,7 +17,8 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
     this.init = function () {
         var that = this,
             doc = document,
-            iTimerID;
+            iTimerID,
+            xdr = null;
 
         // Creates the DOM structure for the Gallery.
         function createGallery() {
@@ -80,7 +81,7 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
 
         // Calls and handle the ajax-request.
         if (typeof XDomainRequest !== "undefined") {
-            var xdr = new XDomainRequest();
+            xdr = new XDomainRequest();
             xdr.contentType = "text/plain";
             xdr.onload = function () {
                 // Handle the request-result when it arrives.
@@ -99,7 +100,7 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
                 that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
                 clearTimeout(iTimerID);
                 that.windowHTML.childNodes[2].childNodes[0].innerHTML = "";
-            }
+            };
             xdr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/");
             xdr.send(null);
         } else {
@@ -112,11 +113,11 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
                     that.galleryHTML = createGallery();
                 },
                 error: function () {
-                    that.galleryHTML = function () {
+                    that.galleryHTML = (function () {
                         var eP = doc.createElement("p");
                         eP.innerHTML = "Det inträffade ett fel. Data kunde inte hämtas från servern.";
                         return eP;
-                    }();
+                    }());
                 },
                 complete: function () {
                     that.windowHTML.childNodes[1].appendChild(that.galleryHTML);
@@ -166,9 +167,6 @@ SVANTE.constructors.AppWindowGallery = function (iWidth, iHeight, iX, iY) {
                 }
             }
         }, false);
-
-        
-
     };
 };
 
@@ -177,8 +175,8 @@ SVANTE.constructors.AppWindowGallery.prototype.constructor = SVANTE.constructors
 
 // Returns the URL for the fullsize picture matching the thumbnail picture.
 SVANTE.constructors.AppWindowGallery.prototype.matchPicture = function (sThumbURL) {
-    var that = this;
-    var iterations = Math.floor(this.aPictures.length / 8),
+    var that = this,
+        iterations = Math.floor(this.aPictures.length / 8),
         leftover = this.aPictures.length % 8,
         i = 0,
         oPicture = null;
@@ -210,4 +208,4 @@ SVANTE.constructors.AppWindowGallery.prototype.matchPicture = function (sThumbUR
             return oPicture;
         }
     } while (--iterations > 0);
-}
+};
