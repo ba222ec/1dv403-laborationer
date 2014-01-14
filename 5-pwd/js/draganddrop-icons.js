@@ -2,12 +2,11 @@
 
 (function () {
 	"use strict";
-	var doc = document,
-		iconGallery = doc.getElementById("open-gallery"),
-		iconMemory = doc.getElementById("open-memory"),
-		iconRSS = doc.getElementById("open-rssfeed"),
-		iconChat = doc.getElementById("open-chat"),
-		iconbar = doc.getElementById("iconbar");
+    var doc = document,
+        iconList = doc.getElementsByClassName("icons"),
+		iconbar = doc.getElementById("iconbar"),
+		i, 
+		p;
 
 	function dragStart(e) {
 		e.dataTransfer.effectAllowed = "move";
@@ -20,21 +19,12 @@
 		return true;
 	}
 
-	iconGallery.addEventListener("dragstart", function (e) {
-		return dragStart(e);
-	}, false);
-
-	iconMemory.addEventListener("dragstart", function (e) {
-		return dragStart(e);
-	}, false);
-
-	iconRSS.addEventListener("dragstart", function(e) {
-		return dragStart(e);
-	}, false);
-
-	iconChat.addEventListener("dragstart", function (e) {
-		return dragStart(e);
-	}, false);
+    // Adds eventlistener to all a-tags.
+	for (i = 0, p = iconList.length; i < p; i += 1) {
+	    iconList[i].addEventListener("dragstart", function (e) {
+	        return dragStart(e);
+	    }, false);
+	}
 
 	iconbar.addEventListener("dragenter", function (e) {
 		e.preventDefault();
@@ -49,7 +39,6 @@
 				hit.className += " dragenter";
 			}
 		}
-
 	}, false);
 
 	iconbar.addEventListener("dragover", function (e) {
@@ -79,26 +68,17 @@
 
 		if (hit.src) {
 			// Last icon.
-			if (iconbar.children[0].children[nbrOfIcons - 1] === hit.parentNode.parentNode) {
-				iconbar.children[0].appendChild(doc.getElementById(id).parentNode);
-				hit.className = hit.className.replace(/dragenter/g, "");
-			// First icon.
-			} else if (iconbar.children[0].children[0] === hit.parentNode.parentNode) {
-					iconbar.children[0].insertBefore(doc.getElementById(id).parentNode, iconbar.children[0].children[0]);
-				hit.className = hit.className.replace(/dragenter-first/g, "");
-			// All other icons.
-			} else {
-					iconbar.children[0].insertBefore(doc.getElementById(id).parentNode, hit.parentNode.parentNode.nextSibling);
-				hit.className = hit.className.replace(/dragenter/g, "");
-			}
+		    if (iconbar.children[0].children[nbrOfIcons - 1] === hit.parentNode.parentNode) {
+		        iconbar.children[0].appendChild(doc.getElementById(id).parentNode);
+		    } else {
+		        iconbar.children[0].insertBefore(doc.getElementById(id).parentNode, hit.parentNode.parentNode.nextSibling);
+		    }
+		    hit.className = hit.className.replace(/dragenter/g, "");
 		// drop on iconbar
 		} else if (hit.id === "iconbar") {
 			iconbar.children[0].appendChild(doc.getElementById(id).parentNode);
 		}
-
 		e.stopPropagation();
 		e.preventDefault();
-
 	}, false);
-
 }());

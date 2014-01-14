@@ -44,13 +44,9 @@ div#iconbar {
                     height: 48px;
                 }
 
-                div#iconbar ul li a img.dragenter {
-                    border-bottom: solid 3px #000;
-                }
-
-                div#iconbar ul li a img.dragenter-first {
-                    border-top: solid 3px #000;
-                }
+                    div#iconbar ul li a img.dragenter, div#iconbar ul li a img.dragenter-first {
+                        border-bottom: solid 3px #000;
+                    }
 
                 div#iconbar ul li a:active {
                     background-color: #a39770;
@@ -63,8 +59,8 @@ div#iconbar {
 
 div#desktop {
     -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     position: absolute;
     top: 0;
     right: 80px;
@@ -137,8 +133,8 @@ div#desktop {
                     width: 21px;
                 }
 
-                
-            /*div#desktop div.window div.top-bar a.maximize-icon {
+
+        /*div#desktop div.window div.top-bar a.maximize-icon {
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
@@ -387,47 +383,47 @@ div#desktop {
                 border-top: none;
             }
 
-            div#desktop div.window div.content.rss img {
-                max-width: 80%;
-                height: auto;
-                display: block !important;
-                float: none !important;
-            }
+                div#desktop div.window div.content.rss img {
+                    max-width: 80%;
+                    height: auto;
+                    display: block !important;
+                    float: none !important;
+                }
 
-            div#desktop div.window div.content.rss div.rssFeed h2.rss_title {
-                font-weight: bold;
-                font-family: Arial, sans-serif;
-                margin: 30px 0 5px;
-                font-size: 1rem;
-            }
-
-                div#desktop div.window div.content.rss div.rssFeed h2.rss_title:first-of-type {
+                div#desktop div.window div.content.rss div.rssFeed h2.rss_title {
                     font-weight: bold;
                     font-family: Arial, sans-serif;
-                    margin: 5px 0 5px;
-                    font-size: 1.5rem;
+                    margin: 30px 0 5px;
+                    font-size: 1rem;
                 }
 
-            div#desktop div.window div.content.rss div.rssFeed p {
-                font-size: 0.85rem;
-                line-height: 1.2;
-                font-family: 'Times New Roman', serif;
-                margin-top: 5px;
-            }
+                    div#desktop div.window div.content.rss div.rssFeed h2.rss_title:first-of-type {
+                        font-weight: bold;
+                        font-family: Arial, sans-serif;
+                        margin: 5px 0 5px;
+                        font-size: 1.5rem;
+                    }
 
-            div#desktop div.window div.content.rss div.rssFeed a {
-                font-family: 'Times New Roman', serif;
-                line-height: 1.2;
-                text-decoration: none;
-            }
+                div#desktop div.window div.content.rss div.rssFeed p {
+                    font-size: 0.85rem;
+                    line-height: 1.2;
+                    font-family: 'Times New Roman', serif;
+                    margin-top: 5px;
+                }
 
-                div#desktop div.window div.content.rss div.rssFeed a:hover {
+                div#desktop div.window div.content.rss div.rssFeed a {
                     font-family: 'Times New Roman', serif;
                     line-height: 1.2;
-                    text-decoration: underline;
-                    background-color: rgb(163, 151, 112);
-                    background-color: rgba(163, 151, 112, 0.5);
+                    text-decoration: none;
                 }
+
+                    div#desktop div.window div.content.rss div.rssFeed a:hover {
+                        font-family: 'Times New Roman', serif;
+                        line-height: 1.2;
+                        text-decoration: underline;
+                        background-color: rgb(163, 151, 112);
+                        background-color: rgba(163, 151, 112, 0.5);
+                    }
 
             /* For the Chat-window. */
 
@@ -439,79 +435,79 @@ div#desktop {
                 border-top: none;
             }
 
-            div#desktop div.window div.content.chat div.chat-outputarea {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                position: absolute;
-                top: 0;
-                bottom: 92px;
-                left: 0;
-                width: 100%;
-                padding: 5px;
-                overflow-y: auto;
-            }
+                div#desktop div.window div.content.chat div.chat-outputarea {
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    position: absolute;
+                    top: 0;
+                    bottom: 92px;
+                    left: 0;
+                    width: 100%;
+                    padding: 5px;
+                    overflow-y: auto;
+                }
 
-            div#desktop div.window div.content.chat div.chat-outputarea div.message {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                background-color: #efe4bd;
-                margin-bottom: 5px;
-                padding: 5px;
-                word-wrap: break-word;
-            }
+                    div#desktop div.window div.content.chat div.chat-outputarea div.message {
+                        -moz-box-sizing: border-box;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        background-color: #efe4bd;
+                        margin-bottom: 5px;
+                        padding: 5px;
+                        word-wrap: break-word;
+                    }
 
-            div#desktop div.window div.content.chat div.chat-outputarea div.message p.author {
-                display: inline;
-                float: left;
-                font-family: sans-serif;
-                font-size: 0.8rem;
-                font-weight: bold;
-                line-height: 1.2;
-                word-wrap: break-word;
-            }
+                        div#desktop div.window div.content.chat div.chat-outputarea div.message p.author {
+                            display: inline;
+                            float: left;
+                            font-family: sans-serif;
+                            font-size: 0.8rem;
+                            font-weight: bold;
+                            line-height: 1.2;
+                            word-wrap: break-word;
+                        }
 
-            div#desktop div.window div.content.chat div.chat-outputarea div.message p.time {
-                display: inline;
-                float: right;
-                font-family: sans-serif;
-                font-size: 0.7rem;
-                font-style: italic;
-                line-height: 1.2;
-                word-wrap: break-word;
-            }
+                        div#desktop div.window div.content.chat div.chat-outputarea div.message p.time {
+                            display: inline;
+                            float: right;
+                            font-family: sans-serif;
+                            font-size: 0.7rem;
+                            font-style: italic;
+                            line-height: 1.2;
+                            word-wrap: break-word;
+                        }
 
-            div#desktop div.window div.content.chat div.chat-outputarea div.message p.text {
-                display: block;
-                clear: both;
-                font-family: sans-serif;
-                font-size: 0.8rem;
-                line-height: 1.1;
-            }
+                        div#desktop div.window div.content.chat div.chat-outputarea div.message p.text {
+                            display: block;
+                            clear: both;
+                            font-family: sans-serif;
+                            font-size: 0.8rem;
+                            line-height: 1.1;
+                        }
 
-            div#desktop div.window div.content.chat div.chat-outputarea div.message p.text img {
-                width: 80%;
-                height: auto;
-                margin: 0 10%;
-            }
+                            div#desktop div.window div.content.chat div.chat-outputarea div.message p.text img {
+                                width: 80%;
+                                height: auto;
+                                margin: 0 10%;
+                            }
 
-            div#desktop div.window div.content.chat div.chat-inputarea {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                width: 100%;
-                padding: 5px 10px 5px 5px;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-            }
+                div#desktop div.window div.content.chat div.chat-inputarea {
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    width: 100%;
+                    padding: 5px 10px 5px 5px;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
 
-            div#desktop div.window div.content.chat form textarea {
-                display: block;
-                height: 50px;
-                width: 100%;
-            }
+                div#desktop div.window div.content.chat form textarea {
+                    display: block;
+                    height: 50px;
+                    width: 100%;
+                }
 
         /* For the bottom-bar of all windows. */
 
