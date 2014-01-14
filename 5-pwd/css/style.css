@@ -44,9 +44,12 @@ div#iconbar {
                     height: 48px;
                 }
 
-                div#iconbar ul li a:hover {
-                    background-color: rgb(163, 151, 112);
-                    background-color: rgba(163, 151, 112, 0.5);
+                div#iconbar ul li a img.dragenter {
+                    border-bottom: solid 3px #000;
+                }
+
+                div#iconbar ul li a img.dragenter-first {
+                    border-top: solid 3px #000;
                 }
 
                 div#iconbar ul li a:active {
